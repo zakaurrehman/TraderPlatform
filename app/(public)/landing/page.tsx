@@ -6,7 +6,7 @@ import FAQSection from '@/components/FAQSection'
 
 async function getData() {
   const [reviews, signals] = await Promise.all([
-    prisma.review.findMany({ where: { status: 'APPROVED' }, orderBy: { createdAt: 'desc' }, take: 6 }),
+    prisma.review.findMany({ where: { status: 'APPROVED' }, orderBy: { createdAt: 'desc' }, take: 3 }),
     prisma.signalStat.findMany({ orderBy: { month: 'desc' }, take: 3 })
   ])
   return { reviews, signals }
