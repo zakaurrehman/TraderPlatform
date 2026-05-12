@@ -69,6 +69,7 @@ export default async function LandingPage() {
 
   return (
     <div style={{ background: '#0a0a0f', color: '#e2e8f0', minHeight: '100vh' }}>
+      <style>{`.nav-link:hover { color: #f5c518 !important; }`}</style>
 
       {/* ── Navbar ── */}
       <nav style={{ position: 'sticky', top: 0, zIndex: 50, background: 'rgba(10,10,15,0.95)', backdropFilter: 'blur(12px)', borderBottom: '1px solid rgba(245,197,24,0.1)', padding: '0 20px' }}>
@@ -77,10 +78,7 @@ export default async function LandingPage() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
             <div style={{ display: 'flex', gap: 20, fontSize: 13, color: '#94a3b8' }}>
               {[['About', '#about'], ['Signals', '#signals'], ['Pricing', '#pricing'], ['Reviews', '#reviews'], ['FAQ', '#faq']].map(([label, href]) => (
-                <a key={label} href={href} style={{ color: '#94a3b8', textDecoration: 'none', fontWeight: 500, transition: 'color 0.2s' }}
-                  onMouseEnter={e => (e.currentTarget.style.color = '#f5c518')}
-                  onMouseLeave={e => (e.currentTarget.style.color = '#94a3b8')}
-                >{label}</a>
+                <a key={label} href={href} className="nav-link" style={{ color: '#94a3b8', textDecoration: 'none', fontWeight: 500, transition: 'color 0.2s' }}>{label}</a>
               ))}
             </div>
             <div style={{ display: 'flex', gap: 8 }}>
