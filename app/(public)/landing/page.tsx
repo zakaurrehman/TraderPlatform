@@ -69,14 +69,16 @@ export default async function LandingPage() {
 
   return (
     <div style={{ background: '#0a0a0f', color: '#e2e8f0', minHeight: '100vh' }}>
-      <style>{`.nav-link:hover { color: #f5c518 !important; }`}</style>
+      <style>{`
+        .nav-link:hover { color: #f5c518 !important; }
+      `}</style>
 
       {/* ── Navbar ── */}
       <nav style={{ position: 'sticky', top: 0, zIndex: 50, background: 'rgba(10,10,15,0.95)', backdropFilter: 'blur(12px)', borderBottom: '1px solid rgba(245,197,24,0.1)', padding: '0 20px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
           <div style={{ color: '#f5c518', fontWeight: 900, fontSize: 18, letterSpacing: '-0.5px' }}>⚡ Trade with Shafy</div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
-            <div style={{ display: 'flex', gap: 20, fontSize: 13, color: '#94a3b8' }}>
+            <div className="l-nav-links" style={{ gap: 20, fontSize: 13, color: '#94a3b8' }}>
               {[['About', '#about'], ['Signals', '#signals'], ['Pricing', '#pricing'], ['Reviews', '#reviews'], ['FAQ', '#faq']].map(([label, href]) => (
                 <a key={label} href={href} className="nav-link" style={{ color: '#94a3b8', textDecoration: 'none', fontWeight: 500, transition: 'color 0.2s' }}>{label}</a>
               ))}
@@ -113,7 +115,7 @@ export default async function LandingPage() {
 
       {/* ── Stats bar ── */}
       <section style={{ background: 'rgba(245,197,24,0.05)', borderTop: '1px solid rgba(245,197,24,0.08)', borderBottom: '1px solid rgba(245,197,24,0.08)', padding: '28px 20px' }}>
-        <div style={{ maxWidth: 900, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 20, textAlign: 'center' }}>
+        <div className="l-stats-grid" style={{ maxWidth: 900, margin: '0 auto', display: 'grid', gap: 20, textAlign: 'center' }}>
           {[
             { value: '80%+', label: 'Signal Win Rate' },
             { value: '5,000+', label: 'Active Traders' },
@@ -154,7 +156,7 @@ export default async function LandingPage() {
 
       {/* ── Meet Shafy ── */}
       <section id="about" style={{ padding: '70px 20px', background: 'rgba(245,197,24,0.03)', borderTop: '1px solid rgba(245,197,24,0.07)', borderBottom: '1px solid rgba(245,197,24,0.07)' }}>
-        <div style={{ maxWidth: 1000, margin: '0 auto', display: 'grid', gridTemplateColumns: 'minmax(200px, 320px) 1fr', gap: 48, alignItems: 'center' }}>
+        <div className="l-about-grid" style={{ maxWidth: 1000, margin: '0 auto' }}>
           {/* Avatar / Photo */}
           <div style={{ textAlign: 'center' }}>
             <div style={{
@@ -233,7 +235,8 @@ export default async function LandingPage() {
           </div>
         ) : (
           /* Placeholder performance table when no DB data */
-          <div style={{ background: '#111118', border: '1px solid rgba(245,197,24,0.1)', borderRadius: 16, overflow: 'hidden' }}>
+          <div className="l-perf-table">
+          <div style={{ background: '#111118', border: '1px solid rgba(245,197,24,0.1)', borderRadius: 16, overflow: 'hidden', minWidth: 420 }}>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr', padding: '12px 20px', background: 'rgba(245,197,24,0.06)', borderBottom: '1px solid rgba(245,197,24,0.08)' }}>
               {['Month', 'Signals', 'Wins', 'Win Rate', 'Pips'].map(h => <div key={h} style={{ color: '#f5c518', fontSize: 12, fontWeight: 700 }}>{h}</div>)}
             </div>
@@ -250,6 +253,7 @@ export default async function LandingPage() {
                 <div style={{ color: '#00c851', fontWeight: 700, fontSize: 13 }}>{pips}</div>
               </div>
             ))}
+          </div>
           </div>
         )}
       </section>
@@ -358,13 +362,11 @@ export default async function LandingPage() {
               const featureColor = isHighlight ? 'rgba(0,0,0,0.7)' : '#94a3b8'
               const checkColor = isHighlight ? '#0a0a0f' : '#f5c518'
               return (
-                <div key={svc.name} style={{
+                <div key={svc.name} className={isHighlight ? 'l-card-featured' : ''} style={{
                   background: svc.color, border: svc.border, borderRadius: 18,
                   padding: '28px 24px', position: 'relative',
                   opacity: svc.disabled ? 0.65 : 1,
                   boxShadow: isHighlight ? '0 8px 40px rgba(245,197,24,0.35)' : '0 2px 12px rgba(0,0,0,0.3)',
-                  transform: isHighlight ? 'scale(1.03)' : 'scale(1)',
-                  zIndex: isHighlight ? 1 : 0
                 }}>
                   {svc.badge && (
                     <div style={{

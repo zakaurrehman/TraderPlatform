@@ -128,6 +128,24 @@ body {
   border-color: rgba(245,197,24,0.35) !important;
 }
 
+/* ── Landing page responsive ── */
+.l-nav-links { display: flex; }
+.l-stats-grid { grid-template-columns: repeat(4,1fr); }
+.l-about-grid { display: grid; grid-template-columns: minmax(200px,320px) 1fr; gap: 48px; align-items: center; }
+.l-perf-table { overflow-x: auto; }
+.l-card-featured { transform: scale(1.03); z-index: 1; }
+
+@media (max-width: 767px) {
+  .l-nav-links { display: none !important; }
+  .l-stats-grid { grid-template-columns: repeat(2,1fr) !important; gap: 16px !important; }
+  .l-about-grid { grid-template-columns: 1fr !important; gap: 28px !important; text-align: center; }
+  .l-about-grid .about-bio { text-align: left; }
+  .l-card-featured { transform: scale(1) !important; }
+  .l-perf-table { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .l-hero { padding: 50px 16px 40px !important; }
+  .l-section-pad { padding: 44px 16px !important; }
+}
+
 /* ── Responsive app layout ── */
 .app-shell {
   min-height: 100vh;
