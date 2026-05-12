@@ -518,6 +518,7 @@ export default async function LandingPage() {
               {/* Social links */}
               <div style={{ display: 'flex', gap: 10 }}>
                 {[
+                  { label: 'WhatsApp', icon: '💬', href: 'https://whatsapp.com/channel/0029Vb1eRV4BPzjT2Y9X6Y0K' },
                   { label: 'Telegram', icon: '✈️', href: '#' },
                   { label: 'Instagram', icon: '📸', href: '#' },
                   { label: 'YouTube', icon: '▶️', href: '#' },
