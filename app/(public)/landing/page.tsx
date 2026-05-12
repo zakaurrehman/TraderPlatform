@@ -160,12 +160,13 @@ export default async function LandingPage() {
           {/* Avatar / Photo */}
           <div style={{ textAlign: 'center' }}>
             <div style={{
-              width: 200, height: 200, borderRadius: '50%', margin: '0 auto 20px',
-              background: 'linear-gradient(135deg, #f5c518, #c9a000)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: 64, fontWeight: 900, color: '#0a0a0f',
-              boxShadow: '0 0 0 6px rgba(245,197,24,0.15), 0 8px 40px rgba(245,197,24,0.3)'
-            }}>SR</div>
+              width: 220, height: 220, borderRadius: '50%', margin: '0 auto 20px',
+              boxShadow: '0 0 0 6px rgba(245,197,24,0.2), 0 8px 40px rgba(245,197,24,0.3)',
+              overflow: 'hidden', flexShrink: 0
+            }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/shafy.jpeg" alt="Shafqat Rafique" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
+            </div>
             <div style={{ color: '#f5c518', fontWeight: 900, fontSize: 22 }}>Shafqat Rafique</div>
             <div style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>Professional Forex Trader & Mentor</div>
             <div style={{ display: 'flex', justifyContent: 'center', gap: 10, marginTop: 16, flexWrap: 'wrap' }}>
