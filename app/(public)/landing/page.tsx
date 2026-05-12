@@ -185,7 +185,7 @@ export default async function LandingPage() {
             </p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
               {[
-                { value: '5+', label: 'Years Trading' },
+                { value: '8+', label: 'Years Trading' },
                 { value: '80%+', label: 'Signal Accuracy' },
                 { value: '5K+', label: 'Students Taught' },
               ].map(s => (
