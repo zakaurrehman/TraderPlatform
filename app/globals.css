@@ -144,6 +144,11 @@ body {
   .l-perf-table { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .l-hero { padding: 50px 16px 40px !important; }
   .l-section-pad { padding: 44px 16px !important; }
+  .l-why-grid { grid-template-columns: 1fr !important; }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .l-why-grid { grid-template-columns: repeat(2, 1fr) !important; }
 }
 
 /* ── Responsive app layout ── */

@@ -428,7 +428,7 @@ export default async function LandingPage() {
             <h2 style={{ fontSize: 32, fontWeight: 800, marginBottom: 8 }}>Why Trade with Shafy?</h2>
             <p style={{ color: '#64748b' }}>Everything you need to become a consistently profitable trader</p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 16 }}>
+          <div className="l-why-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
             {[
               { icon: '⚡', title: 'Real-Time Signals', desc: 'Live BUY/SELL signals with exact Entry, TP1, TP2 and SL levels delivered instantly to platform + Telegram.' },
               { icon: '📚', title: 'ICT & SMC Courses', desc: 'Step-by-step curriculum from Beginner to Master covering ICT concepts, order blocks, FVGs and market structure.' },
