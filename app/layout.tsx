@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   verification: {
     google: 'WH90VIARChqv8TQ9jcx73L7ehHyR7bzVfu_aMLikfdk',
   },
+  icons: {
+    icon: '/Trade with Shafy Fav Webp.webp',
+    shortcut: '/Trade with Shafy Fav Webp.webp',
+    apple: '/Trade with Shafy Fav Webp.webp',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

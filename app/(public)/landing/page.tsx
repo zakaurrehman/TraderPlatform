@@ -76,7 +76,7 @@ export default async function LandingPage() {
       {/* ── Navbar ── */}
       <nav style={{ position: 'sticky', top: 0, zIndex: 50, background: 'rgba(10,10,15,0.95)', backdropFilter: 'blur(12px)', borderBottom: '1px solid rgba(245,197,24,0.1)', padding: '0 20px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
-          <div style={{ color: '#f5c518', fontWeight: 900, fontSize: 18, letterSpacing: '-0.5px' }}>⚡ Trade with Shafy</div>
+          <img src="/Trade with Shafy Png.png" alt="Trade with Shafy" style={{ height: 44, width: 'auto', objectFit: 'contain' }} />
           <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
             <div className="l-nav-links" style={{ gap: 20, fontSize: 13, color: '#94a3b8' }}>
               {[['About', '#about'], ['Signals', '#signals'], ['Pricing', '#pricing'], ['Reviews', '#reviews'], ['FAQ', '#faq']].map(([label, href]) => (
@@ -515,7 +515,7 @@ export default async function LandingPage() {
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 36, marginBottom: 40 }}>
             <div>
-              <div style={{ color: '#f5c518', fontWeight: 900, fontSize: 18, marginBottom: 10 }}>⚡ Trade with Shafy</div>
+              <img src="/Trade with Shafy Png.png" alt="Trade with Shafy" style={{ height: 40, width: 'auto', objectFit: 'contain', marginBottom: 10 }} />
               <p style={{ color: '#475569', fontSize: 13, lineHeight: 1.7, marginBottom: 16 }}>Professional Forex education, live signals, and a thriving community of traders worldwide.</p>
               {/* Social links */}
               <div style={{ display: 'flex', gap: 10 }}>

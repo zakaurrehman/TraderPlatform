@@ -93,8 +93,8 @@ export default function SideNav() {
   return (
     <div className="app-side-nav">
       {/* Logo */}
-      <div style={{ padding: '20px 16px 16px', borderBottom: '1px solid rgba(245,197,24,0.08)' }}>
-        <div style={{ color: '#f5c518', fontWeight: 900, fontSize: 16 }}>⚡ Trade with Shafy</div>
+      <div style={{ padding: '16px', borderBottom: '1px solid rgba(245,197,24,0.08)' }}>
+        <img src="/Trade with Shafy Png.png" alt="Trade with Shafy" style={{ height: 40, width: 'auto', objectFit: 'contain' }} />
       </div>
 
       {/* Nav items */}

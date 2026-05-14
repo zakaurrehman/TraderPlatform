@@ -27,9 +27,9 @@ export default function AdminSidebar() {
 
   const SidebarContent = () => (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-      <div style={{ padding: '20px 16px', borderBottom: '1px solid rgba(245,197,24,0.1)' }}>
-        <div style={{ color: '#f5c518', fontWeight: 800, fontSize: 16 }}>Trade with Shafy</div>
-        <div style={{ color: '#64748b', fontSize: 12, marginTop: 2 }}>Admin Panel</div>
+      <div style={{ padding: '16px', borderBottom: '1px solid rgba(245,197,24,0.1)' }}>
+        <img src="/Trade with Shafy Png.png" alt="Trade with Shafy" style={{ height: 36, width: 'auto', objectFit: 'contain' }} />
+        <div style={{ color: '#64748b', fontSize: 12, marginTop: 4 }}>Admin Panel</div>
       </div>
       <nav style={{ flex: 1, overflowY: 'auto', padding: '12px 8px' }}>
         {links.map(l => {
@@ -77,7 +77,7 @@ export default function AdminSidebar() {
         borderBottom: '1px solid rgba(245,197,24,0.1)',
         position: 'sticky', top: 0, zIndex: 40
       }} className="mobile-topbar">
-        <span style={{ color: '#f5c518', fontWeight: 800, fontSize: 15 }}>Trade with Shafy — Admin</span>
+        <img src="/Trade with Shafy Png.png" alt="Trade with Shafy" style={{ height: 32, width: 'auto', objectFit: 'contain' }} />
         <button onClick={() => setOpen(true)} style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: 22 }}>☰</button>
       </div>
 
