@@ -128,7 +128,7 @@ export default function RegisterPage() {
 
       <div style={{ maxWidth: 540, margin: '0 auto' }}>
         <div style={{ marginBottom: 16 }}>
-          <Link href="/landing" style={{ color: '#64748b', textDecoration: 'none', fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 4 }}>← Back to Home</Link>
+          <Link href="/" style={{ color: '#64748b', textDecoration: 'none', fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 4 }}>← Back to Home</Link>
         </div>
 
         <div style={{ textAlign: 'center', marginBottom: 28 }}>

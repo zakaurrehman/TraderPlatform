@@ -56,7 +56,7 @@ export default function LoginPage() {
         </div>
 
         <p style={{ textAlign: 'center', marginTop: 20 }}>
-          <Link href="/landing" style={{ color: '#475569', fontSize: 13, textDecoration: 'none' }}>← Back to home</Link>
+          <Link href="/" style={{ color: '#475569', fontSize: 13, textDecoration: 'none' }}>← Back to home</Link>
         </p>
       </div>
     </div>

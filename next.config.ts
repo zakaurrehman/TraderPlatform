@@ -5,7 +5,12 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: 'https', hostname: '**' }
     ]
-  }
+  },
+  async redirects() {
+    return [
+      { source: '/landing', destination: '/', permanent: true },
+    ]
+  },
 }
 
 export default nextConfig

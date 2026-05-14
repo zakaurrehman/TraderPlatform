@@ -35,7 +35,7 @@ export default function OrderPage() {
         <div style={{ fontSize: 64, marginBottom: 16 }}>🎉</div>
         <h2 style={{ color: 'white', fontWeight: 800, fontSize: 24, marginBottom: 8 }}>Order Received!</h2>
         <p style={{ color: '#64748b', lineHeight: 1.7, marginBottom: 24 }}>Your payment is being verified. You will receive access within 24 hours.</p>
-        <Link href="/landing" style={{ padding: '12px 28px', borderRadius: 8, background: 'linear-gradient(135deg,#f5c518,#c9a000)', color: '#0a0a0f', textDecoration: 'none', fontWeight: 700 }}>Back to Home</Link>
+        <Link href="/" style={{ padding: '12px 28px', borderRadius: 8, background: 'linear-gradient(135deg,#f5c518,#c9a000)', color: '#0a0a0f', textDecoration: 'none', fontWeight: 700 }}>Back to Home</Link>
       </div>
     </div>
   )
@@ -46,7 +46,7 @@ export default function OrderPage() {
     <div style={{ minHeight: '100vh', background: '#0a0a0f', color: '#e2e8f0', padding: '40px 20px' }}>
       <div style={{ maxWidth: 780, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <Link href="/landing" style={{ color: '#475569', textDecoration: 'none', fontSize: 13 }}>← Back</Link>
+          <Link href="/" style={{ color: '#475569', textDecoration: 'none', fontSize: 13 }}>← Back</Link>
           <h1 style={{ fontSize: 28, fontWeight: 800, marginTop: 12 }}>Choose Your Plan</h1>
         </div>
 
