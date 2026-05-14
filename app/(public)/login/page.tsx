@@ -29,7 +29,7 @@ export default function LoginPage() {
     <div style={{ minHeight: '100vh', background: '#0a0a0f', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
       <div style={{ width: '100%', maxWidth: 400 }}>
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <div style={{ color: '#f5c518', fontWeight: 900, fontSize: 24, marginBottom: 4 }}>⚡ Trade with Shafy</div>
+          <img src="/Trade with Shafy Png.png" alt="Trade with Shafy" style={{ height: 52, width: 'auto', objectFit: 'contain', marginBottom: 4, display: 'block', margin: '0 auto 4px' }} />
           <p style={{ color: '#64748b', fontSize: 14 }}>Sign in to your account</p>
         </div>
 
