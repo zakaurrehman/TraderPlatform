@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma'
 import { StarDisplay } from '@/components/StarRating'
 import CountdownTimer from '@/components/CountdownTimer'
 import FAQSection from '@/components/FAQSection'
+import LandingNavLinks from '@/components/LandingNavLinks'
 
 async function getData() {
   const [reviews, signals] = await Promise.all([
@@ -78,11 +79,7 @@ export default async function LandingPage() {
         <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
           <img src="/Trade with Shafy Png.png" alt="Trade with Shafy" style={{ height: 44, width: 'auto', objectFit: 'contain' }} />
           <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
-            <div className="l-nav-links" style={{ gap: 20, fontSize: 13, color: '#94a3b8' }}>
-              {[['About', '#about'], ['Signals', '#signals'], ['Pricing', '#pricing'], ['Reviews', '#reviews'], ['FAQ', '#faq']].map(([label, href]) => (
-                <a key={label} href={href} className="nav-link" style={{ color: '#94a3b8', textDecoration: 'none', fontWeight: 500, transition: 'color 0.2s' }}>{label}</a>
-              ))}
-            </div>
+            <LandingNavLinks />
             <div style={{ display: 'flex', gap: 8 }}>
               <Link href="/login" style={{ padding: '8px 16px', borderRadius: 8, border: '1px solid rgba(245,197,24,0.3)', color: '#f5c518', textDecoration: 'none', fontSize: 14, fontWeight: 600 }}>Login</Link>
               <Link href="/register" style={{ padding: '8px 16px', borderRadius: 8, background: 'linear-gradient(135deg, #f5c518, #c9a000)', color: '#0a0a0f', textDecoration: 'none', fontSize: 14, fontWeight: 700 }}>Register</Link>
