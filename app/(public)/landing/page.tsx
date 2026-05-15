@@ -4,6 +4,7 @@ import { StarDisplay } from '@/components/StarRating'
 import CountdownTimer from '@/components/CountdownTimer'
 import FAQSection from '@/components/FAQSection'
 import LandingNavLinks from '@/components/LandingNavLinks'
+import NavbarLogo from '@/components/NavbarLogo'
 
 async function getData() {
   const [reviews, signals] = await Promise.all([
@@ -77,9 +78,7 @@ export default async function LandingPage() {
       {/* ── Navbar ── */}
       <nav style={{ position: 'sticky', top: 0, zIndex: 50, background: 'rgba(10,10,15,0.95)', backdropFilter: 'blur(12px)', borderBottom: '1px solid rgba(245,197,24,0.1)', padding: '0 20px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
-          <a href="/" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }} style={{ cursor: 'pointer' }}>
-            <img src="/Trade with Shafy Png.png" alt="Trade with Shafy" style={{ height: 44, width: 'auto', objectFit: 'contain', display: 'block' }} />
-          </a>
+          <NavbarLogo />
           <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
             <LandingNavLinks />
             <div style={{ display: 'flex', gap: 8 }}>
