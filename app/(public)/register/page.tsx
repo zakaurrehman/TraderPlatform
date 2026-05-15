@@ -132,7 +132,7 @@ export default function RegisterPage() {
         </div>
 
         <div style={{ textAlign: 'center', marginBottom: 28 }}>
-          <img src="/Trade with Shafy Png.png" alt="Trade with Shafy" style={{ height: 48, width: 'auto', objectFit: 'contain', display: 'block', margin: '0 auto 4px' }} />
+          <Link href="/"><img src="/Trade with Shafy Png.png" alt="Trade with Shafy" style={{ height: 48, width: 'auto', objectFit: 'contain', display: 'block', margin: '0 auto 4px', cursor: 'pointer' }} /></Link>
           <p style={{ color: '#64748b' }}>Register as an Affiliate</p>
         </div>
 

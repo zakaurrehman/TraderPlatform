@@ -512,7 +512,7 @@ export default async function LandingPage() {
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 36, marginBottom: 40 }}>
             <div>
-              <img src="/Trade with Shafy Png.png" alt="Trade with Shafy" style={{ height: 40, width: 'auto', objectFit: 'contain', marginBottom: 10 }} />
+              <Link href="/"><img src="/Trade with Shafy Png.png" alt="Trade with Shafy" style={{ height: 40, width: 'auto', objectFit: 'contain', marginBottom: 10, cursor: 'pointer' }} /></Link>
               <p style={{ color: '#475569', fontSize: 13, lineHeight: 1.7, marginBottom: 16 }}>Professional Forex education, live signals, and a thriving community of traders worldwide.</p>
               {/* Social links */}
               <div style={{ display: 'flex', gap: 10 }}>
