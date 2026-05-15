@@ -9,9 +9,9 @@ export const metadata: Metadata = {
     google: 'WH90VIARChqv8TQ9jcx73L7ehHyR7bzVfu_aMLikfdk',
   },
   icons: {
-    icon: '/Trade with Shafy Fav Webp.webp',
-    shortcut: '/Trade with Shafy Fav Webp.webp',
-    apple: '/Trade with Shafy Fav Webp.webp',
+    icon: '/favicon.webp',
+    shortcut: '/favicon.webp',
+    apple: '/favicon.webp',
   },
 }
 
