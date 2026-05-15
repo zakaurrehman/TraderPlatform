@@ -24,7 +24,22 @@ export default function AdminUsersPage() {
   })
 
   const statusColors: Record<string, string> = { PENDING: '#f0b429', APPROVED: '#00c851', REJECTED: '#ff4444' }
-  const planColors: Record<string, string> = { FREE: '#64748b', BASIC: '#f5c518', PREMIUM: '#f0b429' }
+  const planColors: Record<string, string> = {
+    FREE: '#64748b',
+    BASIC: '#60a5fa',
+    ADVANCED: '#a78bfa',
+    MASTERY: '#34d399',
+    PREMIUM: '#f5c518',
+    MENTORSHIP: '#f97316',
+  }
+  const planLabels: Record<string, string> = {
+    FREE: 'Free',
+    BASIC: 'Basic Training ($30)',
+    ADVANCED: 'Advanced Trading ($103)',
+    MASTERY: 'Mastery Bundle ($124)',
+    PREMIUM: 'Premium Signals ($51/mo)',
+    MENTORSHIP: 'Personal Mentorship ($207)',
+  }
 
   return (
     <div>
@@ -60,9 +75,9 @@ export default function AdminUsersPage() {
                 <td style={{ padding: '10px 14px' }}>
                   <select style={{ background: '#0f0f15', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 6, color: planColors[u.plan] || 'white', padding: '3px 6px', fontSize: 12, cursor: 'pointer' }}
                     value={u.plan} onChange={e => updateUser(u.id, { plan: e.target.value })}>
-                    <option value="FREE">FREE</option>
-                    <option value="BASIC">BASIC</option>
-                    <option value="PREMIUM">PREMIUM</option>
+                    {Object.entries(planLabels).map(([value, label]) => (
+                      <option key={value} value={value}>{label}</option>
+                    ))}
                   </select>
                 </td>
                 <td style={{ padding: '10px 14px' }}>

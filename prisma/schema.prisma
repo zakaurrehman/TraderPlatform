@@ -16,7 +16,10 @@ enum Role {
 enum Plan {
   FREE
   BASIC
+  ADVANCED
+  MASTERY
   PREMIUM
+  MENTORSHIP
 }
 
 enum Status {
