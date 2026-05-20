@@ -49,6 +49,17 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         color: '#f5c518',
       },
     ],
+    [
+      'expo-build-properties',
+      {
+        // Google Play requires API 35+ for new apps as of 2025.
+        android: {
+          compileSdkVersion: 35,
+          targetSdkVersion: 35,
+          buildToolsVersion: '35.0.0',
+        },
+      },
+    ],
   ],
   experiments: {
     typedRoutes: true,
