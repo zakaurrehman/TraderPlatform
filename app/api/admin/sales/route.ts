@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
+import { getAuthSession } from '@/lib/mobile-auth'
 import { prisma } from '@/lib/prisma'
+import { createNotification } from '@/lib/notify'
 
-export async function GET() {
-  const session = await getServerSession(authOptions)
+export async function GET(req: NextRequest) {
+  const session = await getAuthSession(req)
   if (session?.user.role !== 'ADMIN') return NextResponse.json([], { status: 403 })
 
   const sales = await prisma.sale.findMany({
@@ -15,7 +15,7 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions)
+  const session = await getAuthSession(req)
   if (session?.user.role !== 'ADMIN') return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
   const { affiliateId, clientName, clientEmail, amount, description } = await req.json()
@@ -29,12 +29,11 @@ export async function POST(req: NextRequest) {
     data: { saleId: sale.id, affiliateId, amount: amount * 0.5 }
   })
 
-  await prisma.notification.create({
-    data: {
-      userId: affiliateId,
-      title: '💰 New Commission Earned!',
-      message: `You earned $${(amount * 0.5).toFixed(2)} commission from a $${amount} sale.`
-    }
+  await createNotification({
+    userId: affiliateId,
+    title: '💰 New Commission Earned!',
+    message: `You earned $${(amount * 0.5).toFixed(2)} commission from a $${amount} sale.`,
+    link: '/affiliate/commissions',
   })
 
   return NextResponse.json(sale, { status: 201 })

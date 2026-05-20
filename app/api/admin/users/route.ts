@@ -1,11 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
+import { getAuthSession } from '@/lib/mobile-auth'
 import { prisma } from '@/lib/prisma'
 import { generateReferralCode } from '@/lib/utils'
 
-export async function GET() {
-  const session = await getServerSession(authOptions)
+export async function GET(req: NextRequest) {
+  const session = await getAuthSession(req)
   if (session?.user.role !== 'ADMIN') return NextResponse.json([], { status: 403 })
 
   const users = await prisma.user.findMany({
@@ -17,7 +16,7 @@ export async function GET() {
 }
 
 export async function PATCH(req: NextRequest) {
-  const session = await getServerSession(authOptions)
+  const session = await getAuthSession(req)
   if (session?.user.role !== 'ADMIN') return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
   const { id, status, plan, role } = await req.json()

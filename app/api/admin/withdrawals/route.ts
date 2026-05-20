@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
+import { getAuthSession } from '@/lib/mobile-auth'
 import { prisma } from '@/lib/prisma'
+import { createNotification } from '@/lib/notify'
 
-export async function GET() {
-  const session = await getServerSession(authOptions)
+export async function GET(req: NextRequest) {
+  const session = await getAuthSession(req)
   if (session?.user.role !== 'ADMIN') return NextResponse.json([], { status: 403 })
 
   const requests = await prisma.withdrawalRequest.findMany({
@@ -15,7 +15,7 @@ export async function GET() {
 }
 
 export async function PATCH(req: NextRequest) {
-  const session = await getServerSession(authOptions)
+  const session = await getAuthSession(req)
   if (session?.user.role !== 'ADMIN') return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
   const { id, status } = await req.json()
@@ -31,8 +31,11 @@ export async function PATCH(req: NextRequest) {
         await prisma.commission.update({ where: { id: c.id }, data: { withdrawn: true } })
         remaining -= c.amount
       }
-      await prisma.notification.create({
-        data: { userId: withdrawal.affiliateId, title: '✅ Withdrawal Processed', message: `Your withdrawal of $${withdrawal.amount.toFixed(2)} has been paid.` }
+      await createNotification({
+        userId: withdrawal.affiliateId,
+        title: '✅ Withdrawal Processed',
+        message: `Your withdrawal of $${withdrawal.amount.toFixed(2)} has been paid.`,
+        link: '/affiliate/withdraw',
       })
     }
   }

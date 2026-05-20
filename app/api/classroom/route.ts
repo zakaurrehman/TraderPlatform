@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
+import { getAuthSession } from '@/lib/mobile-auth'
 import { prisma } from '@/lib/prisma'
 
 export async function GET(req: NextRequest) {
-  const session = await getServerSession(authOptions)
+  const session = await getAuthSession(req)
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const { searchParams } = new URL(req.url)
@@ -24,11 +23,14 @@ export async function GET(req: NextRequest) {
   }
 
   const courses = await prisma.course.findMany({ include: { videos: { select: { id: true } }, certificates: { where: { userId: session.user.id } } }, orderBy: { sortOrder: 'asc' } })
-  return NextResponse.json({ courses })
+  // `completed` is additive for the mobile list view; web computes this
+  // itself via Prisma and ignores the extra field.
+  const progress = await prisma.courseProgress.findMany({ where: { userId: session.user.id }, select: { videoId: true } })
+  return NextResponse.json({ courses, completed: progress.map(p => p.videoId) })
 }
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions)
+  const session = await getAuthSession(req)
   if (session?.user.role !== 'ADMIN') return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
   const body = await req.json()

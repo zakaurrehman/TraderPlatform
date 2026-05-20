@@ -1,10 +1,9 @@
-import { NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
+import { NextRequest, NextResponse } from 'next/server'
+import { getAuthSession } from '@/lib/mobile-auth'
 import { prisma } from '@/lib/prisma'
 
-export async function GET() {
-  const session = await getServerSession(authOptions)
+export async function GET(req: NextRequest) {
+  const session = await getAuthSession(req)
   if (session?.user.role !== 'ADMIN') return NextResponse.json([], { status: 403 })
 
   const affiliates = await prisma.user.findMany({

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
+import { getAuthSession } from '@/lib/mobile-auth'
 import { prisma } from '@/lib/prisma'
+import { pushToAll } from '@/lib/push'
 
 export async function GET() {
   const sessions = await prisma.liveSession.findMany({ orderBy: { scheduledAt: 'desc' } })
@@ -9,7 +9,7 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions)
+  const session = await getAuthSession(req)
   if (session?.user.role !== 'ADMIN') return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
   const { title, description, streamUrl, scheduledAt } = await req.json()
@@ -18,10 +18,19 @@ export async function POST(req: NextRequest) {
 }
 
 export async function PATCH(req: NextRequest) {
-  const session = await getServerSession(authOptions)
+  const session = await getAuthSession(req)
   if (session?.user.role !== 'ADMIN') return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
   const { id, isLive } = await req.json()
   const ls = await prisma.liveSession.update({ where: { id }, data: { isLive } })
+
+  if (isLive) {
+    await pushToAll({
+      title: '🔴 LIVE NOW',
+      body: ls.title,
+      data: { type: 'live', sessionId: ls.id, link: '/live' },
+    })
+  }
+
   return NextResponse.json(ls)
 }

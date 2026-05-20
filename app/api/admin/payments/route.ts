@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
+import { getAuthSession } from '@/lib/mobile-auth'
 import { prisma } from '@/lib/prisma'
+import { createNotification } from '@/lib/notify'
 
 // Map service name → Plan enum value
 function serviceToPlan(service: string): 'FREE' | 'BASIC' | 'PREMIUM' {
@@ -11,15 +11,15 @@ function serviceToPlan(service: string): 'FREE' | 'BASIC' | 'PREMIUM' {
   return 'BASIC'
 }
 
-export async function GET() {
-  const session = await getServerSession(authOptions)
+export async function GET(req: NextRequest) {
+  const session = await getAuthSession(req)
   if (session?.user.role !== 'ADMIN') return NextResponse.json([], { status: 403 })
   const payments = await prisma.paymentRequest.findMany({ orderBy: { createdAt: 'desc' } })
   return NextResponse.json(payments)
 }
 
 export async function PATCH(req: NextRequest) {
-  const session = await getServerSession(authOptions)
+  const session = await getAuthSession(req)
   if (session?.user.role !== 'ADMIN') return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
   const { id, status, rejectedNote } = await req.json()
@@ -76,12 +76,11 @@ export async function PATCH(req: NextRequest) {
       })
 
       // Notify the affiliate
-      await prisma.notification.create({
-        data: {
-          userId: affiliateId,
-          title: 'Commission Earned!',
-          message: `You earned $${(payment.amount * 0.5).toFixed(2)} commission from ${payment.clientName}'s payment for ${payment.service}.`
-        }
+      await createNotification({
+        userId: affiliateId,
+        title: 'Commission Earned!',
+        message: `You earned $${(payment.amount * 0.5).toFixed(2)} commission from ${payment.clientName}'s payment for ${payment.service}.`,
+        link: '/affiliate/commissions',
       })
     }
   }

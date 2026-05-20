@@ -20,8 +20,15 @@ export const authOptions: NextAuthOptions = {
         try {
           if (!credentials?.username || !credentials?.password) return null
 
-          const user = await prisma.user.findUnique({
-            where: { username: credentials.username }
+          // Accept either username or email so users can sign in with whichever they remember.
+          const identifier = credentials.username.trim()
+          const user = await prisma.user.findFirst({
+            where: {
+              OR: [
+                { username: identifier },
+                { email: identifier.toLowerCase() },
+              ],
+            },
           })
 
           if (!user) return null
