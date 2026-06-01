@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, Pressable, ScrollView, Platform } from 'react-native'
+import * as WebBrowser from 'expo-web-browser'
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -10,6 +11,45 @@ import { SERVICES } from '@/lib/format'
 import { PAYMENT_METHODS } from '@/lib/constants'
 
 type Service = (typeof SERVICES)[number]
+
+/**
+ * iOS bypass: Apple's IAP rule forbids selling digital content with non-Apple
+ * payment flows. On iOS we show a "Visit our website" screen with no prices
+ * shown, no plan selection, no order form. Android keeps the full flow.
+ */
+function IosOrderRedirect() {
+  return (
+    <Screen>
+      <View style={iosStyles.wrap}>
+        <Text style={{ fontSize: 56 }}>🌐</Text>
+        <Text style={iosStyles.title}>Manage Your Account on the Web</Text>
+        <Text style={iosStyles.body}>
+          For account upgrades, billing, and subscription management, please visit
+          our website.
+        </Text>
+        <Pressable
+          style={iosStyles.btn}
+          onPress={() => WebBrowser.openBrowserAsync('https://www.tradewithshaffy.com')}
+        >
+          <Text style={iosStyles.btnText}>Open tradewithshaffy.com</Text>
+        </Pressable>
+        <Text style={iosStyles.note}>
+          You can continue using the free features of the app — sign in with the same
+          account to unlock anything you purchased on the web.
+        </Text>
+      </View>
+    </Screen>
+  )
+}
+
+const iosStyles = StyleSheet.create({
+  wrap: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 28, gap: 12 },
+  title: { color: colors.white, fontWeight: '800', fontSize: 22, textAlign: 'center' },
+  body: { color: colors.muted, fontSize: 14, textAlign: 'center', lineHeight: 22 },
+  btn: { backgroundColor: colors.gold, borderRadius: 10, paddingHorizontal: 24, paddingVertical: 12, marginTop: 8 },
+  btnText: { color: colors.bg, fontWeight: '800', fontSize: 15 },
+  note: { color: colors.muted2, fontSize: 12, textAlign: 'center', lineHeight: 18, marginTop: 12 },
+})
 
 const schema = z.object({
   clientName: z.string().min(2, 'Full name required'),
@@ -23,6 +63,15 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>
 
 export default function OrderScreen() {
+  // Apple App Review compliance — no in-app digital purchases on iOS.
+  if (Platform.OS === 'ios') {
+    return <IosOrderRedirect />
+  }
+
+  return <AndroidOrderScreen />
+}
+
+function AndroidOrderScreen() {
   const [step, setStep] = useState<1 | 2>(1)
   const [selected, setSelected] = useState<Service | null>(null)
   const [success, setSuccess] = useState(false)

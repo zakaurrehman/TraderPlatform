@@ -22,12 +22,16 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   assetBundlePatterns: ['**/*'],
   ios: {
-    supportsTablet: true,
+    supportsTablet: false,
     bundleIdentifier: 'com.tradewithshafy.app',
     infoPlist: {
       UIBackgroundModes: ['remote-notification'],
-      NSUserTrackingUsageDescription:
-        'Used to keep you signed in and deliver trade alerts.',
+      // App uses only HTTPS/TLS (standard encryption) — exempt from export docs.
+      ITSAppUsesNonExemptEncryption: false,
+      // NOTE: Intentionally NO NSUserTrackingUsageDescription — the app does
+      // NOT use App Tracking Transparency. Including this key would force us
+      // to declare tracking in App Privacy (which we don't actually do) and
+      // gets rejected by Apple's automated privacy review.
     },
   },
   android: {

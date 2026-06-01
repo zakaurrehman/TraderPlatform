@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, ScrollView, Pressable, useWindowDimensions } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, Pressable, useWindowDimensions, Platform } from 'react-native'
 import { Image } from 'expo-image'
 import { useRouter } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
@@ -261,57 +261,59 @@ export default function LandingScreen() {
           </View>
         </View>
 
-        {/* ── Pricing ── */}
-        <Section eyebrow="PRICING PLANS" title="Choose Your Plan" sub="From beginner fundamentals to personal mentorship">
-          {PLANS.map((p) => (
-            <View
-              key={p.name}
-              style={[
-                styles.planCard,
-                p.highlight && styles.planCardHighlight,
-                p.disabled && { opacity: 0.6 },
-              ]}
-            >
-              {p.badge ? (
-                <View style={[styles.planBadge, p.highlight && { backgroundColor: colors.bg }]}>
-                  <Text style={[styles.planBadgeText, p.highlight && { color: colors.gold }]}>{p.badge}</Text>
-                </View>
-              ) : null}
-              {p.originalPrice ? (
-                <View style={styles.priceLine}>
-                  <Text style={[styles.priceOld, p.highlight && { color: 'rgba(0,0,0,0.6)' }]}>{p.originalPrice}</Text>
-                  <View style={[styles.discountTag, p.highlight && { backgroundColor: 'rgba(0,0,0,0.2)' }]}>
-                    <Text style={[styles.discountText, p.highlight && { color: colors.bg }]}>20% OFF</Text>
+        {/* ── Pricing — Android-only (Apple's IAP rule forbids non-IAP prices on iOS) ── */}
+        {Platform.OS !== 'ios' ? (
+          <Section eyebrow="PRICING PLANS" title="Choose Your Plan" sub="From beginner fundamentals to personal mentorship">
+            {PLANS.map((p) => (
+              <View
+                key={p.name}
+                style={[
+                  styles.planCard,
+                  p.highlight && styles.planCardHighlight,
+                  p.disabled && { opacity: 0.6 },
+                ]}
+              >
+                {p.badge ? (
+                  <View style={[styles.planBadge, p.highlight && { backgroundColor: colors.bg }]}>
+                    <Text style={[styles.planBadgeText, p.highlight && { color: colors.gold }]}>{p.badge}</Text>
                   </View>
+                ) : null}
+                {p.originalPrice ? (
+                  <View style={styles.priceLine}>
+                    <Text style={[styles.priceOld, p.highlight && { color: 'rgba(0,0,0,0.6)' }]}>{p.originalPrice}</Text>
+                    <View style={[styles.discountTag, p.highlight && { backgroundColor: 'rgba(0,0,0,0.2)' }]}>
+                      <Text style={[styles.discountText, p.highlight && { color: colors.bg }]}>20% OFF</Text>
+                    </View>
+                  </View>
+                ) : null}
+                <Text style={[styles.planName, p.highlight && { color: colors.bg }]}>{p.name}</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 4 }}>
+                  <Text style={[styles.planPrice, p.highlight && { color: colors.bg }]}>{p.price}</Text>
+                  <Text style={[styles.planPeriod, p.highlight && { color: 'rgba(0,0,0,0.6)' }]}>/{p.period}</Text>
                 </View>
-              ) : null}
-              <Text style={[styles.planName, p.highlight && { color: colors.bg }]}>{p.name}</Text>
-              <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 4 }}>
-                <Text style={[styles.planPrice, p.highlight && { color: colors.bg }]}>{p.price}</Text>
-                <Text style={[styles.planPeriod, p.highlight && { color: 'rgba(0,0,0,0.6)' }]}>/{p.period}</Text>
+                <Text style={[styles.planDesc, p.highlight && { color: 'rgba(0,0,0,0.6)' }]}>{p.desc}</Text>
+                {p.features.map((f) => (
+                  <View key={f} style={styles.featureLine}>
+                    <Text style={[styles.featureCheck, p.highlight && { color: colors.bg }]}>✓</Text>
+                    <Text style={[styles.featureText, p.highlight && { color: 'rgba(0,0,0,0.75)' }]}>{f}</Text>
+                  </View>
+                ))}
+                {!p.disabled ? (
+                  <Pressable
+                    style={[styles.planCta, p.highlight && { backgroundColor: colors.bg }]}
+                    onPress={() => router.push('/(auth)/register')}
+                  >
+                    <Text style={[styles.planCtaText, p.highlight && { color: colors.gold }]}>Get Started</Text>
+                  </Pressable>
+                ) : (
+                  <View style={styles.comingSoon}>
+                    <Text style={styles.comingSoonText}>Coming Soon</Text>
+                  </View>
+                )}
               </View>
-              <Text style={[styles.planDesc, p.highlight && { color: 'rgba(0,0,0,0.6)' }]}>{p.desc}</Text>
-              {p.features.map((f) => (
-                <View key={f} style={styles.featureLine}>
-                  <Text style={[styles.featureCheck, p.highlight && { color: colors.bg }]}>✓</Text>
-                  <Text style={[styles.featureText, p.highlight && { color: 'rgba(0,0,0,0.75)' }]}>{f}</Text>
-                </View>
-              ))}
-              {!p.disabled ? (
-                <Pressable
-                  style={[styles.planCta, p.highlight && { backgroundColor: colors.bg }]}
-                  onPress={() => router.push('/(auth)/register')}
-                >
-                  <Text style={[styles.planCtaText, p.highlight && { color: colors.gold }]}>Get Started</Text>
-                </Pressable>
-              ) : (
-                <View style={styles.comingSoon}>
-                  <Text style={styles.comingSoonText}>Coming Soon</Text>
-                </View>
-              )}
-            </View>
-          ))}
-        </Section>
+            ))}
+          </Section>
+        ) : null}
 
         {/* ── Why Choose ── */}
         <Section eyebrow="WHY CHOOSE US" title="Why Trade with Shafy?" sub="Everything you need to become a consistently profitable trader">

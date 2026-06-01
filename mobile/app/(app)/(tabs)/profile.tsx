@@ -1,9 +1,11 @@
-import React from 'react'
-import { View, Text, StyleSheet, Pressable } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, StyleSheet, Pressable, Platform, Alert } from 'react-native'
 import { useRouter } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import { useApi } from '@/api/hooks'
 import { useAuth } from '@/auth/AuthContext'
+import { apiFetch } from '@/api/client'
+import { clearTokens } from '@/api/tokenStore'
 import {
   Screen, Card, PlanBadge, Loader, ErrorState, Button,
   colors, font, spacing, radius,
@@ -37,6 +39,52 @@ const LINKS: { href: string; label: string; sub: string }[] = [
 export default function ProfileScreen() {
   const router = useRouter()
   const { signOut } = useAuth()
+  const [deleting, setDeleting] = useState(false)
+
+  const confirmDeleteAccount = () => {
+    Alert.alert(
+      'Delete Account',
+      'This will permanently delete your account, profile, course progress, posts, comments, and affiliate records. This action cannot be undone.\n\nAre you sure?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Delete Account',
+          style: 'destructive',
+          onPress: () => {
+            Alert.alert(
+              'Are you absolutely sure?',
+              'Type-tap "Delete Forever" to permanently delete your account.',
+              [
+                { text: 'Cancel', style: 'cancel' },
+                {
+                  text: 'Delete Forever',
+                  style: 'destructive',
+                  onPress: deleteAccount,
+                },
+              ]
+            )
+          },
+        },
+      ]
+    )
+  }
+
+  const deleteAccount = async () => {
+    setDeleting(true)
+    try {
+      await apiFetch('/api/mobile/auth/delete-account', { method: 'DELETE' })
+      await clearTokens()
+      // signOut clears auth state + root navigator redirects to landing
+      await signOut()
+      Alert.alert('Account Deleted', 'Your account and all associated data have been permanently deleted.')
+    } catch (e) {
+      Alert.alert(
+        'Could not delete account',
+        e instanceof Error ? e.message : 'Please contact support at shafqatrafique45978@gmail.com.'
+      )
+      setDeleting(false)
+    }
+  }
   const { data, isLoading, isError, refetch, isRefetching } = useApi<ProfileBundle>('/api/mobile/profile')
 
   if (isLoading) return <Screen><Loader /></Screen>
@@ -107,7 +155,7 @@ export default function ProfileScreen() {
           ))}
         </Card>
 
-        {data.plan === 'FREE' && (
+        {data.plan === 'FREE' && Platform.OS !== 'ios' && (
           <View style={styles.upgrade}>
             <Text style={{ fontSize: 28 }}>⭐</Text>
             <Text style={styles.upgradeTitle}>Upgrade Your Plan</Text>
@@ -123,6 +171,21 @@ export default function ProfileScreen() {
           style={{ marginTop: spacing.md, backgroundColor: 'rgba(255,68,68,0.12)' }}
           onPress={signOut}
         />
+
+        <View style={styles.deleteSection}>
+          <Text style={styles.deleteSectionTitle}>Danger Zone</Text>
+          <Text style={styles.deleteSectionBody}>
+            Permanently delete your account, all certificates, course progress, posts,
+            comments and affiliate records. This cannot be undone.
+          </Text>
+          <Button
+            title={deleting ? 'Deleting…' : 'Delete My Account'}
+            variant="danger"
+            icon="trash-outline"
+            onPress={confirmDeleteAccount}
+            loading={deleting}
+          />
+        </View>
       </View>
     </Screen>
   )
@@ -158,6 +221,9 @@ const styles = StyleSheet.create({
   linkLabel: { color: colors.white, fontSize: font.body },
   linkSub: { color: colors.muted2, fontSize: font.tiny },
   upgrade: { backgroundColor: 'rgba(245,197,24,0.06)', borderWidth: 1, borderColor: 'rgba(245,197,24,0.2)', borderRadius: radius.lg, padding: spacing.lg, alignItems: 'center', gap: 8, marginTop: spacing.sm },
+  deleteSection: { marginTop: spacing.xl, padding: spacing.lg, borderWidth: 1, borderColor: 'rgba(255,68,68,0.2)', borderRadius: radius.lg, backgroundColor: 'rgba(255,68,68,0.04)' },
+  deleteSectionTitle: { color: colors.redText, fontWeight: '800', fontSize: 14, marginBottom: 6 },
+  deleteSectionBody: { color: colors.muted, fontSize: font.small, lineHeight: 18, marginBottom: 12 },
   upgradeTitle: { color: colors.white, fontWeight: '800', fontSize: 15 },
   upgradeSub: { color: colors.muted, fontSize: font.body, textAlign: 'center', marginBottom: 8 },
 })
