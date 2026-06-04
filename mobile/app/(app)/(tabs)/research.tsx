@@ -4,7 +4,7 @@ import { useRouter } from 'expo-router'
 import { Image } from 'expo-image'
 import { useApi } from '@/api/hooks'
 import { useAuth } from '@/auth/AuthContext'
-import { isLocked } from '@/lib/gating'
+import { isLocked, IS_IOS_FREE_ONLY } from '@/lib/gating'
 import { timeAgo } from '@/lib/format'
 import { Screen, Loader, ErrorState, EmptyState, Badge, colors, font, spacing, radius } from '@/components/ui'
 import type { ResearchPost, Plan } from '@/types'
@@ -20,6 +20,8 @@ export default function ResearchScreen() {
 
   const posts = (data ?? [])
     .filter((p) => p.published)
+    // iOS: hide premium posts entirely (App Store IAP rule — Path A compliance)
+    .filter((p) => !(IS_IOS_FREE_ONLY && p.isPremium))
     .filter((p) => cat === 'All' || p.category === cat)
     .slice(0, 30)
 

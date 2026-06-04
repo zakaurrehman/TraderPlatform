@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Pressable } from 'react-native'
 import * as WebBrowser from 'expo-web-browser'
 import { useApi } from '@/api/hooks'
 import { useAuth } from '@/auth/AuthContext'
+import { IS_IOS_FREE_ONLY } from '@/lib/gating'
 import { Screen, Loader, ErrorState, EmptyState, colors, font, spacing, radius } from '@/components/ui'
 import type { Resource } from '@/types'
 
@@ -20,7 +21,8 @@ export default function ResourcesScreen() {
   const { user } = useAuth()
   const userTier = PLAN_TIER[user?.plan ?? 'FREE'] ?? 0
   const { data, isLoading, isError, refetch, isRefetching } = useApi<Resource[]>('/api/resources')
-  const resources = data ?? []
+  // iOS: only show FREE tier resources (App Store IAP rule — Path A compliance)
+  const resources = (data ?? []).filter((r) => !IS_IOS_FREE_ONLY || r.tier === 'FREE')
   const categories = Array.from(new Set(resources.map((r) => r.category)))
 
   if (isLoading) return <Screen><Loader /></Screen>

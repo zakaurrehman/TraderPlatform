@@ -38,6 +38,11 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true },
   },
+  // iOS Smart App Banner — Safari shows a "View in App Store" banner to
+  // visitors on iPhone, deep-linking to the live app listing.
+  itunes: {
+    appId: '6772309277',
+  },
 }
 
 const jsonLd = {

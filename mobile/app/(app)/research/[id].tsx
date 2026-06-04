@@ -3,7 +3,8 @@ import { View, Text, StyleSheet } from 'react-native'
 import { useLocalSearchParams } from 'expo-router'
 import { Image } from 'expo-image'
 import { useApi } from '@/api/hooks'
-import { Screen, Loader, ErrorState, Badge, RiskDisclaimer, colors, font, spacing } from '@/components/ui'
+import { IS_IOS_FREE_ONLY } from '@/lib/gating'
+import { Screen, Loader, ErrorState, EmptyState, Badge, RiskDisclaimer, colors, font, spacing } from '@/components/ui'
 import { formatDateTime } from '@/lib/format'
 import type { ResearchPost } from '@/types'
 
@@ -16,6 +17,19 @@ export default function ResearchDetailScreen() {
 
   const post = (data ?? []).find((p) => p.id === id)
   if (!post) return <Screen><ErrorState message="Post not found" /></Screen>
+
+  // iOS: premium content is not available (App Store IAP rule — Path A compliance)
+  if (IS_IOS_FREE_ONLY && post.isPremium) {
+    return (
+      <Screen>
+        <EmptyState
+          icon="lock-closed-outline"
+          title="Content not available"
+          subtitle="This article is not available in the iOS app."
+        />
+      </Screen>
+    )
+  }
 
   return (
     <Screen scroll>

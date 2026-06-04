@@ -99,10 +99,40 @@ export default async function LandingPage() {
         <p style={{ color: '#94a3b8', fontSize: 18, lineHeight: 1.7, marginBottom: 36, maxWidth: 600, margin: '0 auto 36px' }}>
           Join thousands of traders learning ICT &amp; Smart Money Concepts, receiving live Forex signals, and building consistent profits with Shafy&apos;s proven methodology.
         </p>
-        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 24 }}>
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 20 }}>
           <Link href="#pricing" style={{ padding: '14px 32px', borderRadius: 10, background: 'linear-gradient(135deg, #f5c518, #c9a000)', color: '#0a0a0f', textDecoration: 'none', fontWeight: 800, fontSize: 16, boxShadow: '0 4px 20px rgba(245,197,24,0.3)' }}>View Plans →</Link>
           <Link href="/order" style={{ padding: '14px 32px', borderRadius: 10, border: '1px solid rgba(245,197,24,0.3)', color: '#f5c518', textDecoration: 'none', fontWeight: 700, fontSize: 16 }}>Get Live Signals</Link>
         </div>
+
+        {/* Download buttons */}
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 24, alignItems: 'center' }}>
+          <a
+            href="https://apps.apple.com/us/app/trade-with-shafy/id6772309277"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '10px 20px', borderRadius: 10, background: '#000', border: '1px solid rgba(255,255,255,0.15)', textDecoration: 'none', minHeight: 52 }}
+          >
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+              <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+            </svg>
+            <div style={{ textAlign: 'left' }}>
+              <div style={{ color: '#94a3b8', fontSize: 10, lineHeight: 1 }}>Download on the</div>
+              <div style={{ color: 'white', fontSize: 17, fontWeight: 700, lineHeight: 1.2 }}>App Store</div>
+            </div>
+          </a>
+          <span
+            style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '10px 20px', borderRadius: 10, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', minHeight: 52, opacity: 0.6, cursor: 'not-allowed' }}
+          >
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#94a3b8">
+              <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.205-5.05l2.832 1.64a1 1 0 0 1 0 1.73l-2.832 1.64L15.119 12l2.585-2.343zM5.864 2.658L16.802 8.99l-2.303 2.303-8.635-8.635z"/>
+            </svg>
+            <div style={{ textAlign: 'left' }}>
+              <div style={{ color: '#64748b', fontSize: 10, lineHeight: 1 }}>Coming soon to</div>
+              <div style={{ color: '#94a3b8', fontSize: 17, fontWeight: 700, lineHeight: 1.2 }}>Google Play</div>
+            </div>
+          </span>
+        </div>
+
         {/* Trust line */}
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 20, flexWrap: 'wrap', color: '#475569', fontSize: 13 }}>
           {['⭐ 4.9/5 Rating', '✅ 5,000+ Traders', '🔒 Secure Payments', '📱 Instant Access'].map(t => (
@@ -515,6 +545,23 @@ export default async function LandingPage() {
             <div>
               <Link href="/"><img src="/Trade with Shafy Png.png" alt="Trade with Shafy" style={{ height: 40, width: 'auto', objectFit: 'contain', marginBottom: 10, cursor: 'pointer' }} /></Link>
               <p style={{ color: '#475569', fontSize: 13, lineHeight: 1.7, marginBottom: 16 }}>Professional Forex education, live signals, and a thriving community of traders worldwide.</p>
+
+              {/* App Store badge */}
+              <a
+                href="https://apps.apple.com/us/app/trade-with-shafy/id6772309277"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '8px 14px', borderRadius: 8, background: '#000', border: '1px solid rgba(255,255,255,0.15)', textDecoration: 'none', marginBottom: 14 }}
+              >
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+                  <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+                </svg>
+                <div style={{ textAlign: 'left' }}>
+                  <div style={{ color: '#94a3b8', fontSize: 9, lineHeight: 1 }}>Download on the</div>
+                  <div style={{ color: 'white', fontSize: 14, fontWeight: 700, lineHeight: 1.2 }}>App Store</div>
+                </div>
+              </a>
+
               {/* Social links */}
               <div style={{ display: 'flex', gap: 10 }}>
                 {[

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Pressable } from 'react-native'
 import { useRouter } from 'expo-router'
 import { useApi } from '@/api/hooks'
 import { useAuth } from '@/auth/AuthContext'
-import { canViewPremium } from '@/lib/gating'
+import { canViewPremium, IS_IOS_FREE_ONLY } from '@/lib/gating'
 import { Screen, Loader, ErrorState, EmptyState, Badge, WinRateBar, colors, font, spacing, radius } from '@/components/ui'
 import type { Plan } from '@/types'
 
@@ -27,9 +27,10 @@ export default function ClassroomScreen() {
   const { data, isLoading, isError, refetch, isRefetching } = useApi<Resp>('/api/classroom')
 
   const completed = new Set(data?.completed ?? [])
-  const courses = [...(data?.courses ?? [])].sort(
-    (a, b) => LEVEL_ORDER.indexOf(a.level) - LEVEL_ORDER.indexOf(b.level)
-  )
+  const courses = [...(data?.courses ?? [])]
+    // iOS: hide premium courses entirely (App Store IAP rule — Path A compliance)
+    .filter((c) => !(IS_IOS_FREE_ONLY && c.isPremium))
+    .sort((a, b) => LEVEL_ORDER.indexOf(a.level) - LEVEL_ORDER.indexOf(b.level))
 
   return (
     <Screen scroll refreshing={isRefetching} onRefresh={refetch}>
