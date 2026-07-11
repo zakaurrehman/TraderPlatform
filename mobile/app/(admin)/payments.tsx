@@ -22,9 +22,9 @@ type Payment = {
 }
 
 const COLOR: Record<string, string> = {
-  PENDING: '#f0b429',
-  CONFIRMED: '#00c851',
-  REJECTED: '#ff4444',
+  PENDING: '#f59e0b',
+  CONFIRMED: '#16a34a',
+  REJECTED: '#dc2626',
 }
 
 export default function AdminPaymentsScreen() {

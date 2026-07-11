@@ -51,7 +51,7 @@ export default function AdminUsersScreen() {
               badge={
                 <View style={{ flexDirection: 'row', gap: 4 }}>
                   <PlanBadge plan={u.plan} />
-                  <Badge label={u.status} color={u.status === 'APPROVED' ? colors.green : u.status === 'PENDING' ? '#f0b429' : colors.red} />
+                  <Badge label={u.status} color={u.status === 'APPROVED' ? colors.green : u.status === 'PENDING' ? '#f59e0b' : colors.red} />
                 </View>
               }
             >

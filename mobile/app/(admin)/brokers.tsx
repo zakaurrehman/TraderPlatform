@@ -70,7 +70,7 @@ export default function AdminBrokersScreen() {
               key={b.id}
               title={b.name}
               subtitle={b.description.slice(0, 80)}
-              badge={b.isRecommended ? <Badge label="⭐ PICK" color={colors.gold} /> : <Badge label="LISTED" color={colors.muted} />}
+              badge={b.isRecommended ? <Badge label="⭐ PICK" color={colors.primary} /> : <Badge label="LISTED" color={colors.muted} />}
             >
               <Button title={b.isRecommended ? 'Unfeature' : 'Feature'} variant="outline" onPress={() => toggleRecommended(b)} />
             </AdminRow>

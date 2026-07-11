@@ -42,7 +42,7 @@ export default function CommissionsScreen() {
                   style={[
                     styles.tag,
                     {
-                      backgroundColor: c.withdrawn ? 'rgba(148,163,184,0.1)' : 'rgba(0,200,81,0.1)',
+                      backgroundColor: c.withdrawn ? 'rgba(148,163,184,0.1)' : 'rgba(22,163,74,0.1)',
                     },
                   ]}
                 >
@@ -67,7 +67,7 @@ export default function CommissionsScreen() {
 
 const styles = StyleSheet.create({
   card: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.borderSoft, borderRadius: radius.md, padding: 14, marginBottom: 8, flexDirection: 'row', justifyContent: 'space-between' },
-  name: { color: colors.white, fontWeight: '700', fontSize: 14 },
+  name: { color: colors.ink, fontWeight: '700', fontSize: 14 },
   sale: { color: colors.muted, fontSize: font.small, marginTop: 2 },
   date: { color: colors.muted2, fontSize: font.tiny, marginTop: 2 },
   amount: { color: colors.green, fontWeight: '800', fontSize: 18 },

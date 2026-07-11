@@ -88,8 +88,8 @@ export default function CourseDetailScreen() {
               style={[
                 styles.videoRow,
                 {
-                  backgroundColor: isActive ? 'rgba(245,197,24,0.12)' : colors.overlay,
-                  borderLeftColor: isDone ? colors.green : isActive ? colors.gold : 'transparent',
+                  backgroundColor: isActive ? 'rgba(37,99,235,0.12)' : colors.overlay,
+                  borderLeftColor: isDone ? colors.green : isActive ? colors.primary : 'transparent',
                 },
               ]}
               onPress={() => setActiveId(v.id)}
@@ -122,19 +122,19 @@ export default function CourseDetailScreen() {
 
 const styles = StyleSheet.create({
   head: { padding: spacing.lg, borderBottomWidth: 1, borderBottomColor: colors.borderSoft },
-  title: { color: colors.white, fontWeight: '800', fontSize: 18, marginBottom: 6 },
+  title: { color: colors.ink, fontWeight: '800', fontSize: 18, marginBottom: 6 },
   progressRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 },
   progressMeta: { color: colors.muted, fontSize: font.small },
-  progressPct: { color: colors.gold, fontWeight: '700', fontSize: font.body },
+  progressPct: { color: colors.primary, fontWeight: '700', fontSize: font.body },
   player: { width: '100%', aspectRatio: 16 / 9, backgroundColor: '#000' },
   activeRow: { padding: spacing.lg, borderBottomWidth: 1, borderBottomColor: colors.borderSoft, gap: 10 },
-  activeTitle: { color: colors.white, fontWeight: '700', fontSize: 15 },
+  activeTitle: { color: colors.ink, fontWeight: '700', fontSize: 15 },
   doneText: { color: colors.green, fontWeight: '700', fontSize: font.body },
   videoRow: { borderRadius: radius.md, padding: 10, marginBottom: 6, borderLeftWidth: 3, flexDirection: 'row', alignItems: 'center' },
   videoIdx: { color: colors.muted2, fontSize: font.small, width: 18 },
-  videoTitle: { color: colors.white, fontSize: font.body },
+  videoTitle: { color: colors.ink, fontSize: font.body },
   videoDuration: { color: colors.muted2, fontSize: font.tiny },
-  cert: { margin: spacing.lg, backgroundColor: 'rgba(0,200,81,0.08)', borderWidth: 1, borderColor: 'rgba(0,200,81,0.2)', borderRadius: radius.lg, padding: 16, alignItems: 'center', gap: 4 },
+  cert: { margin: spacing.lg, backgroundColor: 'rgba(22,163,74,0.08)', borderWidth: 1, borderColor: 'rgba(22,163,74,0.2)', borderRadius: radius.lg, padding: 16, alignItems: 'center', gap: 4 },
   certTitle: { color: colors.green, fontWeight: '800', fontSize: 16 },
   certSub: { color: colors.muted, fontSize: font.small },
 })

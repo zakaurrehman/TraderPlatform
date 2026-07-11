@@ -44,10 +44,10 @@ function IosOrderRedirect() {
 
 const iosStyles = StyleSheet.create({
   wrap: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 28, gap: 12 },
-  title: { color: colors.white, fontWeight: '800', fontSize: 22, textAlign: 'center' },
+  title: { color: colors.ink, fontWeight: '800', fontSize: 22, textAlign: 'center' },
   body: { color: colors.muted, fontSize: 14, textAlign: 'center', lineHeight: 22 },
-  btn: { backgroundColor: colors.gold, borderRadius: 10, paddingHorizontal: 24, paddingVertical: 12, marginTop: 8 },
-  btnText: { color: colors.bg, fontWeight: '800', fontSize: 15 },
+  btn: { backgroundColor: colors.primary, borderRadius: 10, paddingHorizontal: 24, paddingVertical: 12, marginTop: 8 },
+  btnText: { color: colors.white, fontWeight: '800', fontSize: 15 },
   note: { color: colors.muted2, fontSize: 12, textAlign: 'center', lineHeight: 18, marginTop: 12 },
 })
 
@@ -127,7 +127,7 @@ function AndroidOrderScreen() {
                 key={svc.name}
                 style={[
                   styles.plan,
-                  { borderColor: selected?.name === svc.name ? colors.gold : colors.borderSoft },
+                  { borderColor: selected?.name === svc.name ? colors.primary : colors.borderSoft },
                 ]}
                 onPress={() => {
                   setSelected(svc as Service)
@@ -162,7 +162,7 @@ function AndroidOrderScreen() {
             <View style={styles.payInstructions}>
               <Text style={styles.payTitle}>Payment Instructions</Text>
               <Text style={styles.payLine}>
-                1. Transfer <Text style={{ color: colors.gold, fontWeight: '700' }}>${selected.price}</Text> via one of:
+                1. Transfer <Text style={{ color: colors.primary, fontWeight: '700' }}>${selected.price}</Text> via one of:
               </Text>
               <Text style={styles.payLine}>• Bank Transfer — contact admin</Text>
               <Text style={styles.payLine}>• USDT (TRC20) — contact admin</Text>
@@ -216,22 +216,22 @@ function AndroidOrderScreen() {
 }
 
 const styles = StyleSheet.create({
-  h1: { color: colors.white, fontWeight: '800', fontSize: 24, marginBottom: spacing.lg, textAlign: 'center' },
+  h1: { color: colors.ink, fontWeight: '800', fontSize: 24, marginBottom: spacing.lg, textAlign: 'center' },
   plan: { backgroundColor: colors.card, borderWidth: 1, borderRadius: radius.xl, padding: 16, marginBottom: 12 },
-  planName: { color: colors.white, fontWeight: '800', fontSize: 16 },
+  planName: { color: colors.ink, fontWeight: '800', fontSize: 16 },
   planDesc: { color: colors.muted, fontSize: font.body, marginTop: 2 },
-  planPrice: { color: colors.gold, fontWeight: '900', fontSize: 22 },
+  planPrice: { color: colors.primary, fontWeight: '900', fontSize: 22 },
   feature: { color: colors.secondary, fontSize: font.small, marginTop: 2 },
-  popular: { color: '#ff6666', fontWeight: '700', fontSize: font.tiny, marginTop: 8 },
+  popular: { color: '#dc2626', fontWeight: '700', fontSize: font.tiny, marginTop: 8 },
   best: { color: colors.green, fontWeight: '700', fontSize: font.tiny, marginTop: 8 },
   selectedCard: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border, borderRadius: radius.xl, padding: 18, marginBottom: 12 },
   selectedLabel: { color: colors.secondary, fontSize: font.body },
-  selectedName: { color: colors.white, fontWeight: '800', fontSize: 18, marginTop: 4 },
-  selectedPrice: { color: colors.gold, fontWeight: '900', fontSize: 26, marginTop: 4 },
+  selectedName: { color: colors.ink, fontWeight: '800', fontSize: 18, marginTop: 4 },
+  selectedPrice: { color: colors.primary, fontWeight: '900', fontSize: 26, marginTop: 4 },
   payInstructions: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border, borderRadius: radius.xl, padding: 18, marginBottom: 14 },
-  payTitle: { color: colors.white, fontWeight: '700', marginBottom: 8 },
+  payTitle: { color: colors.ink, fontWeight: '700', marginBottom: 8 },
   payLine: { color: colors.secondary, fontSize: font.small, lineHeight: 22 },
   successWrap: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: spacing.xl, gap: 12 },
-  successTitle: { color: colors.white, fontWeight: '800', fontSize: 22 },
+  successTitle: { color: colors.ink, fontWeight: '800', fontSize: 22 },
   successSub: { color: colors.muted, fontSize: font.body, textAlign: 'center', lineHeight: 22 },
 })

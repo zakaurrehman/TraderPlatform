@@ -66,7 +66,7 @@ export default function AdminSessionsScreen() {
               key={s.id}
               title={s.title}
               subtitle={formatDateTime(s.scheduledAt)}
-              badge={<Badge label={s.isLive ? 'LIVE' : 'SCHEDULED'} color={s.isLive ? colors.red : colors.gold} />}
+              badge={<Badge label={s.isLive ? 'LIVE' : 'SCHEDULED'} color={s.isLive ? colors.red : colors.primary} />}
             >
               <Button
                 title={s.isLive ? 'End Live' : 'Go Live'}

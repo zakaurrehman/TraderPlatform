@@ -6,9 +6,9 @@ import { formatDateTime } from '@/lib/format'
 import type { EconomicEvent, Impact } from '@/types'
 
 const COLORS: Record<Impact, { color: string; bg: string }> = {
-  HIGH: { color: '#ff4444', bg: 'rgba(255,68,68,0.1)' },
-  MEDIUM: { color: '#f0b429', bg: 'rgba(240,180,41,0.1)' },
-  LOW: { color: '#00c851', bg: 'rgba(0,200,81,0.08)' },
+  HIGH: { color: '#dc2626', bg: 'rgba(220,38,38,0.1)' },
+  MEDIUM: { color: '#f59e0b', bg: 'rgba(245,158,11,0.1)' },
+  LOW: { color: '#16a34a', bg: 'rgba(22,163,74,0.08)' },
 }
 
 export default function CalendarScreen() {
@@ -67,7 +67,7 @@ function EventRow({ ev, past }: { ev: EconomicEvent; past?: boolean }) {
       style={[
         styles.row,
         {
-          backgroundColor: past ? 'rgba(255,255,255,0.02)' : colors.card,
+          backgroundColor: past ? 'rgba(16,19,26,0.02)' : colors.card,
           borderLeftColor: c.color,
           opacity: past ? 0.75 : 1,
         },
@@ -79,7 +79,7 @@ function EventRow({ ev, past }: { ev: EconomicEvent; past?: boolean }) {
             <Text style={{ color: c.color, fontSize: font.tiny, fontWeight: '700' }}>{ev.impact}</Text>
           </View>
           <View style={styles.tagCur}>
-            <Text style={{ color: colors.gold, fontSize: font.tiny, fontWeight: '700' }}>{ev.currency}</Text>
+            <Text style={{ color: colors.primary, fontSize: font.tiny, fontWeight: '700' }}>{ev.currency}</Text>
           </View>
         </View>
         <Text style={styles.time}>{formatDateTime(ev.eventTime)}</Text>
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   tag: { paddingHorizontal: 7, paddingVertical: 1, borderRadius: radius.pill },
   tagCur: { backgroundColor: colors.overlay, paddingHorizontal: 7, paddingVertical: 1, borderRadius: radius.pill },
   time: { color: colors.muted2, fontSize: font.tiny },
-  eventName: { color: colors.white, fontWeight: '700', fontSize: 14, marginTop: 4 },
+  eventName: { color: colors.ink, fontWeight: '700', fontSize: 14, marginTop: 4 },
   numbersRow: { flexDirection: 'row', gap: 10, marginTop: 4, flexWrap: 'wrap' },
   numCell: { fontSize: font.small },
 })

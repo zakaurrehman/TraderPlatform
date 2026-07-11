@@ -14,7 +14,7 @@ import {
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Ionicons } from '@expo/vector-icons'
-import { colors, radius, spacing, font, planColors } from '@/theme'
+import { colors, radius, spacing, font, planColors, shadow } from '@/theme'
 
 export function Screen({
   children,
@@ -41,8 +41,8 @@ export function Screen({
               <RefreshControl
                 refreshing={!!refreshing}
                 onRefresh={onRefresh}
-                tintColor={colors.gold}
-                colors={[colors.gold]}
+                tintColor={colors.primary}
+                colors={[colors.primary]}
               />
             ) : undefined
           }
@@ -115,26 +115,25 @@ export function Button({
   const isDisabled = disabled || loading
   const bg =
     variant === 'primary'
-      ? colors.gold
+      ? colors.primary
       : variant === 'danger'
         ? colors.red
         : 'transparent'
   const fg =
-    variant === 'primary'
-      ? '#0a0a0f'
-      : variant === 'danger'
-        ? '#fff'
-        : colors.gold
+    variant === 'primary' || variant === 'danger'
+      ? colors.white
+      : colors.primary
   return (
     <Pressable
       onPress={onPress}
       disabled={isDisabled}
       style={({ pressed }) => [
         styles.btn,
+        variant === 'primary' && !isDisabled ? shadow.primary : null,
         {
           backgroundColor: bg,
-          borderWidth: variant === 'outline' || variant === 'ghost' ? 1 : 0,
-          borderColor: colors.border,
+          borderWidth: variant === 'outline' ? 1.5 : 0,
+          borderColor: variant === 'outline' ? 'rgba(37,99,235,0.35)' : colors.border,
           opacity: isDisabled ? 0.5 : pressed ? 0.85 : 1,
         },
         style,
@@ -172,7 +171,7 @@ export function Field({
 
 export function Badge({
   label,
-  color = colors.gold,
+  color = colors.primary,
   bg,
 }: {
   label: string
@@ -203,7 +202,7 @@ export function PlanBadge({ plan }: { plan: string }) {
 export function Loader({ label }: { label?: string }) {
   return (
     <View style={styles.center}>
-      <ActivityIndicator color={colors.gold} size="large" />
+      <ActivityIndicator color={colors.primary} size="large" />
       {label ? <Text style={styles.muted}>{label}</Text> : null}
     </View>
   )
@@ -248,7 +247,7 @@ export function WinRateBar({ value }: { value: number }) {
       <View
         style={[
           styles.barFill,
-          { width: `${pct}%`, backgroundColor: pct >= 60 ? colors.green : colors.gold },
+          { width: `${pct}%`, backgroundColor: pct >= 60 ? colors.green : colors.primary },
         ]}
       />
     </View>
@@ -258,7 +257,7 @@ export function WinRateBar({ value }: { value: number }) {
 export function LockBanner({ message }: { message: string }) {
   return (
     <View style={styles.lock}>
-      <Ionicons name="lock-closed" size={18} color={colors.gold} />
+      <Ionicons name="lock-closed" size={18} color={colors.primary} />
       <Text style={{ color: colors.secondary, fontSize: font.body, flex: 1 }}>{message}</Text>
     </View>
   )
@@ -285,7 +284,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: colors.borderSoft,
   },
-  headerTitle: { color: colors.white, fontWeight: '800', fontSize: font.h1 },
+  headerTitle: { color: colors.ink, fontWeight: '800', fontSize: font.h1 },
   headerSub: { color: colors.muted, fontSize: font.body, marginTop: 2 },
   card: {
     backgroundColor: colors.card,
@@ -294,6 +293,7 @@ const styles = StyleSheet.create({
     borderRadius: radius.lg,
     padding: spacing.lg,
     marginBottom: spacing.md,
+    ...shadow.card,
   },
   btn: {
     borderRadius: radius.md,
@@ -304,13 +304,13 @@ const styles = StyleSheet.create({
   },
   label: { color: colors.secondary, fontSize: font.body, marginBottom: 6 },
   input: {
-    backgroundColor: colors.overlay2,
+    backgroundColor: colors.card,
     borderWidth: 1,
     borderColor: colors.border,
     borderRadius: radius.md,
     paddingHorizontal: 14,
     paddingVertical: 12,
-    color: colors.white,
+    color: colors.ink,
     fontSize: 15,
   },
   errorText: { color: colors.redText, fontSize: font.small, marginTop: 4 },
@@ -343,7 +343,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
-    backgroundColor: 'rgba(245,197,24,0.06)',
+    backgroundColor: 'rgba(37,99,235,0.06)',
     borderWidth: 1,
     borderColor: colors.border,
     borderRadius: radius.lg,
@@ -358,4 +358,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export { colors, radius, spacing, font } from '@/theme'
+export { colors, radius, spacing, font, shadow } from '@/theme'

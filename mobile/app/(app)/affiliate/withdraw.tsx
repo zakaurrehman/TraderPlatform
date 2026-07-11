@@ -15,10 +15,10 @@ type Resp = {
 }
 
 const STATUS_COLOR: Record<string, string> = {
-  PENDING: '#f0b429',
-  APPROVED: '#f5c518',
-  PAID: '#00c851',
-  REJECTED: '#ff4444',
+  PENDING: '#f59e0b',
+  APPROVED: '#2563eb',
+  PAID: '#16a34a',
+  REJECTED: '#dc2626',
 }
 
 export default function WithdrawScreen() {
@@ -124,15 +124,15 @@ export default function WithdrawScreen() {
 }
 
 const styles = StyleSheet.create({
-  balanceCard: { backgroundColor: colors.card, borderWidth: 1, borderColor: 'rgba(0,200,81,0.15)', borderRadius: radius.xl, padding: 18, alignItems: 'center', marginBottom: 14 },
+  balanceCard: { backgroundColor: colors.card, borderWidth: 1, borderColor: 'rgba(22,163,74,0.15)', borderRadius: radius.xl, padding: 18, alignItems: 'center', marginBottom: 14 },
   balanceLabel: { color: colors.muted, fontSize: font.body },
   balanceValue: { color: colors.green, fontWeight: '900', fontSize: 36, marginTop: 4 },
   card: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border, borderRadius: radius.xl, padding: 18 },
-  successBox: { backgroundColor: 'rgba(0,200,81,0.06)', borderWidth: 1, borderColor: 'rgba(0,200,81,0.2)', borderRadius: radius.lg, padding: 20, alignItems: 'center', gap: 8 },
+  successBox: { backgroundColor: 'rgba(22,163,74,0.06)', borderWidth: 1, borderColor: 'rgba(22,163,74,0.2)', borderRadius: radius.lg, padding: 20, alignItems: 'center', gap: 8 },
   successText: { color: colors.green, fontWeight: '700', textAlign: 'center' },
   section: { color: colors.secondary, fontWeight: '700', fontSize: font.body, marginBottom: 8 },
   reqRow: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.borderSoft, borderRadius: radius.md, padding: 12, marginBottom: 8, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  reqAmt: { color: colors.white, fontWeight: '700' },
+  reqAmt: { color: colors.ink, fontWeight: '700' },
   reqDate: { color: colors.muted2, fontSize: font.tiny },
   reqStatus: { fontWeight: '700', fontSize: font.small },
 })

@@ -6,9 +6,9 @@ import { formatDateTime } from '@/lib/format'
 import type { Signal, SignalStatus } from '@/types'
 
 const STATUS_MAP: Record<SignalStatus, { label: string; color: string; bg: string }> = {
-  ACTIVE: { label: '🟢 Active', color: colors.green, bg: 'rgba(0,200,81,0.12)' },
-  HIT_TP: { label: '✅ TP Hit', color: colors.gold, bg: 'rgba(245,197,24,0.12)' },
-  HIT_SL: { label: '❌ SL Hit', color: colors.red, bg: 'rgba(255,68,68,0.12)' },
+  ACTIVE: { label: '🟢 Active', color: colors.green, bg: 'rgba(22,163,74,0.12)' },
+  HIT_TP: { label: '✅ TP Hit', color: colors.primary, bg: 'rgba(37,99,235,0.12)' },
+  HIT_SL: { label: '❌ SL Hit', color: colors.red, bg: 'rgba(220,38,38,0.12)' },
   CLOSED: { label: '⬜ Closed', color: colors.secondary, bg: 'rgba(148,163,184,0.1)' },
 }
 
@@ -32,7 +32,7 @@ export default function SignalCard({ signal }: { signal: Signal }) {
           <View
             style={[
               styles.dir,
-              { backgroundColor: isBuy ? 'rgba(0,200,81,0.15)' : 'rgba(255,68,68,0.15)' },
+              { backgroundColor: isBuy ? 'rgba(22,163,74,0.15)' : 'rgba(220,38,38,0.15)' },
             ]}
           >
             <Text style={{ color: isBuy ? colors.green : colors.redText, fontWeight: '800', fontSize: font.tiny }}>
@@ -82,13 +82,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   row: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 },
-  pair: { color: colors.white, fontWeight: '800', fontSize: 15 },
+  pair: { color: colors.ink, fontWeight: '800', fontSize: 15 },
   dir: { paddingHorizontal: 8, paddingVertical: 2, borderRadius: radius.pill },
   statusBadge: { paddingHorizontal: 9, paddingVertical: 3, borderRadius: radius.pill, borderWidth: 1 },
   grid: { flexDirection: 'row', gap: 6 },
   cell: { flex: 1, backgroundColor: colors.overlay, borderRadius: radius.sm, padding: 8 },
   cellLabel: { color: colors.muted, fontSize: font.micro, marginBottom: 2 },
-  cellValue: { color: colors.white, fontSize: font.small, fontWeight: '700' },
+  cellValue: { color: colors.ink, fontSize: font.small, fontWeight: '700' },
   image: { width: '100%', height: 160, borderRadius: radius.md, marginTop: 10 },
   notes: { color: colors.secondary, fontSize: font.small, marginTop: 8, lineHeight: 18 },
   date: { color: colors.muted2, fontSize: font.tiny, marginTop: 8 },

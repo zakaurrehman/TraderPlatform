@@ -168,7 +168,7 @@ export default function ProfileScreen() {
           title="Sign Out"
           variant="danger"
           icon="log-out-outline"
-          style={{ marginTop: spacing.md, backgroundColor: 'rgba(255,68,68,0.12)' }}
+          style={{ marginTop: spacing.md, backgroundColor: 'rgba(220,38,38,0.12)' }}
           onPress={signOut}
         />
 
@@ -202,28 +202,28 @@ function StatBox({ label, value }: { label: string; value: string }) {
 
 const styles = StyleSheet.create({
   header: { alignItems: 'center', paddingVertical: spacing.xxl, borderBottomWidth: 1, borderBottomColor: colors.borderSoft },
-  avatar: { width: 72, height: 72, borderRadius: 36, backgroundColor: colors.gold, alignItems: 'center', justifyContent: 'center', marginBottom: 12 },
-  avatarText: { color: colors.bg, fontSize: 28, fontWeight: '800' },
-  name: { color: colors.white, fontWeight: '800', fontSize: 20 },
+  avatar: { width: 72, height: 72, borderRadius: 36, backgroundColor: colors.primary, alignItems: 'center', justifyContent: 'center', marginBottom: 12 },
+  avatarText: { color: colors.white, fontSize: 28, fontWeight: '800' },
+  name: { color: colors.ink, fontWeight: '800', fontSize: 20 },
   sub: { color: colors.muted, fontSize: font.body, marginTop: 4 },
   statsRow: { flexDirection: 'row', gap: 10, marginBottom: spacing.md },
   statBox: { flex: 1, backgroundColor: colors.card, borderWidth: 1, borderColor: colors.borderSoft, borderRadius: radius.md, paddingVertical: 12, alignItems: 'center' },
-  statValue: { color: colors.gold, fontWeight: '800', fontSize: 20 },
+  statValue: { color: colors.primary, fontWeight: '800', fontSize: 20 },
   statLabel: { color: colors.muted2, fontSize: font.tiny },
   cardTitle: { color: colors.secondary, fontWeight: '700', fontSize: font.body, marginBottom: 10 },
   detailRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 7, borderBottomWidth: 1, borderBottomColor: colors.overlay },
   detailLabel: { color: colors.muted, fontSize: font.body },
-  detailValue: { color: colors.white, fontSize: font.body, maxWidth: '60%', textAlign: 'right' },
+  detailValue: { color: colors.ink, fontSize: font.body, maxWidth: '60%', textAlign: 'right' },
   certRow: { flexDirection: 'row', gap: 10, alignItems: 'center', paddingVertical: 8, borderBottomWidth: 1, borderBottomColor: colors.overlay },
-  certTitle: { color: colors.white, fontWeight: '600', fontSize: font.body },
+  certTitle: { color: colors.ink, fontWeight: '600', fontSize: font.body },
   certSub: { color: colors.muted, fontSize: font.tiny },
   linkRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: colors.overlay },
-  linkLabel: { color: colors.white, fontSize: font.body },
+  linkLabel: { color: colors.ink, fontSize: font.body },
   linkSub: { color: colors.muted2, fontSize: font.tiny },
-  upgrade: { backgroundColor: 'rgba(245,197,24,0.06)', borderWidth: 1, borderColor: 'rgba(245,197,24,0.2)', borderRadius: radius.lg, padding: spacing.lg, alignItems: 'center', gap: 8, marginTop: spacing.sm },
-  deleteSection: { marginTop: spacing.xl, padding: spacing.lg, borderWidth: 1, borderColor: 'rgba(255,68,68,0.2)', borderRadius: radius.lg, backgroundColor: 'rgba(255,68,68,0.04)' },
+  upgrade: { backgroundColor: 'rgba(37,99,235,0.06)', borderWidth: 1, borderColor: 'rgba(37,99,235,0.2)', borderRadius: radius.lg, padding: spacing.lg, alignItems: 'center', gap: 8, marginTop: spacing.sm },
+  deleteSection: { marginTop: spacing.xl, padding: spacing.lg, borderWidth: 1, borderColor: 'rgba(220,38,38,0.2)', borderRadius: radius.lg, backgroundColor: 'rgba(220,38,38,0.04)' },
   deleteSectionTitle: { color: colors.redText, fontWeight: '800', fontSize: 14, marginBottom: 6 },
   deleteSectionBody: { color: colors.muted, fontSize: font.small, lineHeight: 18, marginBottom: 12 },
-  upgradeTitle: { color: colors.white, fontWeight: '800', fontSize: 15 },
+  upgradeTitle: { color: colors.ink, fontWeight: '800', fontSize: 15 },
   upgradeSub: { color: colors.muted, fontSize: font.body, textAlign: 'center', marginBottom: 8 },
 })

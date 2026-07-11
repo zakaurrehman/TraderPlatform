@@ -23,7 +23,7 @@ function Stars({ value, onChange }: { value: number; onChange: (v: number) => vo
     <View style={{ flexDirection: 'row', gap: 6 }}>
       {[1, 2, 3, 4, 5].map((n) => (
         <Pressable key={n} onPress={() => onChange(n)}>
-          <Text style={{ fontSize: 28, color: n <= value ? '#f0b429' : colors.muted2 }}>★</Text>
+          <Text style={{ fontSize: 28, color: n <= value ? '#f59e0b' : colors.muted2 }}>★</Text>
         </Pressable>
       ))}
     </View>
@@ -109,7 +109,7 @@ export default function ReviewsScreen() {
                 <Text style={styles.reviewName}>{r.clientName}</Text>
                 <Text style={styles.reviewTime}>{timeAgo(r.createdAt)}</Text>
               </View>
-              <Text style={{ color: '#f0b429', marginBottom: 6 }}>{'★'.repeat(r.rating)}</Text>
+              <Text style={{ color: '#f59e0b', marginBottom: 6 }}>{'★'.repeat(r.rating)}</Text>
               <Text style={styles.reviewBody}>{r.content}</Text>
             </View>
           ))
@@ -121,13 +121,13 @@ export default function ReviewsScreen() {
 
 const styles = StyleSheet.create({
   card: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border, borderRadius: radius.xl, padding: 20, marginBottom: spacing.lg },
-  title: { color: colors.white, fontWeight: '800', fontSize: 18, marginBottom: spacing.md },
+  title: { color: colors.ink, fontWeight: '800', fontSize: 18, marginBottom: spacing.md },
   label: { color: colors.secondary, fontSize: font.body, marginBottom: 6 },
-  successBox: { backgroundColor: 'rgba(0,200,81,0.06)', borderWidth: 1, borderColor: 'rgba(0,200,81,0.2)', borderRadius: radius.lg, padding: 24, alignItems: 'center', marginBottom: spacing.lg, gap: 8 },
+  successBox: { backgroundColor: 'rgba(22,163,74,0.06)', borderWidth: 1, borderColor: 'rgba(22,163,74,0.2)', borderRadius: radius.lg, padding: 24, alignItems: 'center', marginBottom: spacing.lg, gap: 8 },
   successText: { color: colors.green, fontWeight: '700' },
   section: { color: colors.secondary, fontWeight: '700', fontSize: font.body, marginBottom: 8, marginTop: spacing.md },
   reviewCard: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.borderSoft, borderRadius: radius.md, padding: 14, marginBottom: 8 },
-  reviewName: { color: colors.white, fontWeight: '700' },
+  reviewName: { color: colors.ink, fontWeight: '700' },
   reviewTime: { color: colors.muted2, fontSize: font.tiny },
   reviewBody: { color: colors.secondary, fontSize: font.body, lineHeight: 20 },
 })

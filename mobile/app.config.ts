@@ -13,12 +13,12 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   version: '1.0.0',
   orientation: 'portrait',
   icon: './assets/icon.png',
-  userInterfaceStyle: 'dark',
-  backgroundColor: '#0a0a0f',
+  userInterfaceStyle: 'light',
+  backgroundColor: '#ffffff',
   splash: {
     image: './assets/splash.png',
     resizeMode: 'contain',
-    backgroundColor: '#0a0a0f',
+    backgroundColor: '#ffffff',
   },
   assetBundlePatterns: ['**/*'],
   ios: {
@@ -38,7 +38,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     package: 'com.tradewithshafy.app',
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
-      backgroundColor: '#0a0a0f',
+      backgroundColor: '#2563eb',
     },
     permissions: ['NOTIFICATIONS', 'POST_NOTIFICATIONS'],
   },
@@ -50,7 +50,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       'expo-notifications',
       {
         icon: './assets/notification-icon.png',
-        color: '#f5c518',
+        color: '#2563eb',
       },
     ],
     [

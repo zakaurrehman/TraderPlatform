@@ -65,11 +65,11 @@ export default function ClassroomScreen() {
                   <View style={{ flex: 1 }}>
                     <View style={styles.badgeRow}>
                       <Badge label={course.level} />
-                      {course.isPremium ? <Badge label="⭐ PREMIUM" color="#a855f7" /> : null}
-                      {locked ? <Badge label="🔒 Upgrade" color="#a855f7" /> : null}
+                      {course.isPremium ? <Badge label="⭐ PREMIUM" color="#7c3aed" /> : null}
+                      {locked ? <Badge label="🔒 Upgrade" color="#7c3aed" /> : null}
                       {certified ? <Badge label="✅ Certified" color={colors.green} /> : null}
                     </View>
-                    <Text style={[styles.cTitle, { color: locked ? colors.muted : colors.white }]}>
+                    <Text style={[styles.cTitle, { color: locked ? colors.muted : colors.ink }]}>
                       {course.title}
                     </Text>
                     <Text style={styles.cDesc}>{course.description}</Text>
@@ -91,13 +91,13 @@ export default function ClassroomScreen() {
 
 const styles = StyleSheet.create({
   head: { paddingHorizontal: spacing.lg, paddingTop: spacing.lg, paddingBottom: spacing.md, borderBottomWidth: 1, borderBottomColor: colors.borderSoft },
-  title: { color: colors.white, fontWeight: '800', fontSize: 20 },
+  title: { color: colors.ink, fontWeight: '800', fontSize: 20 },
   sub: { color: colors.muted, fontSize: font.body, marginTop: 2 },
   card: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border, borderRadius: radius.lg, padding: 16, marginBottom: 12 },
   cardTop: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 },
   badgeRow: { flexDirection: 'row', gap: 6, marginBottom: 6, flexWrap: 'wrap' },
   cTitle: { fontWeight: '700', fontSize: 16 },
   cDesc: { color: colors.muted2, fontSize: font.small, marginTop: 2 },
-  pct: { color: colors.gold, fontWeight: '800', fontSize: 20 },
+  pct: { color: colors.primary, fontWeight: '800', fontSize: 20 },
   frac: { color: colors.muted2, fontSize: font.micro },
 })

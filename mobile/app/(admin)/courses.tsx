@@ -96,7 +96,7 @@ export default function AdminCoursesScreen() {
               key={c.id}
               title={c.title}
               subtitle={`${c.level} · ${c.videos.length} video${c.videos.length === 1 ? '' : 's'}`}
-              badge={c.isPremium ? <Badge label="PREMIUM" color={colors.gold} /> : <Badge label="FREE" color={colors.green} />}
+              badge={c.isPremium ? <Badge label="PREMIUM" color={colors.primary} /> : <Badge label="FREE" color={colors.green} />}
             >
               {c.videos.slice(0, 5).map((v) => (
                 <Text key={v.id} style={{ color: colors.muted, fontSize: font.small }}>• {v.title}</Text>

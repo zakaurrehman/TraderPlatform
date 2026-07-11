@@ -53,9 +53,9 @@ export default function SignalsScreen() {
         <View style={styles.statsBanner}>
           <Text style={styles.statsMonth}>This Month — {cur.month}</Text>
           <View style={styles.statsGrid}>
-            <Stat value={`${cur.winRate}%`} label="Win Rate" color={colors.gold} />
+            <Stat value={`${cur.winRate}%`} label="Win Rate" color={colors.primary} />
             <Stat value={`+${cur.pipsGained}`} label="Pips" color={colors.green} />
-            <Stat value={`${cur.totalSignals}`} label="Signals" color={colors.white} />
+            <Stat value={`${cur.totalSignals}`} label="Signals" color={colors.ink} />
           </View>
         </View>
       ) : null}
@@ -63,7 +63,7 @@ export default function SignalsScreen() {
       <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.tools} contentContainerStyle={{ paddingHorizontal: spacing.lg, gap: 10 }}>
         {TOOLS.map((t) => (
           <Pressable key={t.label} style={styles.tool} onPress={() => router.push(t.href as never)}>
-            <Ionicons name={t.icon} size={20} color={colors.gold} />
+            <Ionicons name={t.icon} size={20} color={colors.primary} />
             <Text style={styles.toolLabel}>{t.label}</Text>
           </Pressable>
         ))}
@@ -96,12 +96,12 @@ function Stat({ value, label, color }: { value: string; label: string; color: st
 const styles = StyleSheet.create({
   head: { paddingHorizontal: spacing.lg, paddingTop: spacing.lg, paddingBottom: spacing.md, borderBottomWidth: 1, borderBottomColor: colors.borderSoft },
   headRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  title: { color: colors.white, fontWeight: '800', fontSize: 20 },
-  link: { color: colors.gold, fontSize: font.body, fontWeight: '600' },
+  title: { color: colors.ink, fontWeight: '800', fontSize: 20 },
+  link: { color: colors.primary, fontSize: font.body, fontWeight: '600' },
   activeRow: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 6 },
   greenDot: { width: 8, height: 8, borderRadius: 4, backgroundColor: colors.green },
   activeText: { color: colors.green, fontSize: font.body, fontWeight: '700' },
-  statsBanner: { margin: spacing.lg, marginBottom: spacing.sm, backgroundColor: 'rgba(245,197,24,0.06)', borderWidth: 1, borderColor: colors.border, borderRadius: radius.lg, padding: spacing.lg },
+  statsBanner: { margin: spacing.lg, marginBottom: spacing.sm, backgroundColor: 'rgba(37,99,235,0.06)', borderWidth: 1, borderColor: colors.border, borderRadius: radius.lg, padding: spacing.lg },
   statsMonth: { color: colors.muted, fontSize: font.tiny, marginBottom: 8 },
   statsGrid: { flexDirection: 'row', gap: 8 },
   tools: { marginVertical: spacing.sm },

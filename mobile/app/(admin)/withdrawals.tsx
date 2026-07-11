@@ -17,10 +17,10 @@ type Withdrawal = {
 }
 
 const COLOR: Record<string, string> = {
-  PENDING: '#f0b429',
-  APPROVED: '#f5c518',
-  PAID: '#00c851',
-  REJECTED: '#ff4444',
+  PENDING: '#f59e0b',
+  APPROVED: '#2563eb',
+  PAID: '#16a34a',
+  REJECTED: '#dc2626',
 }
 
 export default function AdminWithdrawalsScreen() {

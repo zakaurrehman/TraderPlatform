@@ -145,7 +145,7 @@ export default function RegisterScreen() {
 
           <Text style={styles.footer}>
             Already registered?{' '}
-            <Link href="/(auth)/login" style={{ color: colors.gold, fontWeight: '700' }}>Sign In</Link>
+            <Link href="/(auth)/login" style={{ color: colors.primary, fontWeight: '700' }}>Sign In</Link>
           </Text>
         </View>
       </ScrollView>
@@ -158,10 +158,10 @@ const styles = StyleSheet.create({
   logo: { width: 240, height: 70 },
   sub: { color: colors.muted, fontSize: font.body, textAlign: 'center', marginTop: 4 },
   card: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border, borderRadius: 18, padding: 22 },
-  errBox: { backgroundColor: 'rgba(255,68,68,0.1)', borderWidth: 1, borderColor: 'rgba(255,68,68,0.3)', borderRadius: 8, padding: 12, marginBottom: 12 },
+  errBox: { backgroundColor: 'rgba(220,38,38,0.1)', borderWidth: 1, borderColor: 'rgba(220,38,38,0.3)', borderRadius: 8, padding: 12, marginBottom: 12 },
   errText: { color: colors.redText, fontSize: font.body },
   footer: { textAlign: 'center', color: colors.muted2, fontSize: font.body, marginTop: 20 },
   successWrap: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: spacing.xl, gap: 14 },
-  successTitle: { color: colors.white, fontSize: 22, fontWeight: '800' },
+  successTitle: { color: colors.ink, fontSize: 22, fontWeight: '800' },
   successSub: { color: colors.muted, fontSize: font.body, textAlign: 'center', lineHeight: 22, marginBottom: 10 },
 })

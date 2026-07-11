@@ -78,9 +78,9 @@ function TabBar({ state, navigation }: {
             <Ionicons
               name={tab.icon as keyof typeof Ionicons.glyphMap}
               size={22}
-              color={isActive ? colors.gold : colors.muted}
+              color={isActive ? colors.primary : colors.muted}
             />
-            <Text style={[styles.label, { color: isActive ? colors.gold : colors.muted }]}>
+            <Text style={[styles.label, { color: isActive ? colors.primary : colors.muted }]}>
               {tab.label}
             </Text>
             {isActive ? <View style={styles.dot} /> : <View style={styles.dotPlaceholder} />}
@@ -96,9 +96,9 @@ export default function TabsLayout() {
     <Tabs
       tabBar={(props) => <TabBar {...(props as unknown as Parameters<typeof TabBar>[0])} />}
       screenOptions={{
-        headerStyle: { backgroundColor: colors.cardAlt },
-        headerTintColor: colors.gold,
-        headerTitleStyle: { color: colors.white, fontWeight: '800' },
+        headerStyle: { backgroundColor: colors.card },
+        headerTintColor: colors.primary,
+        headerTitleStyle: { color: colors.ink, fontWeight: '800' },
         headerShadowVisible: false,
       }}
     >
@@ -116,14 +116,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'space-around',
-    backgroundColor: colors.cardAlt,
+    backgroundColor: colors.card,
     borderTopWidth: 1,
-    borderTopColor: 'rgba(245,197,24,0.12)',
+    borderTopColor: colors.border,
     paddingTop: 8,
+    shadowColor: '#10131a',
+    shadowOpacity: 0.06,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: -4 },
+    elevation: 10,
   },
   item: { flex: 1, alignItems: 'center', paddingVertical: 4, gap: 2 },
   label: { fontSize: font.micro, fontWeight: '600' },
-  dot: { width: 4, height: 4, borderRadius: 2, backgroundColor: colors.gold, marginTop: 1 },
+  dot: { width: 4, height: 4, borderRadius: 2, backgroundColor: colors.primary, marginTop: 1 },
   dotPlaceholder: { width: 4, height: 4, marginTop: 1 },
   centerWrap: { flex: 1, alignItems: 'center', marginTop: -22 },
   centerLabel: { color: colors.redText, fontSize: font.micro, fontWeight: '700', marginTop: 3, letterSpacing: 0.5 },
@@ -140,6 +145,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     elevation: 8,
     borderWidth: 3,
-    borderColor: 'rgba(255,68,68,0.25)',
+    borderColor: 'rgba(220,38,38,0.25)',
   },
 })

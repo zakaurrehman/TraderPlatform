@@ -34,7 +34,7 @@ export default function AdminAffiliatesScreen() {
               key={a.id}
               title={`${a.fullName}  ·  @${a.username}`}
               subtitle={`${a.email}${a.referralCode ? `  ·  Ref ${a.referralCode}` : ''}  ·  ${a.sales} sales  ·  ${formatCurrency(a.earned)}`}
-              badge={<Badge label={a.status} color={a.status === 'APPROVED' ? colors.green : a.status === 'PENDING' ? '#f0b429' : colors.red} />}
+              badge={<Badge label={a.status} color={a.status === 'APPROVED' ? colors.green : a.status === 'PENDING' ? '#f59e0b' : colors.red} />}
             />
           ))
         )}

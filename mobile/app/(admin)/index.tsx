@@ -37,7 +37,7 @@ export default function AdminDashboard() {
             style={styles.tile}
             onPress={() => router.push(t.href as never)}
           >
-            <Ionicons name={t.icon} size={22} color={colors.gold} />
+            <Ionicons name={t.icon} size={22} color={colors.primary} />
             <Text style={styles.tileLabel}>{t.label}</Text>
             <Text style={styles.tileSub}>{t.desc}</Text>
           </Pressable>
@@ -48,7 +48,7 @@ export default function AdminDashboard() {
           title="Sign Out"
           variant="danger"
           icon="log-out-outline"
-          style={{ backgroundColor: 'rgba(255,68,68,0.12)' }}
+          style={{ backgroundColor: 'rgba(220,38,38,0.12)' }}
           onPress={signOut}
         />
       </View>
@@ -58,10 +58,10 @@ export default function AdminDashboard() {
 
 const styles = StyleSheet.create({
   head: { padding: spacing.lg, borderBottomWidth: 1, borderBottomColor: colors.borderSoft },
-  title: { color: colors.white, fontWeight: '800', fontSize: 22 },
+  title: { color: colors.ink, fontWeight: '800', fontSize: 22 },
   sub: { color: colors.muted, fontSize: font.body, marginTop: 2 },
   grid: { padding: spacing.lg, flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
   tile: { width: '48%', backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border, borderRadius: radius.lg, padding: 14, gap: 6 },
-  tileLabel: { color: colors.white, fontWeight: '800', fontSize: 15 },
+  tileLabel: { color: colors.ink, fontWeight: '800', fontSize: 15 },
   tileSub: { color: colors.muted, fontSize: font.tiny },
 })

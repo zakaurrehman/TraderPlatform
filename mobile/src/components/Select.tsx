@@ -28,7 +28,7 @@ export function Select({
     <View style={{ marginBottom: spacing.md }}>
       {label ? <Text style={styles.label}>{label}</Text> : null}
       <Pressable style={styles.box} onPress={() => setOpen(true)}>
-        <Text style={{ color: selected ? colors.white : colors.muted, fontSize: 15 }}>
+        <Text style={{ color: selected ? colors.ink : colors.muted, fontSize: 15 }}>
           {selected ? selected.label : placeholder}
         </Text>
         <Ionicons name="chevron-down" size={18} color={colors.muted} />
@@ -52,7 +52,7 @@ export function Select({
                 >
                   <Text
                     style={{
-                      color: item.value === value ? colors.gold : colors.body,
+                      color: item.value === value ? colors.primary : colors.body,
                       fontSize: 15,
                       fontWeight: item.value === value ? '700' : '400',
                     }}
@@ -60,7 +60,7 @@ export function Select({
                     {item.label}
                   </Text>
                   {item.value === value ? (
-                    <Ionicons name="checkmark" size={18} color={colors.gold} />
+                    <Ionicons name="checkmark" size={18} color={colors.primary} />
                   ) : null}
                 </Pressable>
               )}
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   err: { color: colors.redText, fontSize: font.small, marginTop: 4 },
-  backdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'flex-end' },
+  backdrop: { flex: 1, backgroundColor: 'rgba(16,19,26,0.45)', justifyContent: 'flex-end' },
   sheet: {
     backgroundColor: colors.card,
     borderTopLeftRadius: radius.xl,
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     maxHeight: '70%',
   },
   sheetTitle: {
-    color: colors.white,
+    color: colors.ink,
     fontWeight: '800',
     fontSize: font.h3,
     paddingHorizontal: spacing.lg,

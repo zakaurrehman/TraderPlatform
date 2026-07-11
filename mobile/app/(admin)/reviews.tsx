@@ -32,7 +32,7 @@ export default function AdminReviewsScreen() {
               key={r.id}
               title={`${r.clientName}  ${'★'.repeat(r.rating)}`}
               subtitle={r.content}
-              badge={<Badge label={r.status} color={r.status === 'APPROVED' ? colors.green : r.status === 'REJECTED' ? colors.red : '#f0b429'} />}
+              badge={<Badge label={r.status} color={r.status === 'APPROVED' ? colors.green : r.status === 'REJECTED' ? colors.red : '#f59e0b'} />}
             >
               {r.status !== 'APPROVED' ? (
                 <Button title="Approve" onPress={() => setStatus(r.id, 'APPROVED')} />

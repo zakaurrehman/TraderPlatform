@@ -77,11 +77,11 @@ export default function LiveScreen() {
 }
 
 const styles = StyleSheet.create({
-  liveCard: { backgroundColor: 'rgba(255,68,68,0.08)', borderWidth: 1, borderColor: 'rgba(255,68,68,0.3)', borderRadius: radius.lg, padding: 16, marginBottom: 14 },
+  liveCard: { backgroundColor: 'rgba(220,38,38,0.08)', borderWidth: 1, borderColor: 'rgba(220,38,38,0.3)', borderRadius: radius.lg, padding: 16, marginBottom: 14 },
   liveRow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10 },
   liveDot: { width: 10, height: 10, borderRadius: 5, backgroundColor: colors.red },
   liveText: { color: colors.redText, fontWeight: '800', fontSize: font.body, letterSpacing: 1 },
-  liveTitle: { color: colors.white, fontWeight: '800', fontSize: 18, marginBottom: 6 },
+  liveTitle: { color: colors.ink, fontWeight: '800', fontSize: 18, marginBottom: 6 },
   liveDesc: { color: colors.secondary, fontSize: font.body, marginBottom: 12 },
   watchBtn: { alignSelf: 'flex-start', backgroundColor: colors.red, borderRadius: radius.sm, paddingVertical: 10, paddingHorizontal: 22 },
   watchBtnText: { color: colors.white, fontWeight: '700' },
@@ -89,9 +89,9 @@ const styles = StyleSheet.create({
   muted: { color: colors.muted2, fontSize: font.body },
   card: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border, borderRadius: radius.md, padding: 14, marginBottom: 10 },
   cardHead: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' },
-  cardTitle: { color: colors.white, fontWeight: '700', fontSize: 15, flex: 1 },
+  cardTitle: { color: colors.ink, fontWeight: '700', fontSize: 15, flex: 1 },
   cardDesc: { color: colors.muted, fontSize: font.small, marginTop: 6 },
   cardDate: { color: colors.muted2, fontSize: font.tiny, marginTop: 6 },
-  chip: { backgroundColor: 'rgba(245,197,24,0.1)', borderRadius: radius.pill, paddingHorizontal: 8, paddingVertical: 2, marginLeft: 8 },
-  chipText: { color: colors.gold, fontSize: font.tiny, fontWeight: '700' },
+  chip: { backgroundColor: 'rgba(37,99,235,0.1)', borderRadius: radius.pill, paddingHorizontal: 8, paddingVertical: 2, marginLeft: 8 },
+  chipText: { color: colors.primary, fontSize: font.tiny, fontWeight: '700' },
 })

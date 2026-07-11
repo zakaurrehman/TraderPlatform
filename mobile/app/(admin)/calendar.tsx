@@ -70,7 +70,7 @@ export default function AdminCalendarScreen() {
               key={e.id}
               title={`${e.name}  ·  ${e.currency}`}
               subtitle={`${formatDateTime(e.eventTime)}${e.forecast ? `  ·  Fcst ${e.forecast}` : ''}${e.previous ? `  ·  Prev ${e.previous}` : ''}${e.actual ? `  ·  Actual ${e.actual}` : ''}`}
-              badge={<Badge label={e.impact} color={e.impact === 'HIGH' ? colors.red : e.impact === 'MEDIUM' ? '#f0b429' : colors.green} />}
+              badge={<Badge label={e.impact} color={e.impact === 'HIGH' ? colors.red : e.impact === 'MEDIUM' ? '#f59e0b' : colors.green} />}
             >
               <Field
                 placeholder="Set actual"

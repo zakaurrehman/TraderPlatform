@@ -39,7 +39,7 @@ export default function ResearchDetailScreen() {
       <View style={{ padding: spacing.lg }}>
         <View style={styles.badges}>
           <Badge label={post.category} />
-          {post.isPremium ? <Badge label="⭐ Premium" color="#f0b429" /> : null}
+          {post.isPremium ? <Badge label="⭐ Premium" color="#f59e0b" /> : null}
         </View>
         <Text style={styles.title}>{post.title}</Text>
         <View style={styles.metaRow}>
@@ -56,7 +56,7 @@ export default function ResearchDetailScreen() {
 const styles = StyleSheet.create({
   hero: { width: '100%', height: 200 },
   badges: { flexDirection: 'row', gap: 6, marginBottom: 12 },
-  title: { color: colors.white, fontWeight: '800', fontSize: 22, lineHeight: 29, marginBottom: 10 },
+  title: { color: colors.ink, fontWeight: '800', fontSize: 22, lineHeight: 29, marginBottom: 10 },
   metaRow: { flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 16, marginBottom: 18, borderBottomWidth: 1, borderBottomColor: colors.overlay },
   meta: { color: colors.muted2, fontSize: font.small },
   body: { color: colors.secondary, fontSize: 15, lineHeight: 27 },

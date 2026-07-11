@@ -41,7 +41,7 @@ export default function ResearchScreen() {
                 onPress={() => setCat(c)}
                 style={[styles.chip, active && styles.chipActive]}
               >
-                <Text style={{ color: active ? colors.gold : colors.muted, fontSize: font.small, fontWeight: '600' }}>
+                <Text style={{ color: active ? colors.primary : colors.muted, fontSize: font.small, fontWeight: '600' }}>
                   {c}
                 </Text>
               </Pressable>
@@ -74,15 +74,15 @@ export default function ResearchScreen() {
                 <View style={{ padding: 14 }}>
                   <View style={styles.badgeRow}>
                     <Badge label={post.category} />
-                    {post.isPremium ? <Badge label="⭐ PREMIUM" color="#a855f7" /> : null}
+                    {post.isPremium ? <Badge label="⭐ PREMIUM" color="#7c3aed" /> : null}
                     {locked ? <Badge label="🔒 Locked" color={colors.redText} /> : null}
                   </View>
-                  <Text style={[styles.cardTitle, { color: locked ? colors.muted : colors.white }]}>
+                  <Text style={[styles.cardTitle, { color: locked ? colors.muted : colors.ink }]}>
                     {post.title}
                   </Text>
                   {locked ? (
                     <View style={styles.lockBox}>
-                      <Text style={{ color: '#a855f7', fontSize: font.small, fontWeight: '600' }}>
+                      <Text style={{ color: '#7c3aed', fontSize: font.small, fontWeight: '600' }}>
                         🔒 PREMIUM plan required · Tap to upgrade
                       </Text>
                     </View>
@@ -106,15 +106,15 @@ export default function ResearchScreen() {
 const styles = StyleSheet.create({
   head: { paddingHorizontal: spacing.lg, paddingTop: spacing.lg, paddingBottom: spacing.md, borderBottomWidth: 1, borderBottomColor: colors.borderSoft },
   headRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  title: { color: colors.white, fontWeight: '800', fontSize: 20 },
+  title: { color: colors.ink, fontWeight: '800', fontSize: 20 },
   chip: { paddingHorizontal: 12, paddingVertical: 5, borderRadius: radius.pill, backgroundColor: colors.overlay2, borderWidth: 1, borderColor: colors.borderSoft },
-  chipActive: { backgroundColor: 'rgba(245,197,24,0.15)', borderColor: 'rgba(245,197,24,0.3)' },
+  chipActive: { backgroundColor: 'rgba(37,99,235,0.15)', borderColor: 'rgba(37,99,235,0.3)' },
   card: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border, borderRadius: radius.lg, overflow: 'hidden', marginBottom: 12 },
   cardImg: { width: '100%', height: 160 },
   badgeRow: { flexDirection: 'row', gap: 6, marginBottom: 8, flexWrap: 'wrap' },
   cardTitle: { fontWeight: '700', fontSize: 15, lineHeight: 21, marginBottom: 6 },
   snippet: { color: colors.muted, fontSize: font.small, lineHeight: 18, marginBottom: 8 },
-  lockBox: { backgroundColor: 'rgba(168,85,247,0.08)', borderWidth: 1, borderColor: 'rgba(168,85,247,0.2)', borderRadius: 8, padding: 10, marginBottom: 8 },
+  lockBox: { backgroundColor: 'rgba(124,58,237,0.08)', borderWidth: 1, borderColor: 'rgba(124,58,237,0.2)', borderRadius: 8, padding: 10, marginBottom: 8 },
   metaRow: { flexDirection: 'row', justifyContent: 'space-between' },
   meta: { color: colors.muted2, fontSize: font.tiny },
 })

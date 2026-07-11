@@ -27,9 +27,9 @@ export default function SignalHistoryScreen() {
         <Card>
           <Text style={styles.cardLabel}>Overall Performance</Text>
           <View style={styles.grid}>
-            <Box value={`${wr}%`} label="Win Rate" color={colors.gold} bg="rgba(245,197,24,0.06)" />
-            <Box value={`${tp}`} label="TP Hits" color={colors.green} bg="rgba(0,200,81,0.06)" />
-            <Box value={`${sl}`} label="SL Hits" color={colors.red} bg="rgba(255,68,68,0.06)" />
+            <Box value={`${wr}%`} label="Win Rate" color={colors.primary} bg="rgba(37,99,235,0.06)" />
+            <Box value={`${tp}`} label="TP Hits" color={colors.green} bg="rgba(22,163,74,0.06)" />
+            <Box value={`${sl}`} label="SL Hits" color={colors.red} bg="rgba(220,38,38,0.06)" />
           </View>
         </Card>
 
@@ -77,9 +77,9 @@ const styles = StyleSheet.create({
   box: { flex: 1, borderRadius: radius.sm, paddingVertical: 12, alignItems: 'center' },
   section: { color: colors.secondary, fontSize: font.body, fontWeight: '700', marginTop: spacing.lg, marginBottom: spacing.sm },
   monthRow: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.borderSoft, borderRadius: radius.md, padding: 12, marginBottom: 8, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  monthName: { color: colors.white, fontWeight: '700', fontSize: 14 },
+  monthName: { color: colors.ink, fontWeight: '700', fontSize: 14 },
   monthSub: { color: colors.muted, fontSize: font.small },
-  monthWr: { color: colors.gold, fontWeight: '800', fontSize: 16 },
+  monthWr: { color: colors.primary, fontWeight: '800', fontSize: 16 },
   monthPips: { color: colors.green, fontSize: font.small },
   empty: { color: colors.muted2, textAlign: 'center', padding: 32 },
 })

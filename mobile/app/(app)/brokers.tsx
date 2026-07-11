@@ -31,12 +31,12 @@ export default function BrokersScreen() {
               key={b.id}
               style={[
                 styles.card,
-                { borderColor: b.isRecommended ? 'rgba(240,180,41,0.25)' : colors.borderSoft },
+                { borderColor: b.isRecommended ? 'rgba(245,158,11,0.25)' : colors.borderSoft },
               ]}
             >
               {b.isRecommended ? (
                 <View style={styles.pickBadge}>
-                  <Text style={{ color: '#f0b429', fontSize: font.tiny, fontWeight: '700' }}>
+                  <Text style={{ color: '#f59e0b', fontSize: font.tiny, fontWeight: '700' }}>
                     ⭐ Shafy&apos;s Pick
                   </Text>
                 </View>
@@ -56,7 +56,7 @@ export default function BrokersScreen() {
                   </View>
                 ) : null}
                 {b.regulation ? (
-                  <View style={[styles.tag, { backgroundColor: 'rgba(0,200,81,0.08)' }]}>
+                  <View style={[styles.tag, { backgroundColor: 'rgba(22,163,74,0.08)' }]}>
                     <Text style={[styles.tagText, { color: colors.green }]}>✓ {b.regulation}</Text>
                   </View>
                 ) : null}
@@ -73,20 +73,20 @@ export default function BrokersScreen() {
 }
 
 const styles = StyleSheet.create({
-  disclaimer: { backgroundColor: 'rgba(240,180,41,0.06)', borderWidth: 1, borderColor: 'rgba(240,180,41,0.2)', borderRadius: radius.md, padding: 12, marginBottom: 14 },
-  discTitle: { color: '#f0b429', fontWeight: '700', fontSize: font.body },
+  disclaimer: { backgroundColor: 'rgba(245,158,11,0.06)', borderWidth: 1, borderColor: 'rgba(245,158,11,0.2)', borderRadius: radius.md, padding: 12, marginBottom: 14 },
+  discTitle: { color: '#f59e0b', fontWeight: '700', fontSize: font.body },
   discBody: { color: colors.secondary, fontSize: font.small, lineHeight: 18, marginTop: 4 },
   card: { backgroundColor: colors.card, borderWidth: 1, borderRadius: radius.lg, padding: 16, marginBottom: 12 },
-  pickBadge: { alignSelf: 'flex-start', backgroundColor: 'rgba(240,180,41,0.1)', borderWidth: 1, borderColor: 'rgba(240,180,41,0.2)', borderRadius: 6, paddingHorizontal: 8, paddingVertical: 2, marginBottom: 8 },
+  pickBadge: { alignSelf: 'flex-start', backgroundColor: 'rgba(245,158,11,0.1)', borderWidth: 1, borderColor: 'rgba(245,158,11,0.2)', borderRadius: 6, paddingHorizontal: 8, paddingVertical: 2, marginBottom: 8 },
   headRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 },
-  name: { color: colors.white, fontWeight: '800', fontSize: 17 },
+  name: { color: colors.ink, fontWeight: '800', fontSize: 17 },
   ratingRow: { flexDirection: 'row', gap: 4, alignItems: 'center' },
-  star: { color: '#f0b429', fontSize: 14 },
-  rating: { color: colors.white, fontWeight: '700', fontSize: font.body },
+  star: { color: '#f59e0b', fontSize: 14 },
+  rating: { color: colors.ink, fontWeight: '700', fontSize: font.body },
   desc: { color: colors.muted, fontSize: font.body, lineHeight: 20, marginBottom: 12 },
   tagsRow: { flexDirection: 'row', gap: 8, flexWrap: 'wrap', marginBottom: 12 },
-  tag: { backgroundColor: 'rgba(245,197,24,0.08)', borderRadius: radius.pill, paddingHorizontal: 9, paddingVertical: 3 },
+  tag: { backgroundColor: 'rgba(37,99,235,0.08)', borderRadius: radius.pill, paddingHorizontal: 9, paddingVertical: 3 },
   tagText: { color: colors.secondary, fontSize: font.tiny },
-  btn: { backgroundColor: colors.gold, borderRadius: radius.sm, paddingVertical: 11, alignItems: 'center' },
-  btnText: { color: colors.bg, fontWeight: '800', fontSize: 14 },
+  btn: { backgroundColor: colors.primary, borderRadius: radius.sm, paddingVertical: 11, alignItems: 'center' },
+  btnText: { color: colors.white, fontWeight: '800', fontSize: 14 },
 })

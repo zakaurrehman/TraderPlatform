@@ -120,7 +120,7 @@ export default function LoginScreen() {
 
             <Text style={styles.footer}>
               Don&apos;t have an account?{' '}
-              <Link href="/(auth)/register" style={{ color: colors.gold, fontWeight: '700' }}>
+              <Link href="/(auth)/register" style={{ color: colors.primary, fontWeight: '700' }}>
                 Register as Affiliate
               </Link>
             </Text>
@@ -144,9 +144,9 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   errBox: {
-    backgroundColor: 'rgba(255,68,68,0.1)',
+    backgroundColor: 'rgba(220,38,38,0.1)',
     borderWidth: 1,
-    borderColor: 'rgba(255,68,68,0.3)',
+    borderColor: 'rgba(220,38,38,0.3)',
     borderRadius: 8,
     padding: 12,
     marginBottom: 12,

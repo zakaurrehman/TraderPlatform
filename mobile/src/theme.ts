@@ -1,27 +1,35 @@
 /**
- * Design tokens — mirrors the web app exactly.
+ * Design tokens — light "Clarity" theme, mirrors the web design system.
+ * White surfaces, slate ink text, royal-blue #2563EB primary.
  */
 export const colors = {
-  bg: '#0a0a0f',
-  card: '#111118',
-  cardAlt: '#0f0f15',
-  gold: '#f5c518',
-  goldDark: '#c9a000',
-  goldAmber: '#e0a800',
-  green: '#00c851',
-  greenBright: '#00ff88',
-  red: '#ff4444',
-  redText: '#ff6666',
-  redDark: '#cc0000',
-  muted: '#64748b',
-  muted2: '#475569',
-  secondary: '#94a3b8',
-  body: '#e2e8f0',
+  /* surfaces */
+  bg: '#f6f8fb',            // app canvas (soft cool white so cards pop)
+  card: '#ffffff',          // cards
+  cardAlt: '#fbfcfe',       // bars / headers
+  /* primary (royal blue) */
+  primary: '#2563eb',
+  primaryDark: '#1d4ed8',
+  primaryBright: '#3b82f6',
+  primaryTint: 'rgba(37,99,235,0.08)',
+  /* semantic */
+  green: '#16a34a',
+  greenBright: '#22c55e',
+  red: '#dc2626',
+  redText: '#dc2626',
+  redDark: '#b91c1c',
+  /* text (strongest → faintest) */
+  ink: '#10131a',
+  body: '#2b3442',
+  secondary: '#55606f',
+  muted: '#7a8494',
+  muted2: '#9aa3b2',
   white: '#ffffff',
-  border: 'rgba(245,197,24,0.1)',
-  borderSoft: 'rgba(245,197,24,0.06)',
-  overlay: 'rgba(255,255,255,0.04)',
-  overlay2: 'rgba(255,255,255,0.05)',
+  /* lines + overlays */
+  border: '#e5e8ee',
+  borderSoft: '#eef1f5',
+  overlay: 'rgba(16,19,26,0.04)',
+  overlay2: 'rgba(16,19,26,0.05)',
 } as const
 
 export const radius = {
@@ -51,12 +59,37 @@ export const font = {
   micro: 10,
 } as const
 
-/** Plan badge colors — matches the web plan badges. */
+/** Soft elevation for cards on the light canvas. */
+export const shadow = {
+  card: {
+    shadowColor: '#10131a',
+    shadowOpacity: 0.06,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 2,
+  },
+  raised: {
+    shadowColor: '#10131a',
+    shadowOpacity: 0.12,
+    shadowRadius: 20,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 6,
+  },
+  primary: {
+    shadowColor: '#2563eb',
+    shadowOpacity: 0.35,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 6,
+  },
+} as const
+
+/** Plan badge colors — light-friendly tints with high-contrast text. */
 export const planColors: Record<string, { bg: string; color: string }> = {
-  FREE: { bg: 'rgba(148,163,184,0.15)', color: '#94a3b8' },
-  BASIC: { bg: 'rgba(0,200,81,0.15)', color: '#00c851' },
-  ADVANCED: { bg: 'rgba(56,189,248,0.15)', color: '#38bdf8' },
-  MASTERY: { bg: 'rgba(167,139,250,0.18)', color: '#a78bfa' },
-  PREMIUM: { bg: 'rgba(245,197,24,0.18)', color: '#f5c518' },
-  MENTORSHIP: { bg: 'rgba(255,68,68,0.18)', color: '#ff6666' },
+  FREE: { bg: 'rgba(85,96,111,0.10)', color: '#55606f' },
+  BASIC: { bg: 'rgba(22,163,74,0.10)', color: '#15803d' },
+  ADVANCED: { bg: 'rgba(2,132,199,0.10)', color: '#0369a1' },
+  MASTERY: { bg: 'rgba(124,58,237,0.10)', color: '#6d28d9' },
+  PREMIUM: { bg: 'rgba(37,99,235,0.10)', color: '#1d4ed8' },
+  MENTORSHIP: { bg: 'rgba(220,38,38,0.10)', color: '#b91c1c' },
 }

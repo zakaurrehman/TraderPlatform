@@ -59,7 +59,7 @@ export default function AdminResourcesScreen() {
               key={r.id}
               title={r.title}
               subtitle={`${r.category}  ·  ${r.downloads} downloads`}
-              badge={<Badge label={r.tier} color={r.tier === 'FREE' ? colors.green : r.tier === 'BASIC' ? colors.gold : '#f0b429'} />}
+              badge={<Badge label={r.tier} color={r.tier === 'FREE' ? colors.green : r.tier === 'BASIC' ? colors.primary : '#f59e0b'} />}
             />
           ))
         )}

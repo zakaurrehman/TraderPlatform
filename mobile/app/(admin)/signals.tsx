@@ -76,7 +76,7 @@ export default function AdminSignalsScreen() {
               key={s.id}
               title={`${s.pair} ${s.direction}`}
               subtitle={`Entry ${s.entry} · TP ${s.tp1} · SL ${s.sl}${s.pips != null ? `  ·  ${s.pips}p` : ''}`}
-              badge={<Badge label={s.status} color={s.status === 'HIT_TP' ? colors.gold : s.status === 'HIT_SL' ? colors.red : s.status === 'ACTIVE' ? colors.green : colors.secondary} />}
+              badge={<Badge label={s.status} color={s.status === 'HIT_TP' ? colors.primary : s.status === 'HIT_SL' ? colors.red : s.status === 'ACTIVE' ? colors.green : colors.secondary} />}
             >
               {s.status === 'ACTIVE' ? (
                 <>

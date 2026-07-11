@@ -11,13 +11,13 @@ const OVERVIEW_HTML = `
 <!DOCTYPE html><html><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>body{margin:0;background:#111118;color:#e2e8f0;font-family:-apple-system,Segoe UI,sans-serif}</style>
+<style>body{margin:0;background:#f6f8fb;color:#10131a;font-family:-apple-system,Segoe UI,sans-serif}</style>
 </head><body>
 <div class="tradingview-widget-container">
   <div class="tradingview-widget-container__widget"></div>
   <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
   {
-    "colorTheme": "dark","dateRange": "1D","showChart": true,"locale": "en","largeChartUrl": "",
+    "colorTheme": "light","dateRange": "1D","showChart": true,"locale": "en","largeChartUrl": "",
     "isTransparent": true,"showSymbolLogo": true,"showFloatingTooltip": false,
     "width": "100%","height": "550",
     "tabs": [
@@ -52,7 +52,7 @@ function miniHtml(tv: string) {
 <div class="tradingview-widget-container">
 <div class="tradingview-widget-container__widget"></div>
 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-{"symbol":"${tv}","width":"100%","height":60,"locale":"en","dateRange":"1D","colorTheme":"dark","isTransparent":true,"autosize":false,"noTimeScale":true}
+{"symbol":"${tv}","width":"100%","height":60,"locale":"en","dateRange":"1D","colorTheme":"light","isTransparent":true,"autosize":false,"noTimeScale":true}
 </script></div></body></html>`
 }
 
@@ -97,6 +97,6 @@ const styles = StyleSheet.create({
   overview: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border, borderRadius: radius.lg, overflow: 'hidden', marginBottom: 14 },
   section: { color: colors.secondary, fontWeight: '700', fontSize: font.body, marginBottom: 8 },
   row: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.borderSoft, borderRadius: radius.md, padding: 12, marginBottom: 8, flexDirection: 'row', alignItems: 'center', gap: 12 },
-  symbol: { color: colors.white, fontWeight: '700', fontSize: 14 },
+  symbol: { color: colors.ink, fontWeight: '700', fontSize: 14 },
   name: { color: colors.muted2, fontSize: font.tiny, marginTop: 1 },
 })

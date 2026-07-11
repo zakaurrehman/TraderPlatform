@@ -22,7 +22,7 @@ export default function CommunityScreen() {
 
       <View style={{ padding: spacing.lg }}>
         <Pressable style={styles.newBtn} onPress={() => router.push('/(app)/community/new')}>
-          <Ionicons name="create-outline" size={18} color={colors.bg} />
+          <Ionicons name="create-outline" size={18} color={colors.white} />
           <Text style={styles.newBtnText}>Create a Post</Text>
         </Pressable>
 
@@ -77,18 +77,18 @@ export default function CommunityScreen() {
 
 const styles = StyleSheet.create({
   head: { paddingHorizontal: spacing.lg, paddingTop: spacing.lg, paddingBottom: spacing.md, borderBottomWidth: 1, borderBottomColor: colors.borderSoft },
-  title: { color: colors.white, fontWeight: '800', fontSize: 20 },
+  title: { color: colors.ink, fontWeight: '800', fontSize: 20 },
   sub: { color: colors.muted, fontSize: font.body, marginTop: 2 },
-  newBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, backgroundColor: colors.gold, borderRadius: radius.md, paddingVertical: 12, marginBottom: spacing.md },
-  newBtnText: { color: colors.bg, fontWeight: '800', fontSize: 14 },
+  newBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, backgroundColor: colors.primary, borderRadius: radius.md, paddingVertical: 12, marginBottom: spacing.md },
+  newBtnText: { color: colors.white, fontWeight: '800', fontSize: 14 },
   card: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border, borderRadius: radius.lg, padding: 14, marginBottom: 12 },
   img: { width: '100%', height: 160, borderRadius: radius.sm, marginBottom: 10 },
   authorRow: { flexDirection: 'row', gap: 8, alignItems: 'center', marginBottom: 6 },
-  avatar: { width: 32, height: 32, borderRadius: 16, backgroundColor: 'rgba(245,197,24,0.15)', alignItems: 'center', justifyContent: 'center' },
-  avatarText: { color: colors.gold, fontWeight: '800', fontSize: 13 },
-  authorName: { color: colors.white, fontWeight: '700', fontSize: font.body },
+  avatar: { width: 32, height: 32, borderRadius: 16, backgroundColor: 'rgba(37,99,235,0.15)', alignItems: 'center', justifyContent: 'center' },
+  avatarText: { color: colors.primary, fontWeight: '800', fontSize: 13 },
+  authorName: { color: colors.ink, fontWeight: '700', fontSize: font.body },
   authorSub: { color: colors.muted2, fontSize: font.tiny },
-  postTitle: { color: colors.white, fontWeight: '700', fontSize: 14, lineHeight: 20, marginBottom: 6 },
+  postTitle: { color: colors.ink, fontWeight: '700', fontSize: 14, lineHeight: 20, marginBottom: 6 },
   snippet: { color: colors.muted, fontSize: font.small, lineHeight: 18, marginBottom: 10 },
   statsRow: { flexDirection: 'row', gap: 16 },
   stat: { color: colors.muted2, fontSize: font.small },

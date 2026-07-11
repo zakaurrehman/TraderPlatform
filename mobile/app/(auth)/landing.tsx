@@ -137,7 +137,7 @@ export default function LandingScreen() {
               onPress={() => router.push('/(auth)/register')}
             >
               <Text style={styles.primaryBtnText}>Get Started</Text>
-              <Ionicons name="arrow-forward" size={16} color={colors.bg} />
+              <Ionicons name="arrow-forward" size={16} color={colors.white} />
             </Pressable>
             <Pressable
               style={styles.outlineBtn}
@@ -199,9 +199,9 @@ export default function LandingScreen() {
             </Text>
             <Text style={styles.aboutBody}>
               Years of full-time Forex trading experience with a methodology rooted in
-              <Text style={{ color: colors.gold, fontWeight: '700' }}> ICT </Text>
+              <Text style={{ color: colors.primary, fontWeight: '700' }}> ICT </Text>
               and
-              <Text style={{ color: colors.gold, fontWeight: '700' }}> Smart Money </Text>
+              <Text style={{ color: colors.primary, fontWeight: '700' }}> Smart Money </Text>
               concepts — tracking institutional order flow, liquidity sweeps and market
               structure to predict high-probability moves.
             </Text>
@@ -229,7 +229,7 @@ export default function LandingScreen() {
               </View>
             </View>
             {[
-              { l: 'Entry', v: '2,345.50', c: colors.white },
+              { l: 'Entry', v: '2,345.50', c: colors.ink },
               { l: 'Take Profit 1', v: '2,358.00  +125 pips', c: colors.green },
               { l: 'Take Profit 2', v: '2,372.00  +265 pips', c: colors.green },
               { l: 'Stop Loss', v: '2,335.00  -105 pips', c: colors.redText },
@@ -254,7 +254,7 @@ export default function LandingScreen() {
             {PAIRS.map((p) => (
               <View key={p.pair} style={[styles.pairChip, p.hot && styles.pairChipHot]}>
                 <Text style={{ fontSize: 14 }}>{p.flag}</Text>
-                <Text style={[styles.pairText, p.hot && { color: colors.gold }]}>{p.pair}</Text>
+                <Text style={[styles.pairText, p.hot && { color: colors.primary }]}>{p.pair}</Text>
                 {p.hot ? <View style={styles.hotTag}><Text style={styles.hotTagText}>HOT</Text></View> : null}
               </View>
             ))}
@@ -275,27 +275,27 @@ export default function LandingScreen() {
               >
                 {p.badge ? (
                   <View style={[styles.planBadge, p.highlight && { backgroundColor: colors.bg }]}>
-                    <Text style={[styles.planBadgeText, p.highlight && { color: colors.gold }]}>{p.badge}</Text>
+                    <Text style={[styles.planBadgeText, p.highlight && { color: colors.primary }]}>{p.badge}</Text>
                   </View>
                 ) : null}
                 {p.originalPrice ? (
                   <View style={styles.priceLine}>
-                    <Text style={[styles.priceOld, p.highlight && { color: 'rgba(0,0,0,0.6)' }]}>{p.originalPrice}</Text>
-                    <View style={[styles.discountTag, p.highlight && { backgroundColor: 'rgba(0,0,0,0.2)' }]}>
-                      <Text style={[styles.discountText, p.highlight && { color: colors.bg }]}>20% OFF</Text>
+                    <Text style={[styles.priceOld, p.highlight && { color: 'rgba(255,255,255,0.8)' }]}>{p.originalPrice}</Text>
+                    <View style={[styles.discountTag, p.highlight && { backgroundColor: 'rgba(255,255,255,0.22)' }]}>
+                      <Text style={[styles.discountText, p.highlight && { color: colors.white }]}>20% OFF</Text>
                     </View>
                   </View>
                 ) : null}
-                <Text style={[styles.planName, p.highlight && { color: colors.bg }]}>{p.name}</Text>
+                <Text style={[styles.planName, p.highlight && { color: colors.white }]}>{p.name}</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 4 }}>
-                  <Text style={[styles.planPrice, p.highlight && { color: colors.bg }]}>{p.price}</Text>
-                  <Text style={[styles.planPeriod, p.highlight && { color: 'rgba(0,0,0,0.6)' }]}>/{p.period}</Text>
+                  <Text style={[styles.planPrice, p.highlight && { color: colors.white }]}>{p.price}</Text>
+                  <Text style={[styles.planPeriod, p.highlight && { color: 'rgba(255,255,255,0.8)' }]}>/{p.period}</Text>
                 </View>
-                <Text style={[styles.planDesc, p.highlight && { color: 'rgba(0,0,0,0.6)' }]}>{p.desc}</Text>
+                <Text style={[styles.planDesc, p.highlight && { color: 'rgba(255,255,255,0.8)' }]}>{p.desc}</Text>
                 {p.features.map((f) => (
                   <View key={f} style={styles.featureLine}>
-                    <Text style={[styles.featureCheck, p.highlight && { color: colors.bg }]}>✓</Text>
-                    <Text style={[styles.featureText, p.highlight && { color: 'rgba(0,0,0,0.75)' }]}>{f}</Text>
+                    <Text style={[styles.featureCheck, p.highlight && { color: colors.white }]}>✓</Text>
+                    <Text style={[styles.featureText, p.highlight && { color: 'rgba(255,255,255,0.92)' }]}>{f}</Text>
                   </View>
                 ))}
                 {!p.disabled ? (
@@ -303,7 +303,7 @@ export default function LandingScreen() {
                     style={[styles.planCta, p.highlight && { backgroundColor: colors.bg }]}
                     onPress={() => router.push('/(auth)/register')}
                   >
-                    <Text style={[styles.planCtaText, p.highlight && { color: colors.gold }]}>Get Started</Text>
+                    <Text style={[styles.planCtaText, p.highlight && { color: colors.primary }]}>Get Started</Text>
                   </Pressable>
                 ) : (
                   <View style={styles.comingSoon}>
@@ -381,7 +381,7 @@ export default function LandingScreen() {
                 style={styles.socialBtn}
                 onPress={() => WebBrowser.openBrowserAsync(s.url)}
               >
-                <Ionicons name={s.icon} size={18} color={colors.gold} />
+                <Ionicons name={s.icon} size={18} color={colors.primary} />
               </Pressable>
             ))}
           </View>
@@ -419,7 +419,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
     <View style={styles.faqItem}>
       <Pressable style={styles.faqHead} onPress={() => setOpen((v) => !v)}>
         <Text style={styles.faqQ}>{q}</Text>
-        <Ionicons name={open ? 'chevron-up' : 'chevron-down'} size={18} color={colors.gold} />
+        <Ionicons name={open ? 'chevron-up' : 'chevron-down'} size={18} color={colors.primary} />
       </Pressable>
       {open ? <Text style={styles.faqA}>{a}</Text> : null}
     </View>
@@ -433,9 +433,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: spacing.lg,
     paddingVertical: 10,
-    backgroundColor: 'rgba(10,10,15,0.95)',
+    backgroundColor: 'rgba(255,255,255,0.96)',
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(245,197,24,0.1)',
+    borderBottomColor: 'rgba(37,99,235,0.1)',
   },
   topLogo: { width: 130, height: 36 },
   topButtons: { flexDirection: 'row', gap: 8 },
@@ -444,93 +444,93 @@ const styles = StyleSheet.create({
     paddingVertical: 7,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: 'rgba(245,197,24,0.3)',
+    borderColor: 'rgba(37,99,235,0.3)',
   },
-  outlineBtnSmText: { color: colors.gold, fontSize: 13, fontWeight: '700' },
+  outlineBtnSmText: { color: colors.primary, fontSize: 13, fontWeight: '700' },
   primaryBtnSm: {
     paddingHorizontal: 12,
     paddingVertical: 7,
     borderRadius: 8,
-    backgroundColor: colors.gold,
+    backgroundColor: colors.primary,
   },
-  primaryBtnSmText: { color: colors.bg, fontSize: 13, fontWeight: '800' },
+  primaryBtnSmText: { color: colors.white, fontSize: 13, fontWeight: '800' },
 
   // Hero
   hero: { paddingHorizontal: spacing.lg, paddingTop: 32, paddingBottom: 24, alignItems: 'center' },
   heroChip: {
-    backgroundColor: 'rgba(245,197,24,0.1)',
-    borderColor: 'rgba(245,197,24,0.2)',
+    backgroundColor: 'rgba(37,99,235,0.1)',
+    borderColor: 'rgba(37,99,235,0.2)',
     borderWidth: 1,
     borderRadius: radius.pill,
     paddingHorizontal: 12,
     paddingVertical: 4,
     marginBottom: 14,
   },
-  heroChipText: { color: colors.gold, fontSize: 10, fontWeight: '800', letterSpacing: 1 },
-  heroTitle: { color: colors.white, fontSize: 38, fontWeight: '900', textAlign: 'center', lineHeight: 44, letterSpacing: -0.5, marginBottom: 14 },
-  heroTitleAccent: { color: colors.gold },
+  heroChipText: { color: colors.primary, fontSize: 10, fontWeight: '800', letterSpacing: 1 },
+  heroTitle: { color: colors.ink, fontSize: 38, fontWeight: '900', textAlign: 'center', lineHeight: 44, letterSpacing: -0.5, marginBottom: 14 },
+  heroTitleAccent: { color: colors.primary },
   heroSub: { color: colors.secondary, fontSize: font.body, lineHeight: 22, textAlign: 'center', marginBottom: 22 },
   ctaRow: { flexDirection: 'row', gap: 10, marginBottom: 18 },
   primaryBtn: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    backgroundColor: colors.gold,
+    backgroundColor: colors.primary,
     paddingHorizontal: 22,
     paddingVertical: 12,
     borderRadius: 10,
   },
-  primaryBtnText: { color: colors.bg, fontWeight: '800', fontSize: 15 },
+  primaryBtnText: { color: colors.white, fontWeight: '800', fontSize: 15 },
   outlineBtn: {
     borderWidth: 1,
-    borderColor: 'rgba(245,197,24,0.3)',
+    borderColor: 'rgba(37,99,235,0.3)',
     paddingHorizontal: 22,
     paddingVertical: 12,
     borderRadius: 10,
   },
-  outlineBtnText: { color: colors.gold, fontWeight: '700', fontSize: 15 },
+  outlineBtnText: { color: colors.primary, fontWeight: '700', fontSize: 15 },
   trustRow: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 10 },
   trustItem: { color: colors.muted2, fontSize: 12 },
 
   // Stats
   statsSection: {
-    backgroundColor: 'rgba(245,197,24,0.05)',
+    backgroundColor: 'rgba(37,99,235,0.05)',
     borderTopWidth: 1,
-    borderTopColor: 'rgba(245,197,24,0.08)',
+    borderTopColor: 'rgba(37,99,235,0.08)',
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(245,197,24,0.08)',
+    borderBottomColor: 'rgba(37,99,235,0.08)',
     paddingVertical: 20,
     paddingHorizontal: spacing.lg,
     marginBottom: 32,
   },
   statsGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around', gap: 12 },
   statBox: { alignItems: 'center', flexBasis: '22%', minWidth: 70 },
-  statValue: { color: colors.gold, fontWeight: '900', fontSize: 22 },
+  statValue: { color: colors.primary, fontWeight: '900', fontSize: 22 },
   statLabel: { color: colors.muted, fontSize: 11, marginTop: 2, textAlign: 'center' },
 
   // Section
   eyebrow: {
-    backgroundColor: 'rgba(245,197,24,0.08)',
-    borderColor: 'rgba(245,197,24,0.15)',
+    backgroundColor: 'rgba(37,99,235,0.08)',
+    borderColor: 'rgba(37,99,235,0.15)',
     borderWidth: 1,
     borderRadius: radius.pill,
     paddingHorizontal: 12,
     paddingVertical: 4,
     marginBottom: 10,
   },
-  eyebrowText: { color: colors.gold, fontSize: 10, fontWeight: '800', letterSpacing: 1 },
-  sectionTitle: { color: colors.white, fontSize: 24, fontWeight: '800', textAlign: 'center', marginBottom: 6 },
+  eyebrowText: { color: colors.primary, fontSize: 10, fontWeight: '800', letterSpacing: 1 },
+  sectionTitle: { color: colors.ink, fontSize: 24, fontWeight: '800', textAlign: 'center', marginBottom: 6 },
   sectionSub: { color: colors.muted, fontSize: font.small, textAlign: 'center' },
 
   // Steps
   stepCard: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border, borderRadius: radius.lg, padding: 18, marginBottom: 12, position: 'relative', overflow: 'hidden' },
-  stepWatermark: { position: 'absolute', top: 8, right: 14, fontSize: 50, fontWeight: '900', color: 'rgba(245,197,24,0.06)' },
-  stepStepNum: { color: colors.gold, fontSize: 10, fontWeight: '800', letterSpacing: 1, marginBottom: 4 },
-  stepTitle: { color: colors.white, fontWeight: '800', fontSize: 16, marginBottom: 6 },
+  stepWatermark: { position: 'absolute', top: 8, right: 14, fontSize: 50, fontWeight: '900', color: 'rgba(37,99,235,0.06)' },
+  stepStepNum: { color: colors.primary, fontSize: 10, fontWeight: '800', letterSpacing: 1, marginBottom: 4 },
+  stepTitle: { color: colors.ink, fontWeight: '800', fontSize: 16, marginBottom: 6 },
   stepDesc: { color: colors.muted, fontSize: font.small, lineHeight: 19 },
 
   // About
-  aboutSection: { backgroundColor: 'rgba(245,197,24,0.03)', borderTopWidth: 1, borderTopColor: 'rgba(245,197,24,0.07)', borderBottomWidth: 1, borderBottomColor: 'rgba(245,197,24,0.07)', paddingVertical: 32, paddingHorizontal: spacing.lg, marginBottom: 32 },
+  aboutSection: { backgroundColor: 'rgba(37,99,235,0.03)', borderTopWidth: 1, borderTopColor: 'rgba(37,99,235,0.07)', borderBottomWidth: 1, borderBottomColor: 'rgba(37,99,235,0.07)', paddingVertical: 32, paddingHorizontal: spacing.lg, marginBottom: 32 },
   aboutInner: { alignItems: 'center' },
   avatarWrap: {
     width: 180,
@@ -539,107 +539,107 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginBottom: 16,
     borderWidth: 6,
-    borderColor: 'rgba(245,197,24,0.2)',
+    borderColor: 'rgba(37,99,235,0.2)',
   },
   avatar: { width: '100%', height: '100%' },
-  aboutName: { color: colors.gold, fontWeight: '900', fontSize: 22 },
+  aboutName: { color: colors.primary, fontWeight: '900', fontSize: 22 },
   aboutRole: { color: colors.muted, fontSize: font.small, marginTop: 4 },
   tagsRow: { flexDirection: 'row', gap: 8, marginTop: 14, flexWrap: 'wrap', justifyContent: 'center' },
-  tag: { backgroundColor: 'rgba(245,197,24,0.1)', borderColor: 'rgba(245,197,24,0.2)', borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 10, paddingVertical: 3 },
-  tagText: { color: colors.gold, fontSize: 10, fontWeight: '700' },
-  aboutChip: { backgroundColor: 'rgba(245,197,24,0.08)', borderColor: 'rgba(245,197,24,0.15)', borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 12, paddingVertical: 4, marginTop: 24, marginBottom: 12 },
-  aboutChipText: { color: colors.gold, fontSize: 10, fontWeight: '800', letterSpacing: 1 },
-  aboutHeadline: { color: colors.white, fontSize: 22, fontWeight: '900', textAlign: 'center', lineHeight: 28, marginBottom: 14 },
+  tag: { backgroundColor: 'rgba(37,99,235,0.1)', borderColor: 'rgba(37,99,235,0.2)', borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 10, paddingVertical: 3 },
+  tagText: { color: colors.primary, fontSize: 10, fontWeight: '700' },
+  aboutChip: { backgroundColor: 'rgba(37,99,235,0.08)', borderColor: 'rgba(37,99,235,0.15)', borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 12, paddingVertical: 4, marginTop: 24, marginBottom: 12 },
+  aboutChipText: { color: colors.primary, fontSize: 10, fontWeight: '800', letterSpacing: 1 },
+  aboutHeadline: { color: colors.ink, fontSize: 22, fontWeight: '900', textAlign: 'center', lineHeight: 28, marginBottom: 14 },
   aboutBody: { color: colors.secondary, fontSize: font.body, lineHeight: 22, textAlign: 'center', marginBottom: 18 },
   miniStats: { flexDirection: 'row', gap: 10 },
   miniStat: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border, borderRadius: radius.md, paddingHorizontal: 14, paddingVertical: 12, alignItems: 'center', flex: 1 },
-  miniStatV: { color: colors.gold, fontWeight: '900', fontSize: 20 },
+  miniStatV: { color: colors.primary, fontWeight: '900', fontSize: 20 },
   miniStatL: { color: colors.muted, fontSize: 11, marginTop: 2 },
 
   // Signal card
-  signalCard: { backgroundColor: colors.card, borderWidth: 1, borderColor: 'rgba(0,200,81,0.2)', borderRadius: radius.lg, padding: 20 },
+  signalCard: { backgroundColor: colors.card, borderWidth: 1, borderColor: 'rgba(22,163,74,0.2)', borderRadius: radius.lg, padding: 20 },
   signalHead: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 },
   signalLive: { color: colors.green, fontSize: 10, fontWeight: '800', letterSpacing: 1 },
-  signalPair: { color: colors.white, fontWeight: '900', fontSize: 22, marginTop: 2 },
+  signalPair: { color: colors.ink, fontWeight: '900', fontSize: 22, marginTop: 2 },
   buyBadge: { backgroundColor: colors.green, paddingHorizontal: 18, paddingVertical: 7, borderRadius: 10 },
   buyBadgeText: { color: colors.white, fontWeight: '900', fontSize: 15 },
-  signalRow: { flexDirection: 'row', justifyContent: 'space-between', backgroundColor: 'rgba(255,255,255,0.03)', borderRadius: 8, paddingHorizontal: 12, paddingVertical: 10, marginBottom: 8 },
+  signalRow: { flexDirection: 'row', justifyContent: 'space-between', backgroundColor: 'rgba(16,19,26,0.03)', borderRadius: 8, paddingHorizontal: 12, paddingVertical: 10, marginBottom: 8 },
   signalRowLabel: { color: colors.muted, fontSize: font.small },
   signalRowValue: { fontWeight: '700', fontSize: font.small },
-  signalNote: { backgroundColor: 'rgba(0,200,81,0.06)', borderColor: 'rgba(0,200,81,0.12)', borderWidth: 1, borderRadius: 8, padding: 10, marginTop: 8 },
+  signalNote: { backgroundColor: 'rgba(22,163,74,0.06)', borderColor: 'rgba(22,163,74,0.12)', borderWidth: 1, borderRadius: 8, padding: 10, marginTop: 8 },
   signalNoteText: { color: colors.muted, fontSize: font.small, lineHeight: 18 },
 
   // Pairs
   pairsHead: { color: colors.secondary, fontSize: font.body, fontWeight: '700', textAlign: 'center', marginBottom: 14 },
   pairsRow: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 8 },
-  pairChip: { flexDirection: 'row', alignItems: 'center', gap: 6, backgroundColor: colors.card, borderWidth: 1, borderColor: 'rgba(255,255,255,0.07)', borderRadius: radius.md, paddingHorizontal: 12, paddingVertical: 8 },
-  pairChipHot: { backgroundColor: 'rgba(245,197,24,0.1)', borderColor: 'rgba(245,197,24,0.3)' },
+  pairChip: { flexDirection: 'row', alignItems: 'center', gap: 6, backgroundColor: colors.card, borderWidth: 1, borderColor: '#e5e8ee', borderRadius: radius.md, paddingHorizontal: 12, paddingVertical: 8 },
+  pairChipHot: { backgroundColor: 'rgba(37,99,235,0.1)', borderColor: 'rgba(37,99,235,0.3)' },
   pairText: { color: colors.secondary, fontWeight: '700', fontSize: 13 },
-  hotTag: { backgroundColor: colors.gold, paddingHorizontal: 6, paddingVertical: 1, borderRadius: 5 },
-  hotTagText: { color: colors.bg, fontSize: 9, fontWeight: '800' },
+  hotTag: { backgroundColor: colors.primary, paddingHorizontal: 6, paddingVertical: 1, borderRadius: 5 },
+  hotTagText: { color: colors.white, fontSize: 9, fontWeight: '800' },
 
   // Pricing
   planCard: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.borderSoft, borderRadius: 18, padding: 20, marginBottom: 14, position: 'relative' },
-  planCardHighlight: { backgroundColor: colors.gold, borderColor: 'transparent' },
-  planBadge: { position: 'absolute', top: -11, alignSelf: 'center', backgroundColor: colors.gold, paddingHorizontal: 14, paddingVertical: 4, borderRadius: radius.pill },
-  planBadgeText: { color: colors.bg, fontSize: 10, fontWeight: '800', letterSpacing: 0.5 },
+  planCardHighlight: { backgroundColor: colors.primary, borderColor: 'transparent' },
+  planBadge: { position: 'absolute', top: -11, alignSelf: 'center', backgroundColor: colors.primary, paddingHorizontal: 14, paddingVertical: 4, borderRadius: radius.pill },
+  planBadgeText: { color: colors.white, fontSize: 10, fontWeight: '800', letterSpacing: 0.5 },
   priceLine: { flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 6, marginBottom: 4 },
   priceOld: { color: colors.muted, fontSize: 12, textDecorationLine: 'line-through' },
-  discountTag: { backgroundColor: 'rgba(245,197,24,0.15)', paddingHorizontal: 8, paddingVertical: 2, borderRadius: 10 },
-  discountText: { color: colors.gold, fontSize: 10, fontWeight: '800' },
-  planName: { color: colors.white, fontWeight: '800', fontSize: 18, marginBottom: 4 },
-  planPrice: { color: colors.white, fontWeight: '900', fontSize: 28 },
+  discountTag: { backgroundColor: 'rgba(37,99,235,0.15)', paddingHorizontal: 8, paddingVertical: 2, borderRadius: 10 },
+  discountText: { color: colors.primary, fontSize: 10, fontWeight: '800' },
+  planName: { color: colors.ink, fontWeight: '800', fontSize: 18, marginBottom: 4 },
+  planPrice: { color: colors.ink, fontWeight: '900', fontSize: 28 },
   planPeriod: { color: colors.muted, fontSize: 12 },
   planDesc: { color: colors.muted, fontSize: font.small, lineHeight: 19, marginTop: 4, marginBottom: 14 },
   featureLine: { flexDirection: 'row', alignItems: 'flex-start', gap: 8, marginBottom: 6 },
-  featureCheck: { color: colors.gold, fontWeight: '700', fontSize: 14 },
+  featureCheck: { color: colors.primary, fontWeight: '700', fontSize: 14 },
   featureText: { color: colors.secondary, fontSize: font.small, flex: 1 },
-  planCta: { backgroundColor: colors.gold, borderRadius: 10, paddingVertical: 12, alignItems: 'center', marginTop: 14 },
-  planCtaText: { color: colors.bg, fontWeight: '800', fontSize: 15 },
+  planCta: { backgroundColor: colors.primary, borderRadius: 10, paddingVertical: 12, alignItems: 'center', marginTop: 14 },
+  planCtaText: { color: colors.white, fontWeight: '800', fontSize: 15 },
   comingSoon: { backgroundColor: colors.overlay, borderRadius: 10, paddingVertical: 12, alignItems: 'center', marginTop: 14 },
   comingSoonText: { color: colors.muted2, fontSize: font.body },
 
   // Features
   featureCard: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.borderSoft, borderRadius: radius.lg, padding: 16, marginBottom: 10 },
-  featureTitle: { color: colors.white, fontWeight: '700', fontSize: 15, marginBottom: 4 },
+  featureTitle: { color: colors.ink, fontWeight: '700', fontSize: 15, marginBottom: 4 },
   featureDesc: { color: colors.muted, fontSize: font.small, lineHeight: 19 },
 
   // Reviews
   reviewCard: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.borderSoft, borderRadius: radius.lg, padding: 18, marginBottom: 10 },
-  reviewQuote: { color: 'rgba(245,197,24,0.4)', fontSize: 28, lineHeight: 28 },
-  reviewStars: { color: '#f0b429', fontSize: 14, marginTop: 4, marginBottom: 8 },
+  reviewQuote: { color: 'rgba(37,99,235,0.4)', fontSize: 28, lineHeight: 28 },
+  reviewStars: { color: '#f59e0b', fontSize: 14, marginTop: 4, marginBottom: 8 },
   reviewContent: { color: colors.secondary, fontSize: font.small, lineHeight: 22, marginBottom: 12 },
   reviewAuthor: { flexDirection: 'row', alignItems: 'center', gap: 10 },
-  reviewAvatar: { width: 32, height: 32, borderRadius: 16, backgroundColor: colors.gold, alignItems: 'center', justifyContent: 'center' },
-  reviewAvatarText: { color: colors.bg, fontWeight: '800', fontSize: 13 },
-  reviewName: { color: colors.gold, fontWeight: '700', fontSize: font.body },
+  reviewAvatar: { width: 32, height: 32, borderRadius: 16, backgroundColor: colors.primary, alignItems: 'center', justifyContent: 'center' },
+  reviewAvatarText: { color: colors.white, fontWeight: '800', fontSize: 13 },
+  reviewName: { color: colors.primary, fontWeight: '700', fontSize: font.body },
   reviewBadge: { color: colors.muted2, fontSize: 10 },
 
   // FAQ
   faqItem: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.borderSoft, borderRadius: radius.md, marginBottom: 8, overflow: 'hidden' },
   faqHead: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', padding: 14 },
-  faqQ: { color: colors.white, fontWeight: '600', fontSize: font.body, flex: 1, marginRight: 8 },
+  faqQ: { color: colors.ink, fontWeight: '600', fontSize: font.body, flex: 1, marginRight: 8 },
   faqA: { color: colors.muted, fontSize: font.small, lineHeight: 20, paddingHorizontal: 14, paddingBottom: 14 },
 
   // Affiliate CTA
   affCta: {
-    backgroundColor: 'rgba(245,197,24,0.05)',
+    backgroundColor: 'rgba(37,99,235,0.05)',
     borderTopWidth: 1,
-    borderTopColor: 'rgba(245,197,24,0.1)',
+    borderTopColor: 'rgba(37,99,235,0.1)',
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(245,197,24,0.1)',
+    borderBottomColor: 'rgba(37,99,235,0.1)',
     paddingVertical: 36,
     paddingHorizontal: spacing.lg,
     alignItems: 'center',
     marginBottom: 32,
   },
-  affCtaTitle: { color: colors.white, fontWeight: '900', fontSize: 26, marginBottom: 8, textAlign: 'center' },
+  affCtaTitle: { color: colors.ink, fontWeight: '900', fontSize: 26, marginBottom: 8, textAlign: 'center' },
   affCtaBody: { color: colors.secondary, fontSize: font.body, lineHeight: 22, textAlign: 'center', marginBottom: 18 },
   affCtaBtn: { flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: colors.green, paddingHorizontal: 24, paddingVertical: 13, borderRadius: 10 },
   affCtaBtnText: { color: '#fff', fontWeight: '800', fontSize: 15 },
 
   // Footer
-  footer: { paddingHorizontal: spacing.lg, paddingTop: 24, paddingBottom: 32, backgroundColor: '#07070c', alignItems: 'center' },
+  footer: { paddingHorizontal: spacing.lg, paddingTop: 24, paddingBottom: 32, backgroundColor: colors.cardAlt, borderTopWidth: 1, borderTopColor: colors.border, alignItems: 'center' },
   footerLogo: { width: 160, height: 44, marginBottom: 10 },
   footerBody: { color: colors.muted2, fontSize: font.small, lineHeight: 20, textAlign: 'center', marginBottom: 18 },
   socialsRow: { flexDirection: 'row', gap: 10, marginBottom: 18 },

@@ -9,7 +9,7 @@ export default function PendingScreen() {
   return (
     <Screen edges={['top', 'bottom']}>
       <View style={styles.wrap}>
-        <Ionicons name="hourglass-outline" size={72} color={colors.gold} />
+        <Ionicons name="hourglass-outline" size={72} color={colors.primary} />
         <Text style={styles.title}>Account Pending Approval</Text>
         <Text style={styles.body}>
           Your account has been created but is awaiting approval from the Trade with Shafy
@@ -29,7 +29,7 @@ export default function PendingScreen() {
 
 const styles = StyleSheet.create({
   wrap: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: spacing.xl, gap: 16 },
-  title: { color: colors.white, fontSize: 22, fontWeight: '800', textAlign: 'center' },
+  title: { color: colors.ink, fontSize: 22, fontWeight: '800', textAlign: 'center' },
   body: {
     color: colors.secondary,
     fontSize: font.body,

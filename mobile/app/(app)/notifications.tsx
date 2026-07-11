@@ -47,10 +47,10 @@ export default function NotificationsScreen() {
               style={[
                 styles.card,
                 {
-                  backgroundColor: n.read ? 'rgba(255,255,255,0.02)' : colors.card,
-                  borderColor: n.read ? colors.borderSoft : 'rgba(245,197,24,0.18)',
+                  backgroundColor: n.read ? 'rgba(16,19,26,0.02)' : colors.card,
+                  borderColor: n.read ? colors.borderSoft : 'rgba(37,99,235,0.18)',
                   borderLeftWidth: n.read ? 1 : 3,
-                  borderLeftColor: n.read ? colors.borderSoft : colors.gold,
+                  borderLeftColor: n.read ? colors.borderSoft : colors.primary,
                 },
               ]}
             >
@@ -72,13 +72,13 @@ export default function NotificationsScreen() {
 
 const styles = StyleSheet.create({
   head: { paddingHorizontal: spacing.lg, paddingTop: spacing.lg, paddingBottom: spacing.md, borderBottomWidth: 1, borderBottomColor: colors.borderSoft },
-  title: { color: colors.white, fontWeight: '800', fontSize: 20 },
+  title: { color: colors.ink, fontWeight: '800', fontSize: 20 },
   sub: { color: colors.muted, fontSize: font.body, marginTop: 2 },
   card: { borderWidth: 1, borderRadius: radius.md, padding: 14, marginBottom: 8 },
   headerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 4 },
-  titleRow: { color: colors.white, fontSize: 14, flex: 1, marginRight: 8 },
+  titleRow: { color: colors.ink, fontSize: 14, flex: 1, marginRight: 8 },
   metaRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  dot: { width: 6, height: 6, borderRadius: 3, backgroundColor: colors.gold },
+  dot: { width: 6, height: 6, borderRadius: 3, backgroundColor: colors.primary },
   time: { color: colors.muted2, fontSize: font.tiny },
   message: { color: colors.muted, fontSize: font.body },
 })

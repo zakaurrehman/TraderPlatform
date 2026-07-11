@@ -63,7 +63,7 @@ export default function NewPostScreen() {
         <Controller control={control} name="imageUrl" render={({ field: { onChange, value } }) => (
           <Field label="Image URL (optional)" placeholder="https://…" autoCapitalize="none" value={value} onChangeText={onChange} error={errors.imageUrl?.message} />
         )} />
-        {error ? <Text style={{ color: '#ff6666', marginBottom: 12 }}>{error}</Text> : null}
+        {error ? <Text style={{ color: '#dc2626', marginBottom: 12 }}>{error}</Text> : null}
         <Button title="Publish Post" onPress={handleSubmit(onSubmit)} loading={busy} />
       </ScrollView>
     </Screen>

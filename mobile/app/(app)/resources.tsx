@@ -12,9 +12,9 @@ const TIER_ORDER: Record<string, number> = { FREE: 0, BASIC: 1, PREMIUM: 2 }
 const PLAN_TIER: Record<string, number> = { FREE: 0, BASIC: 1, PREMIUM: 2 }
 
 const TIER_COLOR: Record<string, { color: string; bg: string }> = {
-  FREE: { color: '#00c851', bg: 'rgba(0,200,81,0.1)' },
-  BASIC: { color: '#f5c518', bg: 'rgba(245,197,24,0.1)' },
-  PREMIUM: { color: '#f0b429', bg: 'rgba(240,180,41,0.1)' },
+  FREE: { color: '#16a34a', bg: 'rgba(22,163,74,0.1)' },
+  BASIC: { color: '#2563eb', bg: 'rgba(37,99,235,0.1)' },
+  PREMIUM: { color: '#f59e0b', bg: 'rgba(245,158,11,0.1)' },
 }
 
 export default function ResourcesScreen() {
@@ -82,11 +82,11 @@ const styles = StyleSheet.create({
   card: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.borderSoft, borderRadius: radius.lg, padding: 14, marginBottom: 8 },
   tierRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 },
   tierTag: { paddingHorizontal: 7, paddingVertical: 2, borderRadius: radius.pill, alignSelf: 'flex-start' },
-  title: { color: colors.white, fontWeight: '700', fontSize: 14 },
+  title: { color: colors.ink, fontWeight: '700', fontSize: 14 },
   desc: { color: colors.muted, fontSize: font.small, marginTop: 2 },
   downloads: { color: colors.muted2, fontSize: font.tiny, marginTop: 6, marginBottom: 8 },
   lockBox: { backgroundColor: colors.overlay, borderRadius: radius.sm, paddingVertical: 8, paddingHorizontal: 14, alignSelf: 'flex-start' },
   lockText: { color: colors.muted2, fontSize: font.body },
-  btn: { alignSelf: 'flex-start', backgroundColor: colors.gold, borderRadius: radius.sm, paddingVertical: 8, paddingHorizontal: 16 },
-  btnText: { color: colors.bg, fontWeight: '700', fontSize: font.body },
+  btn: { alignSelf: 'flex-start', backgroundColor: colors.primary, borderRadius: radius.sm, paddingVertical: 8, paddingHorizontal: 16 },
+  btnText: { color: colors.white, fontWeight: '700', fontSize: font.body },
 })
