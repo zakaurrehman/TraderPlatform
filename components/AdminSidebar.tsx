@@ -1,24 +1,26 @@
-﻿'use client'
+'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { signOut } from 'next-auth/react'
 import { useState } from 'react'
+import { Logo } from '@/components/brand/Logo'
+import { Icon, type IconName } from '@/components/brand/icons'
 
-const links = [
-  { href: '/admin', label: 'Overview', icon: '📊' },
-  { href: '/admin/signals', label: 'Signals', icon: '⚡' },
-  { href: '/admin/research', label: 'Research Posts', icon: '📝' },
-  { href: '/admin/videos', label: 'Classroom Videos', icon: '🎬' },
-  { href: '/admin/sessions', label: 'Live Sessions', icon: '📡' },
-  { href: '/admin/calendar', label: 'Economic Calendar', icon: '📅' },
-  { href: '/admin/brokers', label: 'Brokers', icon: '🏦' },
-  { href: '/admin/resources', label: 'Resources', icon: '📁' },
-  { href: '/admin/users', label: 'Users', icon: '👥' },
-  { href: '/admin/affiliates', label: 'Affiliates', icon: '🔗' },
-  { href: '/admin/payments', label: 'Payments', icon: '💳' },
-  { href: '/admin/sales', label: 'Log Sale', icon: '💰' },
-  { href: '/admin/withdrawals', label: 'Withdrawals', icon: '🏧' },
-  { href: '/admin/reviews', label: 'Reviews', icon: '⭐' }
+const links: { href: string; label: string; icon: IconName }[] = [
+  { href: '/admin', label: 'Overview', icon: 'chart' },
+  { href: '/admin/signals', label: 'Signals', icon: 'bolt' },
+  { href: '/admin/research', label: 'Research Posts', icon: 'bookOpen' },
+  { href: '/admin/videos', label: 'Classroom Videos', icon: 'play' },
+  { href: '/admin/sessions', label: 'Live Sessions', icon: 'activity' },
+  { href: '/admin/calendar', label: 'Economic Calendar', icon: 'calendar' },
+  { href: '/admin/brokers', label: 'Brokers', icon: 'shieldCheck' },
+  { href: '/admin/resources', label: 'Resources', icon: 'layers' },
+  { href: '/admin/users', label: 'Users', icon: 'users' },
+  { href: '/admin/affiliates', label: 'Affiliates', icon: 'gift' },
+  { href: '/admin/payments', label: 'Payments', icon: 'dollar' },
+  { href: '/admin/sales', label: 'Log Sale', icon: 'trendingUp' },
+  { href: '/admin/withdrawals', label: 'Withdrawals', icon: 'arrowRight' },
+  { href: '/admin/reviews', label: 'Reviews', icon: 'star' },
 ]
 
 export default function AdminSidebar() {
@@ -27,9 +29,9 @@ export default function AdminSidebar() {
 
   const SidebarContent = () => (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-      <div style={{ padding: '16px', borderBottom: '1px solid rgba(245,197,24,0.1)' }}>
-        <img src="/Trade with Shafy Png.png" alt="Trade with Shafy" style={{ height: 36, width: 'auto', objectFit: 'contain' }} />
-        <div style={{ color: '#64748b', fontSize: 12, marginTop: 4 }}>Admin Panel</div>
+      <div style={{ padding: '18px 16px', borderBottom: '1px solid var(--color-line)' }}>
+        <Logo size={28} href="/admin" />
+        <div style={{ color: 'var(--color-dim)', fontSize: 12, marginTop: 6, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase' }}>Admin Panel</div>
       </div>
       <nav style={{ flex: 1, overflowY: 'auto', padding: '12px 8px' }}>
         {links.map(l => {
@@ -38,22 +40,23 @@ export default function AdminSidebar() {
             <Link key={l.href} href={l.href} onClick={() => setOpen(false)} style={{
               display: 'flex', alignItems: 'center', gap: 10, padding: '9px 12px',
               borderRadius: 8, marginBottom: 2, textDecoration: 'none',
-              background: active ? 'rgba(245,197,24,0.12)' : 'transparent',
-              color: active ? '#f5c518' : '#94a3b8',
-              fontWeight: active ? 600 : 400, fontSize: 14,
-              transition: 'background 0.15s'
+              background: active ? 'var(--primary-tint)' : 'transparent',
+              color: active ? 'var(--color-primary)' : 'var(--color-muted)',
+              fontWeight: active ? 600 : 500, fontSize: 14,
+              transition: 'background 0.15s, color 0.15s'
             }}>
-              <span>{l.icon}</span> {l.label}
+              <Icon name={l.icon} size={17} /> {l.label}
             </Link>
           )
         })}
       </nav>
-      <div style={{ padding: '12px 8px', borderTop: '1px solid rgba(245,197,24,0.1)' }}>
+      <div style={{ padding: '12px 8px', borderTop: '1px solid var(--color-line)' }}>
         <button onClick={() => signOut({ callbackUrl: '/login' })} style={{
+          display: 'flex', alignItems: 'center', gap: 10,
           width: '100%', padding: '9px 12px', borderRadius: 8, border: 'none',
-          background: 'rgba(255,68,68,0.1)', color: '#ff6666', cursor: 'pointer',
+          background: 'var(--danger-tint)', color: 'var(--color-danger)', cursor: 'pointer',
           fontWeight: 600, fontSize: 14, textAlign: 'left'
-        }}>🚪 Sign Out</button>
+        }}><Icon name="close" size={16} /> Sign Out</button>
       </div>
     </div>
   )
@@ -62,8 +65,8 @@ export default function AdminSidebar() {
     <>
       {/* Desktop sidebar */}
       <aside style={{
-        width: 220, flexShrink: 0, background: '#111118',
-        borderRight: '1px solid rgba(245,197,24,0.08)',
+        width: 230, flexShrink: 0, background: 'var(--color-surface)',
+        borderRight: '1px solid var(--color-line)',
         height: '100vh', position: 'sticky', top: 0, overflowY: 'auto',
         display: 'none'
       }} className="lg-sidebar">
@@ -73,21 +76,25 @@ export default function AdminSidebar() {
       {/* Mobile top bar */}
       <div style={{
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        padding: '12px 16px', background: '#111118',
-        borderBottom: '1px solid rgba(245,197,24,0.1)',
+        padding: '12px 16px', background: 'var(--color-surface)',
+        borderBottom: '1px solid var(--color-line)',
         position: 'sticky', top: 0, zIndex: 40
       }} className="mobile-topbar">
-        <img src="/Trade with Shafy Png.png" alt="Trade with Shafy" style={{ height: 32, width: 'auto', objectFit: 'contain' }} />
-        <button onClick={() => setOpen(true)} style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: 22 }}>☰</button>
+        <Logo size={26} href="/admin" />
+        <button onClick={() => setOpen(true)} aria-label="Open menu" style={{ background: 'none', border: 'none', color: 'var(--color-ink)', cursor: 'pointer', display: 'flex', padding: 6 }}>
+          <Icon name="menu" size={22} />
+        </button>
       </div>
 
       {/* Mobile drawer */}
       {open && (
         <div style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'flex' }}>
-          <div style={{ flex: 1, background: 'rgba(0,0,0,0.6)' }} onClick={() => setOpen(false)} />
-          <div style={{ width: 260, background: '#111118', height: '100%', overflowY: 'auto' }}>
+          <div style={{ flex: 1, background: 'rgba(16,19,26,0.45)' }} onClick={() => setOpen(false)} />
+          <div style={{ width: 260, background: 'var(--color-surface)', height: '100%', overflowY: 'auto', boxShadow: 'var(--shadow-lift)' }}>
             <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '12px 16px' }}>
-              <button onClick={() => setOpen(false)} style={{ background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: 22 }}>✕</button>
+              <button onClick={() => setOpen(false)} aria-label="Close menu" style={{ background: 'none', border: 'none', color: 'var(--color-muted)', cursor: 'pointer', display: 'flex', padding: 6 }}>
+                <Icon name="close" size={20} />
+              </button>
             </div>
             <SidebarContent />
           </div>

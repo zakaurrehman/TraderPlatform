@@ -28,9 +28,9 @@ export default async function ClassroomPage() {
 
   return (
     <div style={{ padding: '0 0 8px' }}>
-      <div style={{ padding: '20px 16px 12px', borderBottom: '1px solid rgba(245,197,24,0.08)' }}>
-        <h1 style={{ fontWeight: 800, fontSize: 20, color: 'white' }}>Classroom</h1>
-        <p style={{ color: '#64748b', fontSize: 13, marginTop: 2 }}>Master Forex from Beginner to Expert</p>
+      <div style={{ padding: '20px 16px 12px', borderBottom: '1px solid rgba(37,99,235,0.08)' }}>
+        <h1 style={{ fontWeight: 800, fontSize: 20, color: '#10131a' }}>Classroom</h1>
+        <p style={{ color: '#7a8494', fontSize: 13, marginTop: 2 }}>Master Forex from Beginner to Expert</p>
       </div>
 
       <div style={{ padding: '12px 16px' }}>
@@ -43,31 +43,31 @@ export default async function ClassroomPage() {
 
           return (
             <Link key={course.id} href={locked ? '/order' : `/classroom/${course.id}`} style={{ display: 'block', textDecoration: 'none', marginBottom: 12 }}>
-              <div style={{ background: '#111118', border: `1px solid ${locked ? 'rgba(168,85,247,0.15)' : 'rgba(245,197,24,0.1)'}`, borderRadius: 14, padding: 16, opacity: locked ? 0.75 : 1 }}>
+              <div style={{ background: '#ffffff', border: `1px solid ${locked ? 'rgba(168,85,247,0.15)' : 'rgba(37,99,235,0.1)'}`, borderRadius: 14, padding: 16, opacity: locked ? 0.75 : 1 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 10 }}>
                   <div>
                     <div style={{ display: 'flex', gap: 6, marginBottom: 4 }}>
-                      <span style={{ background: 'rgba(245,197,24,0.1)', color: '#f5c518', fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 20 }}>{course.level}</span>
-                      {course.isPremium && <span style={{ background: 'rgba(168,85,247,0.15)', color: '#a855f7', fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 20 }}>⭐ PREMIUM</span>}
-                      {locked && <span style={{ background: 'rgba(168,85,247,0.1)', color: '#a855f7', fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 20 }}>🔒 Upgrade to unlock</span>}
-                      {certified && <span style={{ background: 'rgba(0,200,81,0.15)', color: '#00c851', fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 20 }}>✅ Certified</span>}
+                      <span style={{ background: 'rgba(37,99,235,0.1)', color: '#2563eb', fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 20 }}>{course.level}</span>
+                      {course.isPremium && <span style={{ background: 'rgba(168,85,247,0.15)', color: '#7c3aed', fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 20 }}>⭐ PREMIUM</span>}
+                      {locked && <span style={{ background: 'rgba(168,85,247,0.1)', color: '#7c3aed', fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 20 }}>🔒 Upgrade to unlock</span>}
+                      {certified && <span style={{ background: 'rgba(22,163,74,0.15)', color: '#16a34a', fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 20 }}>✅ Certified</span>}
                     </div>
-                    <h3 style={{ color: locked ? '#64748b' : 'white', fontWeight: 700, fontSize: 16 }}>{course.title}</h3>
-                    <p style={{ color: '#475569', fontSize: 12, marginTop: 2 }}>{course.description}</p>
+                    <h3 style={{ color: locked ? '#7a8494' : 'white', fontWeight: 700, fontSize: 16 }}>{course.title}</h3>
+                    <p style={{ color: '#9aa3b2', fontSize: 12, marginTop: 2 }}>{course.description}</p>
                   </div>
                   <div style={{ textAlign: 'right', flexShrink: 0, marginLeft: 12 }}>
-                    <div style={{ color: '#f5c518', fontWeight: 800, fontSize: 20 }}>{pct}%</div>
-                    <div style={{ color: '#475569', fontSize: 10 }}>{done}/{total}</div>
+                    <div style={{ color: '#2563eb', fontWeight: 800, fontSize: 20 }}>{pct}%</div>
+                    <div style={{ color: '#9aa3b2', fontSize: 10 }}>{done}/{total}</div>
                   </div>
                 </div>
-                <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: 4, height: 4 }}>
-                  <div style={{ background: 'linear-gradient(90deg, #f5c518, #00ff88)', height: '100%', borderRadius: 4, width: `${pct}%`, transition: 'width 0.3s' }} />
+                <div style={{ background: 'rgba(16,19,26,0.05)', borderRadius: 4, height: 4 }}>
+                  <div style={{ background: 'linear-gradient(90deg, #2563eb, #22c55e)', height: '100%', borderRadius: 4, width: `${pct}%`, transition: 'width 0.3s' }} />
                 </div>
               </div>
             </Link>
           )
         })}
-        {sorted.length === 0 && <div style={{ textAlign: 'center', color: '#475569', padding: 40 }}>No courses yet. Check back soon!</div>}
+        {sorted.length === 0 && <div style={{ textAlign: 'center', color: '#9aa3b2', padding: 40 }}>No courses yet. Check back soon!</div>}
       </div>
     </div>
   )

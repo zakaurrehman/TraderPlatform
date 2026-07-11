@@ -17,7 +17,7 @@ export async function GET() {
           height: '100%',
           display: 'flex',
           background:
-            'linear-gradient(135deg, #0a0a0f 0%, #14140b 50%, #0a0a0f 100%)',
+            'linear-gradient(135deg, #1e40af 0%, #2563eb 55%, #3b82f6 100%)',
           position: 'relative',
           fontFamily: 'system-ui, sans-serif',
         }}
@@ -32,7 +32,7 @@ export async function GET() {
             height: 600,
             borderRadius: 600,
             background:
-              'radial-gradient(circle, rgba(245,197,24,0.18) 0%, rgba(245,197,24,0) 60%)',
+              'radial-gradient(circle, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 60%)',
             display: 'flex',
           }}
         />
@@ -53,8 +53,8 @@ export async function GET() {
             style={{
               display: 'flex',
               alignSelf: 'flex-start',
-              backgroundColor: 'rgba(245,197,24,0.12)',
-              border: '1px solid rgba(245,197,24,0.3)',
+              backgroundColor: 'rgba(255,255,255,0.14)',
+              border: '1px solid rgba(255,255,255,0.35)',
               borderRadius: 999,
               padding: '6px 16px',
               marginBottom: 22,
@@ -62,7 +62,7 @@ export async function GET() {
           >
             <span
               style={{
-                color: '#f5c518',
+                color: '#ffffff',
                 fontSize: 14,
                 fontWeight: 800,
                 letterSpacing: 2,
@@ -87,7 +87,7 @@ export async function GET() {
             </div>
             <div
               style={{
-                color: '#f5c518',
+                color: '#ffffff',
                 fontSize: 96,
                 fontWeight: 900,
                 lineHeight: 1.05,
@@ -102,7 +102,7 @@ export async function GET() {
 
           <div
             style={{
-              color: '#94a3b8',
+              color: '#dbeafe',
               fontSize: 22,
               fontWeight: 500,
               marginTop: 16,
@@ -134,13 +134,13 @@ export async function GET() {
           <div
             style={{
               width: 300,
-              background: '#111118',
-              border: '2px solid rgba(0,200,81,0.35)',
+              background: '#ffffff',
+              border: '2px solid rgba(22,163,74,0.4)',
               borderRadius: 20,
               padding: 22,
               display: 'flex',
               flexDirection: 'column',
-              boxShadow: '0 8px 40px rgba(0,200,81,0.15)',
+              boxShadow: '0 16px 50px rgba(16,19,26,0.35)',
               transform: 'rotate(-3deg)',
             }}
           >
@@ -153,16 +153,16 @@ export async function GET() {
               }}
             >
               <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <span style={{ color: '#00c851', fontSize: 11, fontWeight: 800, letterSpacing: 1.5 }}>
+                <span style={{ color: '#16a34a', fontSize: 11, fontWeight: 800, letterSpacing: 1.5 }}>
                   ● LIVE
                 </span>
-                <span style={{ color: 'white', fontWeight: 900, fontSize: 22, marginTop: 2 }}>
+                <span style={{ color: '#10131a', fontWeight: 900, fontSize: 22, marginTop: 2 }}>
                   XAU/USD
                 </span>
               </div>
               <div
                 style={{
-                  background: 'linear-gradient(135deg, #00c851, #009940)',
+                  background: 'linear-gradient(135deg, #22c55e, #16a34a)',
                   color: 'white',
                   fontWeight: 900,
                   fontSize: 16,
@@ -175,10 +175,10 @@ export async function GET() {
               </div>
             </div>
 
-            <SignalRow label="Entry" value="2,345" color="white" />
-            <SignalRow label="TP1" value="2,358  +125p" color="#00c851" />
-            <SignalRow label="TP2" value="2,372  +265p" color="#00c851" />
-            <SignalRow label="SL" value="2,335  -105p" color="#ff6666" />
+            <SignalRow label="Entry" value="2,345" color="#10131a" />
+            <SignalRow label="TP1" value="2,358  +125p" color="#16a34a" />
+            <SignalRow label="TP2" value="2,372  +265p" color="#16a34a" />
+            <SignalRow label="SL" value="2,335  -105p" color="#dc2626" />
           </div>
         </div>
       </div>
@@ -194,8 +194,8 @@ function Pill({ value, label }: { value: string; label: string }) {
   return (
     <div
       style={{
-        background: '#111118',
-        border: '1px solid rgba(245,197,24,0.2)',
+        background: 'rgba(255,255,255,0.14)',
+        border: '1px solid rgba(255,255,255,0.3)',
         borderRadius: 12,
         padding: '10px 18px',
         display: 'flex',
@@ -203,8 +203,8 @@ function Pill({ value, label }: { value: string; label: string }) {
         alignItems: 'center',
       }}
     >
-      <span style={{ color: '#f5c518', fontWeight: 900, fontSize: 24 }}>{value}</span>
-      <span style={{ color: '#64748b', fontSize: 11, fontWeight: 600, marginTop: -2 }}>{label}</span>
+      <span style={{ color: '#ffffff', fontWeight: 900, fontSize: 24 }}>{value}</span>
+      <span style={{ color: '#dbeafe', fontSize: 11, fontWeight: 600, marginTop: -2 }}>{label}</span>
     </div>
   )
 }
@@ -215,13 +215,13 @@ function SignalRow({ label, value, color }: { label: string; value: string; colo
       style={{
         display: 'flex',
         justifyContent: 'space-between',
-        background: 'rgba(255,255,255,0.04)',
+        background: 'rgba(16,19,26,0.04)',
         borderRadius: 8,
         padding: '8px 12px',
         marginBottom: 6,
       }}
     >
-      <span style={{ color: '#64748b', fontSize: 12 }}>{label}</span>
+      <span style={{ color: '#7a8494', fontSize: 12 }}>{label}</span>
       <span style={{ color, fontWeight: 700, fontSize: 12 }}>{value}</span>
     </div>
   )

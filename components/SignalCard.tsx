@@ -17,10 +17,10 @@ type Signal = {
 
 function StatusBadge({ status, pips }: { status: Signal['status'], pips?: number | null }) {
   const map = {
-    ACTIVE: { label: '🟢 Active', color: '#00c851', bg: 'rgba(0,200,81,0.12)' },
-    HIT_TP: { label: '✅ TP Hit', color: '#f5c518', bg: 'rgba(245,197,24,0.12)' },
-    HIT_SL: { label: '❌ SL Hit', color: '#ff4444', bg: 'rgba(255,68,68,0.12)' },
-    CLOSED: { label: '⬜ Closed', color: '#94a3b8', bg: 'rgba(148,163,184,0.1)' }
+    ACTIVE: { label: '🟢 Active', color: '#16a34a', bg: 'rgba(22,163,74,0.12)' },
+    HIT_TP: { label: '✅ TP Hit', color: '#2563eb', bg: 'rgba(37,99,235,0.12)' },
+    HIT_SL: { label: '❌ SL Hit', color: '#dc2626', bg: 'rgba(220,38,38,0.12)' },
+    CLOSED: { label: '⬜ Closed', color: '#55606f', bg: 'rgba(148,163,184,0.1)' }
   }
   const s = map[status]
   return (
@@ -34,12 +34,12 @@ export default function SignalCard({ signal }: { signal: Signal }) {
   const isBuy = signal.direction === 'BUY'
   return (
     <div style={{
-      background: '#111118', border: '1px solid rgba(245,197,24,0.1)',
+      background: '#ffffff', border: '1px solid rgba(37,99,235,0.1)',
       borderRadius: 12, padding: 14, marginBottom: 10
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ color: 'white', fontWeight: 800, fontSize: 15 }}>{signal.pair}</span>
+          <span style={{ color: '#10131a', fontWeight: 800, fontSize: 15 }}>{signal.pair}</span>
           <span className={isBuy ? 'buy-badge' : 'sell-badge'}>{signal.direction}</span>
         </div>
         <StatusBadge status={signal.status} pips={signal.pips} />
@@ -51,9 +51,9 @@ export default function SignalCard({ signal }: { signal: Signal }) {
           { label: 'TP1', value: signal.tp1.toFixed(5) },
           { label: 'SL', value: signal.sl.toFixed(5) }
         ].map(({ label, value }) => (
-          <div key={label} style={{ background: 'rgba(255,255,255,0.04)', borderRadius: 8, padding: '6px 8px' }}>
-            <div style={{ color: '#64748b', fontSize: 10, marginBottom: 2 }}>{label}</div>
-            <div style={{ color: 'white', fontSize: 12, fontWeight: 700 }}>{value}</div>
+          <div key={label} style={{ background: 'rgba(16,19,26,0.04)', borderRadius: 8, padding: '6px 8px' }}>
+            <div style={{ color: '#7a8494', fontSize: 10, marginBottom: 2 }}>{label}</div>
+            <div style={{ color: '#10131a', fontSize: 12, fontWeight: 700 }}>{value}</div>
           </div>
         ))}
       </div>
@@ -61,22 +61,22 @@ export default function SignalCard({ signal }: { signal: Signal }) {
       {(signal.tp2 || signal.tp3) && (
         <div style={{ display: 'flex', gap: 6, marginBottom: 10 }}>
           {signal.tp2 && (
-            <div style={{ flex: 1, background: 'rgba(255,255,255,0.04)', borderRadius: 8, padding: '6px 8px' }}>
-              <div style={{ color: '#64748b', fontSize: 10 }}>TP2</div>
-              <div style={{ color: 'white', fontSize: 12, fontWeight: 700 }}>{signal.tp2.toFixed(5)}</div>
+            <div style={{ flex: 1, background: 'rgba(16,19,26,0.04)', borderRadius: 8, padding: '6px 8px' }}>
+              <div style={{ color: '#7a8494', fontSize: 10 }}>TP2</div>
+              <div style={{ color: '#10131a', fontSize: 12, fontWeight: 700 }}>{signal.tp2.toFixed(5)}</div>
             </div>
           )}
           {signal.tp3 && (
-            <div style={{ flex: 1, background: 'rgba(255,255,255,0.04)', borderRadius: 8, padding: '6px 8px' }}>
-              <div style={{ color: '#64748b', fontSize: 10 }}>TP3</div>
-              <div style={{ color: 'white', fontSize: 12, fontWeight: 700 }}>{signal.tp3.toFixed(5)}</div>
+            <div style={{ flex: 1, background: 'rgba(16,19,26,0.04)', borderRadius: 8, padding: '6px 8px' }}>
+              <div style={{ color: '#7a8494', fontSize: 10 }}>TP3</div>
+              <div style={{ color: '#10131a', fontSize: 12, fontWeight: 700 }}>{signal.tp3.toFixed(5)}</div>
             </div>
           )}
         </div>
       )}
 
-      {signal.notes && <p style={{ color: '#94a3b8', fontSize: 12, marginBottom: 8, lineHeight: 1.5 }}>{signal.notes}</p>}
-      <div style={{ color: '#475569', fontSize: 11 }}>{formatDateTime(signal.createdAt)}</div>
+      {signal.notes && <p style={{ color: '#55606f', fontSize: 12, marginBottom: 8, lineHeight: 1.5 }}>{signal.notes}</p>}
+      <div style={{ color: '#9aa3b2', fontSize: 11 }}>{formatDateTime(signal.createdAt)}</div>
     </div>
   )
 }

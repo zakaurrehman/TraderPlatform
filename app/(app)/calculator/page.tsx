@@ -30,30 +30,30 @@ export default function CalculatorPage() {
 
   return (
     <div style={{ padding: '0 0 8px' }}>
-      <div style={{ padding: '20px 16px 12px', borderBottom: '1px solid rgba(245,197,24,0.08)' }}>
-        <h1 style={{ fontWeight: 800, fontSize: 20, color: 'white' }}>Risk Calculator</h1>
-        <p style={{ color: '#64748b', fontSize: 13, marginTop: 2 }}>Calculate ideal position size before every trade</p>
+      <div style={{ padding: '20px 16px 12px', borderBottom: '1px solid rgba(37,99,235,0.08)' }}>
+        <h1 style={{ fontWeight: 800, fontSize: 20, color: '#10131a' }}>Risk Calculator</h1>
+        <p style={{ color: '#7a8494', fontSize: 13, marginTop: 2 }}>Calculate ideal position size before every trade</p>
       </div>
 
       <div style={{ padding: '16px' }}>
-        <div style={{ background: '#111118', border: '1px solid rgba(245,197,24,0.1)', borderRadius: 16, padding: 20, marginBottom: 16 }}>
+        <div style={{ background: '#ffffff', border: '1px solid rgba(37,99,235,0.1)', borderRadius: 16, padding: 20, marginBottom: 16 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             <div>
-              <label style={{ color: '#94a3b8', fontSize: 13, display: 'block', marginBottom: 6 }}>Account Balance (USD)</label>
+              <label style={{ color: '#55606f', fontSize: 13, display: 'block', marginBottom: 6 }}>Account Balance (USD)</label>
               <input className="input-field" type="number" value={form.account} onChange={set('account')} placeholder="10000" />
             </div>
             <div>
-              <label style={{ color: '#94a3b8', fontSize: 13, display: 'block', marginBottom: 6 }}>Risk Percentage (%)</label>
+              <label style={{ color: '#55606f', fontSize: 13, display: 'block', marginBottom: 6 }}>Risk Percentage (%)</label>
               <input className="input-field" type="number" step="0.1" value={form.risk} onChange={set('risk')} placeholder="1" />
             </div>
             <div>
-              <label style={{ color: '#94a3b8', fontSize: 13, display: 'block', marginBottom: 6 }}>Currency Pair</label>
-              <select className="input-field" value={form.pair} onChange={set('pair')} style={{ background: 'rgba(255,255,255,0.05)', color: 'white' }}>
+              <label style={{ color: '#55606f', fontSize: 13, display: 'block', marginBottom: 6 }}>Currency Pair</label>
+              <select className="input-field" value={form.pair} onChange={set('pair')} style={{ background: 'rgba(16,19,26,0.05)', color: '#10131a' }}>
                 {Object.keys(PAIRS).map(p => <option key={p} value={p}>{p}</option>)}
               </select>
             </div>
             <div>
-              <label style={{ color: '#94a3b8', fontSize: 13, display: 'block', marginBottom: 6 }}>Stop Loss (pips)</label>
+              <label style={{ color: '#55606f', fontSize: 13, display: 'block', marginBottom: 6 }}>Stop Loss (pips)</label>
               <input className="input-field" type="number" value={form.sl} onChange={set('sl')} placeholder="20" />
             </div>
 
@@ -62,34 +62,34 @@ export default function CalculatorPage() {
         </div>
 
         {result && (
-          <div style={{ background: 'linear-gradient(135deg, rgba(245,197,24,0.08), rgba(0,200,81,0.06))', border: '1px solid rgba(245,197,24,0.15)', borderRadius: 16, padding: 20 }}>
-            <div style={{ color: '#94a3b8', fontSize: 13, marginBottom: 14, fontWeight: 600 }}>📊 Position Size Result</div>
+          <div style={{ background: 'linear-gradient(135deg, rgba(37,99,235,0.08), rgba(22,163,74,0.06))', border: '1px solid rgba(37,99,235,0.15)', borderRadius: 16, padding: 20 }}>
+            <div style={{ color: '#55606f', fontSize: 13, marginBottom: 14, fontWeight: 600 }}>📊 Position Size Result</div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-              <div style={{ background: 'rgba(245,197,24,0.08)', border: '1px solid rgba(245,197,24,0.15)', borderRadius: 12, padding: 14, textAlign: 'center' }}>
-                <div style={{ color: '#64748b', fontSize: 11, marginBottom: 4 }}>Lot Size</div>
-                <div style={{ color: '#f5c518', fontWeight: 900, fontSize: 28 }}>{result.lotSize}</div>
-                <div style={{ color: '#475569', fontSize: 11 }}>lots</div>
+              <div style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.15)', borderRadius: 12, padding: 14, textAlign: 'center' }}>
+                <div style={{ color: '#7a8494', fontSize: 11, marginBottom: 4 }}>Lot Size</div>
+                <div style={{ color: '#2563eb', fontWeight: 900, fontSize: 28 }}>{result.lotSize}</div>
+                <div style={{ color: '#9aa3b2', fontSize: 11 }}>lots</div>
               </div>
-              <div style={{ background: 'rgba(255,68,68,0.06)', border: '1px solid rgba(255,68,68,0.15)', borderRadius: 12, padding: 14, textAlign: 'center' }}>
-                <div style={{ color: '#64748b', fontSize: 11, marginBottom: 4 }}>Risk Amount</div>
-                <div style={{ color: '#ff6666', fontWeight: 900, fontSize: 28 }}>${result.riskAmount}</div>
-                <div style={{ color: '#475569', fontSize: 11 }}>{form.risk}% of account</div>
+              <div style={{ background: 'rgba(220,38,38,0.06)', border: '1px solid rgba(220,38,38,0.15)', borderRadius: 12, padding: 14, textAlign: 'center' }}>
+                <div style={{ color: '#7a8494', fontSize: 11, marginBottom: 4 }}>Risk Amount</div>
+                <div style={{ color: '#dc2626', fontWeight: 900, fontSize: 28 }}>${result.riskAmount}</div>
+                <div style={{ color: '#9aa3b2', fontSize: 11 }}>{form.risk}% of account</div>
               </div>
             </div>
-            <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: 10, padding: '10px 14px', marginTop: 12 }}>
-              <div style={{ color: '#64748b', fontSize: 12 }}>Pip Value: <span style={{ color: 'white', fontWeight: 700 }}>${result.pipValue}</span> per pip per lot</div>
+            <div style={{ background: 'rgba(16,19,26,0.04)', borderRadius: 10, padding: '10px 14px', marginTop: 12 }}>
+              <div style={{ color: '#7a8494', fontSize: 12 }}>Pip Value: <span style={{ color: '#10131a', fontWeight: 700 }}>${result.pipValue}</span> per pip per lot</div>
             </div>
-            <div style={{ marginTop: 12, padding: '10px 14px', background: 'rgba(0,200,81,0.06)', border: '1px solid rgba(0,200,81,0.12)', borderRadius: 10 }}>
-              <div style={{ color: '#94a3b8', fontSize: 12, lineHeight: 1.6 }}>
-                💡 <strong style={{ color: '#00c851' }}>Rule of thumb:</strong> Never risk more than 1-2% per trade. With {form.pair}, a {form.sl} pip SL and ${form.account} account → trade <strong style={{ color: '#f5c518' }}>{result.lotSize} lots</strong>.
+            <div style={{ marginTop: 12, padding: '10px 14px', background: 'rgba(22,163,74,0.06)', border: '1px solid rgba(22,163,74,0.12)', borderRadius: 10 }}>
+              <div style={{ color: '#55606f', fontSize: 12, lineHeight: 1.6 }}>
+                💡 <strong style={{ color: '#16a34a' }}>Rule of thumb:</strong> Never risk more than 1-2% per trade. With {form.pair}, a {form.sl} pip SL and ${form.account} account → trade <strong style={{ color: '#2563eb' }}>{result.lotSize} lots</strong>.
               </div>
             </div>
           </div>
         )}
 
         {/* Risk management tips */}
-        <div style={{ background: '#111118', border: '1px solid rgba(245,197,24,0.06)', borderRadius: 14, padding: 16, marginTop: 14 }}>
-          <div style={{ color: '#94a3b8', fontWeight: 700, fontSize: 13, marginBottom: 10 }}>📘 Risk Management Rules</div>
+        <div style={{ background: '#ffffff', border: '1px solid rgba(37,99,235,0.06)', borderRadius: 14, padding: 16, marginTop: 14 }}>
+          <div style={{ color: '#55606f', fontWeight: 700, fontSize: 13, marginBottom: 10 }}>📘 Risk Management Rules</div>
           {[
             ['1-2% Rule', 'Never risk more than 2% of your account on a single trade'],
             ['RR Ratio', 'Always aim for at least 1:2 risk-reward ratio (risk $1 to make $2)'],
@@ -97,10 +97,10 @@ export default function CalculatorPage() {
             ['Stop Loss', 'Always use a stop loss — no exceptions. Markets move fast.']
           ].map(([title, desc]) => (
             <div key={title} style={{ display: 'flex', gap: 8, marginBottom: 10 }}>
-              <span style={{ color: '#f5c518', marginTop: 1 }}>✓</span>
+              <span style={{ color: '#2563eb', marginTop: 1 }}>✓</span>
               <div>
-                <div style={{ color: 'white', fontWeight: 700, fontSize: 13 }}>{title}</div>
-                <div style={{ color: '#64748b', fontSize: 12 }}>{desc}</div>
+                <div style={{ color: '#10131a', fontWeight: 700, fontSize: 13 }}>{title}</div>
+                <div style={{ color: '#7a8494', fontSize: 12 }}>{desc}</div>
               </div>
             </div>
           ))}

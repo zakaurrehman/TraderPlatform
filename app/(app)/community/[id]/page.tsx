@@ -28,24 +28,24 @@ export default async function CommunityPostPage({ params }: { params: Promise<{ 
   return (
     <div style={{ padding: '0 0 8px' }}>
       <div style={{ padding: '16px 16px 0' }}>
-        <Link href="/community" style={{ color: '#64748b', textDecoration: 'none', fontSize: 13 }}>← Community</Link>
+        <Link href="/community" style={{ color: '#7a8494', textDecoration: 'none', fontSize: 13 }}>← Community</Link>
       </div>
 
       <div style={{ padding: '12px 16px' }}>
-        <div style={{ background: '#111118', border: '1px solid rgba(245,197,24,0.08)', borderRadius: 14, padding: 16, marginBottom: 12 }}>
+        <div style={{ background: '#ffffff', border: '1px solid rgba(37,99,235,0.08)', borderRadius: 14, padding: 16, marginBottom: 12 }}>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 10 }}>
-            <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(245,197,24,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#f5c518', fontWeight: 800, fontSize: 14 }}>
+            <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(37,99,235,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#2563eb', fontWeight: 800, fontSize: 14 }}>
               {post.author.fullName[0]}
             </div>
             <div>
-              <div style={{ color: 'white', fontWeight: 700 }}>{post.author.fullName}</div>
-              <div style={{ color: '#475569', fontSize: 11 }}>{post.author.studentId} · {formatDateTime(post.createdAt)}</div>
+              <div style={{ color: '#10131a', fontWeight: 700 }}>{post.author.fullName}</div>
+              <div style={{ color: '#9aa3b2', fontSize: 11 }}>{post.author.studentId} · {formatDateTime(post.createdAt)}</div>
             </div>
           </div>
-          <h1 style={{ color: 'white', fontWeight: 800, fontSize: 18, marginBottom: 10 }}>{post.title}</h1>
+          <h1 style={{ color: '#10131a', fontWeight: 800, fontSize: 18, marginBottom: 10 }}>{post.title}</h1>
           {post.imageUrl && <img src={post.imageUrl} alt="" style={{ width: '100%', borderRadius: 8, marginBottom: 10 }} />}
-          <p style={{ color: '#94a3b8', fontSize: 14, lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>{post.content}</p>
-          <div style={{ display: 'flex', gap: 12, marginTop: 14, paddingTop: 12, borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+          <p style={{ color: '#55606f', fontSize: 14, lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>{post.content}</p>
+          <div style={{ display: 'flex', gap: 12, marginTop: 14, paddingTop: 12, borderTop: '1px solid rgba(16,19,26,0.05)' }}>
             <ReactionButtons postId={post.id} likes={likes} dislikes={dislikes} userReaction={userReaction?.type} />
           </div>
         </div>
@@ -60,12 +60,12 @@ function ReactionButtons({ postId, likes, dislikes, userReaction }: { postId: st
   return (
     <>
       <form action={async () => { 'use server'; await fetch('/api/community', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ postId, type: 'LIKE' }) }) }}>
-        <button style={{ background: userReaction === 'LIKE' ? 'rgba(0,200,81,0.15)' : 'rgba(255,255,255,0.05)', border: `1px solid ${userReaction === 'LIKE' ? 'rgba(0,200,81,0.3)' : 'rgba(255,255,255,0.08)'}`, borderRadius: 8, padding: '6px 12px', color: userReaction === 'LIKE' ? '#00c851' : '#64748b', cursor: 'pointer', fontSize: 13 }}>
+        <button style={{ background: userReaction === 'LIKE' ? 'rgba(22,163,74,0.15)' : 'rgba(16,19,26,0.05)', border: `1px solid ${userReaction === 'LIKE' ? 'rgba(22,163,74,0.3)' : 'rgba(16,19,26,0.08)'}`, borderRadius: 8, padding: '6px 12px', color: userReaction === 'LIKE' ? '#16a34a' : '#7a8494', cursor: 'pointer', fontSize: 13 }}>
           👍 {likes}
         </button>
       </form>
       <form action={async () => { 'use server'; await fetch('/api/community', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ postId, type: 'DISLIKE' }) }) }}>
-        <button style={{ background: userReaction === 'DISLIKE' ? 'rgba(255,68,68,0.1)' : 'rgba(255,255,255,0.05)', border: `1px solid ${userReaction === 'DISLIKE' ? 'rgba(255,68,68,0.3)' : 'rgba(255,255,255,0.08)'}`, borderRadius: 8, padding: '6px 12px', color: userReaction === 'DISLIKE' ? '#ff6666' : '#64748b', cursor: 'pointer', fontSize: 13 }}>
+        <button style={{ background: userReaction === 'DISLIKE' ? 'rgba(220,38,38,0.1)' : 'rgba(16,19,26,0.05)', border: `1px solid ${userReaction === 'DISLIKE' ? 'rgba(220,38,38,0.3)' : 'rgba(16,19,26,0.08)'}`, borderRadius: 8, padding: '6px 12px', color: userReaction === 'DISLIKE' ? '#dc2626' : '#7a8494', cursor: 'pointer', fontSize: 13 }}>
           👎 {dislikes}
         </button>
       </form>

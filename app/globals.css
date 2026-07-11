@@ -213,16 +213,16 @@ h1, h2, h3, h4 {
   select.field option { background: #ffffff; color: #10131a; }
   textarea.field { resize: vertical; min-height: 3.5rem; }
 
-  /* ── Form fields (legacy authed app, dark) ── */
+  /* ── .input-field: legacy alias of .field (authed app, now light) ── */
   .input-field {
-    width: 100%; background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1); border-radius: 8px;
-    color: #fff; padding: 10px 14px; outline: none;
-    transition: border-color 0.2s;
+    width: 100%; background: var(--color-surface);
+    border: 1px solid var(--color-line-strong); border-radius: var(--radius-md);
+    color: var(--color-ink); padding: 10px 14px; outline: none; font-size: 0.9375rem;
+    transition: border-color 0.18s, box-shadow 0.18s;
   }
-  .input-field::placeholder { color: #64748b; }
-  .input-field:focus { border-color: #f5c518; }
-  .input-field option { background: #1a1a24; color: #f0f0f0; }
+  .input-field::placeholder { color: var(--color-dim); }
+  .input-field:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
+  .input-field option { background: #ffffff; color: #10131a; }
 
   /* ── Links & text helpers ── */
   .link-primary, .link-gold { color: var(--color-primary); text-decoration: none; font-weight: 600; transition: color 0.15s; }
@@ -277,6 +277,11 @@ h1, h2, h3, h4 {
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @keyframes glowPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.9; } }
+/* compat: used by authed nav LIVE indicators */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(220,38,38,0.5); }
+  50% { box-shadow: 0 0 16px rgba(220,38,38,0.9); }
+}
 
 .fade-in { animation: fadeUp 0.5s var(--ease-out) both; }
 .animate-float { animation: floaty 7s ease-in-out infinite; }
@@ -308,9 +313,9 @@ h1, h2, h3, h4 {
 }
 
 /* ============================================================================
-   AUTHENTICATED APP SHELL  (kept DARK — app/(app)/* pages are still dark-styled)
+   AUTHENTICATED APP SHELL  (light — matches the marketing "Clarity" theme)
    ========================================================================== */
-.app-shell { min-height: 100vh; background: #0a0b0f; }
+.app-shell { min-height: 100vh; background: var(--color-canvas-2); }
 .app-side-nav { display: none; }
 .app-bottom-nav-wrap { display: block; }
 .app-main { padding-bottom: 88px; }
@@ -319,18 +324,19 @@ h1, h2, h3, h4 {
   .app-shell { display: flex; }
   .app-side-nav {
     display: flex; flex-direction: column; width: 232px; min-height: 100vh;
-    background: #0d0f14; border-right: 1px solid rgba(255,255,255,0.08);
+    background: var(--color-surface); border-right: 1px solid var(--color-line);
     position: sticky; top: 0; height: 100vh; overflow-y: auto; flex-shrink: 0;
   }
   .app-bottom-nav-wrap { display: none; }
   .app-main { flex: 1; padding-bottom: 0; max-width: 960px; padding: 32px 40px; }
 }
 
-/* Legacy authed primary button (bare `.btn-primary`, no `.btn` base) stays gold. */
+/* Legacy bare `.btn-primary` (no `.btn` base) used by a few authed pages. */
 .app-shell .btn-primary:not(.btn) {
-  background: linear-gradient(135deg, #f5c518, #c9a000);
-  color: #0a0a0f; font-weight: 700; padding: 10px 20px;
-  border-radius: 8px; border: none; cursor: pointer; box-shadow: none;
+  background: var(--grad-primary);
+  color: #fff; font-weight: 600; padding: 10px 20px;
+  border-radius: 8px; border: none; cursor: pointer;
+  box-shadow: 0 6px 18px -8px rgba(37,99,235,0.6);
   transition: opacity 0.2s;
 }
-.app-shell .btn-primary:not(.btn):hover { opacity: 0.9; transform: none; }
+.app-shell .btn-primary:not(.btn):hover { opacity: 0.92; transform: none; }

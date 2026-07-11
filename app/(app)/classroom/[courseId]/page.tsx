@@ -28,8 +28,8 @@ export default function CoursePage({ params }: { params: Promise<{ courseId: str
     setCompleted(prev => new Set(Array.from(prev).concat(videoId)))
   }
 
-  if (loading) return <div style={{ padding: 24, color: '#64748b', textAlign: 'center' }}>Loading...</div>
-  if (!course) return <div style={{ padding: 24, color: '#ff6666', textAlign: 'center' }}>Course not found.</div>
+  if (loading) return <div style={{ padding: 24, color: '#7a8494', textAlign: 'center' }}>Loading...</div>
+  if (!course) return <div style={{ padding: 24, color: '#dc2626', textAlign: 'center' }}>Course not found.</div>
 
   const total = course.videos.length
   const done = course.videos.filter(v => completed.has(v.id)).length
@@ -43,15 +43,15 @@ export default function CoursePage({ params }: { params: Promise<{ courseId: str
 
   return (
     <div style={{ padding: '0 0 8px' }}>
-      <div style={{ padding: '16px 16px 12px', borderBottom: '1px solid rgba(245,197,24,0.08)' }}>
-        <Link href="/classroom" style={{ color: '#64748b', textDecoration: 'none', fontSize: 13, display: 'block', marginBottom: 8 }}>← Classroom</Link>
-        <h1 style={{ fontWeight: 800, fontSize: 18, color: 'white', marginBottom: 4 }}>{course.title}</h1>
+      <div style={{ padding: '16px 16px 12px', borderBottom: '1px solid rgba(37,99,235,0.08)' }}>
+        <Link href="/classroom" style={{ color: '#7a8494', textDecoration: 'none', fontSize: 13, display: 'block', marginBottom: 8 }}>← Classroom</Link>
+        <h1 style={{ fontWeight: 800, fontSize: 18, color: '#10131a', marginBottom: 4 }}>{course.title}</h1>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ color: '#64748b', fontSize: 12 }}>{done}/{total} complete</span>
-          <span style={{ color: '#f5c518', fontWeight: 700, fontSize: 13 }}>{pct}%</span>
+          <span style={{ color: '#7a8494', fontSize: 12 }}>{done}/{total} complete</span>
+          <span style={{ color: '#2563eb', fontWeight: 700, fontSize: 13 }}>{pct}%</span>
         </div>
-        <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: 4, height: 4, marginTop: 6 }}>
-          <div style={{ background: 'linear-gradient(90deg,#f5c518,#00ff88)', height: '100%', borderRadius: 4, width: `${pct}%` }} />
+        <div style={{ background: 'rgba(16,19,26,0.05)', borderRadius: 4, height: 4, marginTop: 6 }}>
+          <div style={{ background: 'linear-gradient(90deg,#2563eb,#22c55e)', height: '100%', borderRadius: 4, width: `${pct}%` }} />
         </div>
       </div>
 
@@ -61,14 +61,14 @@ export default function CoursePage({ params }: { params: Promise<{ courseId: str
           <div style={{ position: 'relative', paddingBottom: '56.25%', background: '#000' }}>
             <iframe src={getEmbedUrl(activeVideo.url)} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }} allowFullScreen />
           </div>
-          <div style={{ padding: '12px 16px', borderBottom: '1px solid rgba(245,197,24,0.06)' }}>
-            <h2 style={{ color: 'white', fontWeight: 700, fontSize: 15, marginBottom: 8 }}>{activeVideo.title}</h2>
+          <div style={{ padding: '12px 16px', borderBottom: '1px solid rgba(37,99,235,0.06)' }}>
+            <h2 style={{ color: '#10131a', fontWeight: 700, fontSize: 15, marginBottom: 8 }}>{activeVideo.title}</h2>
             {!completed.has(activeVideo.id) && (
-              <button onClick={() => markComplete(activeVideo.id)} style={{ padding: '8px 16px', borderRadius: 8, background: 'linear-gradient(135deg,#00c851,#009940)', color: 'white', border: 'none', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
+              <button onClick={() => markComplete(activeVideo.id)} style={{ padding: '8px 16px', borderRadius: 8, background: 'linear-gradient(135deg,#16a34a,#15803d)', color: '#fff', border: 'none', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
                 ✓ Mark Complete
               </button>
             )}
-            {completed.has(activeVideo.id) && <span style={{ color: '#00c851', fontWeight: 700, fontSize: 13 }}>✅ Completed</span>}
+            {completed.has(activeVideo.id) && <span style={{ color: '#16a34a', fontWeight: 700, fontSize: 13 }}>✅ Completed</span>}
           </div>
         </div>
       )}
@@ -78,28 +78,28 @@ export default function CoursePage({ params }: { params: Promise<{ courseId: str
         {course.videos.map((v, i) => (
           <button key={v.id} onClick={() => setActiveVideo(v)} style={{
             width: '100%', textAlign: 'left', padding: '10px 12px', borderRadius: 10, border: 'none', marginBottom: 6, cursor: 'pointer',
-            background: activeVideo?.id === v.id ? 'rgba(245,197,24,0.12)' : 'rgba(255,255,255,0.04)',
-            borderLeft: `3px solid ${completed.has(v.id) ? '#00c851' : activeVideo?.id === v.id ? '#f5c518' : 'transparent'}`
+            background: activeVideo?.id === v.id ? 'rgba(37,99,235,0.12)' : 'rgba(16,19,26,0.04)',
+            borderLeft: `3px solid ${completed.has(v.id) ? '#16a34a' : activeVideo?.id === v.id ? '#2563eb' : 'transparent'}`
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ color: '#475569', fontSize: 12, width: 18 }}>{i + 1}.</span>
+                <span style={{ color: '#9aa3b2', fontSize: 12, width: 18 }}>{i + 1}.</span>
                 <div>
-                  <div style={{ color: 'white', fontSize: 13, fontWeight: completed.has(v.id) ? 600 : 400 }}>{v.title}</div>
-                  {v.duration && <div style={{ color: '#475569', fontSize: 11 }}>{v.duration}</div>}
+                  <div style={{ color: '#10131a', fontSize: 13, fontWeight: completed.has(v.id) ? 600 : 400 }}>{v.title}</div>
+                  {v.duration && <div style={{ color: '#9aa3b2', fontSize: 11 }}>{v.duration}</div>}
                 </div>
               </div>
-              {completed.has(v.id) && <span style={{ color: '#00c851', fontSize: 14 }}>✓</span>}
+              {completed.has(v.id) && <span style={{ color: '#16a34a', fontSize: 14 }}>✓</span>}
             </div>
           </button>
         ))}
       </div>
 
       {pct === 100 && (
-        <div style={{ margin: '12px 16px', background: 'rgba(0,200,81,0.08)', border: '1px solid rgba(0,200,81,0.2)', borderRadius: 12, padding: 16, textAlign: 'center' }}>
+        <div style={{ margin: '12px 16px', background: 'rgba(22,163,74,0.08)', border: '1px solid rgba(22,163,74,0.2)', borderRadius: 12, padding: 16, textAlign: 'center' }}>
           <div style={{ fontSize: 32, marginBottom: 6 }}>🏆</div>
-          <div style={{ color: '#00c851', fontWeight: 800, fontSize: 16 }}>Course Complete!</div>
-          <div style={{ color: '#64748b', fontSize: 12, marginTop: 4 }}>Your certificate has been issued.</div>
+          <div style={{ color: '#16a34a', fontWeight: 800, fontSize: 16 }}>Course Complete!</div>
+          <div style={{ color: '#7a8494', fontSize: 12, marginTop: 4 }}>Your certificate has been issued.</div>
         </div>
       )}
     </div>

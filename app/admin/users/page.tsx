@@ -23,14 +23,14 @@ export default function AdminUsersPage() {
     return true
   })
 
-  const statusColors: Record<string, string> = { PENDING: '#f0b429', APPROVED: '#00c851', REJECTED: '#ff4444' }
+  const statusColors: Record<string, string> = { PENDING: '#f59e0b', APPROVED: '#16a34a', REJECTED: '#dc2626' }
   const planColors: Record<string, string> = {
-    FREE: '#64748b',
-    BASIC: '#60a5fa',
-    ADVANCED: '#a78bfa',
-    MASTERY: '#34d399',
-    PREMIUM: '#f5c518',
-    MENTORSHIP: '#f97316',
+    FREE: '#7a8494',
+    BASIC: '#2563eb',
+    ADVANCED: '#6d28d9',
+    MASTERY: '#16a34a',
+    PREMIUM: '#2563eb',
+    MENTORSHIP: '#ea580c',
   }
   const planLabels: Record<string, string> = {
     FREE: 'Free',
@@ -44,36 +44,36 @@ export default function AdminUsersPage() {
   return (
     <div>
       <h1 style={{ fontWeight: 800, fontSize: 22, marginBottom: 6 }}>Users</h1>
-      <p style={{ color: '#64748b', marginBottom: 20 }}>{users.length} total users</p>
+      <p style={{ color: '#7a8494', marginBottom: 20 }}>{users.length} total users</p>
 
       <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
         {(['ALL', 'PENDING', 'APPROVED', 'AFFILIATE'] as const).map(f => (
-          <button key={f} onClick={() => setFilter(f)} style={{ padding: '6px 14px', borderRadius: 20, border: 'none', background: filter === f ? 'rgba(245,197,24,0.15)' : 'rgba(255,255,255,0.05)', color: filter === f ? '#f5c518' : '#64748b', cursor: 'pointer', fontWeight: filter === f ? 700 : 400, fontSize: 13 }}>{f}</button>
+          <button key={f} onClick={() => setFilter(f)} style={{ padding: '6px 14px', borderRadius: 20, border: 'none', background: filter === f ? 'rgba(37,99,235,0.15)' : 'rgba(16,19,26,0.05)', color: filter === f ? '#2563eb' : '#7a8494', cursor: 'pointer', fontWeight: filter === f ? 700 : 400, fontSize: 13 }}>{f}</button>
         ))}
       </div>
 
       <div style={{ overflowX: 'auto' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', background: '#111118', borderRadius: 12, overflow: 'hidden' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', background: '#ffffff', borderRadius: 12, overflow: 'hidden' }}>
           <thead>
-            <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+            <tr style={{ borderBottom: '1px solid rgba(16,19,26,0.06)' }}>
               {['Name / ID', 'Email', 'Role', 'Plan', 'Status', 'Actions'].map(h => (
-                <th key={h} style={{ textAlign: 'left', padding: '10px 14px', color: '#64748b', fontSize: 12, fontWeight: 600 }}>{h}</th>
+                <th key={h} style={{ textAlign: 'left', padding: '10px 14px', color: '#7a8494', fontSize: 12, fontWeight: 600 }}>{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {filtered.map(u => (
-              <tr key={u.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
+              <tr key={u.id} style={{ borderBottom: '1px solid rgba(16,19,26,0.03)' }}>
                 <td style={{ padding: '10px 14px' }}>
-                  <div style={{ color: 'white', fontWeight: 700, fontSize: 13 }}>{u.fullName}</div>
-                  <div style={{ color: '#475569', fontSize: 11 }}>{u.studentId}</div>
+                  <div style={{ color: '#10131a', fontWeight: 700, fontSize: 13 }}>{u.fullName}</div>
+                  <div style={{ color: '#9aa3b2', fontSize: 11 }}>{u.studentId}</div>
                 </td>
-                <td style={{ padding: '10px 14px', color: '#94a3b8', fontSize: 12 }}>{u.email}</td>
+                <td style={{ padding: '10px 14px', color: '#55606f', fontSize: 12 }}>{u.email}</td>
                 <td style={{ padding: '10px 14px' }}>
-                  <span style={{ background: u.role === 'ADMIN' ? 'rgba(255,68,68,0.1)' : 'rgba(245,197,24,0.08)', color: u.role === 'ADMIN' ? '#ff6666' : '#f5c518', fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 20 }}>{u.role}</span>
+                  <span style={{ background: u.role === 'ADMIN' ? 'rgba(220,38,38,0.1)' : 'rgba(37,99,235,0.08)', color: u.role === 'ADMIN' ? '#dc2626' : '#2563eb', fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 20 }}>{u.role}</span>
                 </td>
                 <td style={{ padding: '10px 14px' }}>
-                  <select style={{ background: '#0f0f15', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 6, color: planColors[u.plan] || 'white', padding: '3px 6px', fontSize: 12, cursor: 'pointer' }}
+                  <select style={{ background: '#ffffff', border: '1px solid rgba(16,19,26,0.1)', borderRadius: 6, color: planColors[u.plan] || 'white', padding: '3px 6px', fontSize: 12, cursor: 'pointer' }}
                     value={u.plan} onChange={e => updateUser(u.id, { plan: e.target.value })}>
                     {Object.entries(planLabels).map(([value, label]) => (
                       <option key={value} value={value}>{label}</option>
@@ -81,25 +81,25 @@ export default function AdminUsersPage() {
                   </select>
                 </td>
                 <td style={{ padding: '10px 14px' }}>
-                  <span style={{ color: statusColors[u.status] || '#94a3b8', fontSize: 12, fontWeight: 700 }}>{u.status}</span>
+                  <span style={{ color: statusColors[u.status] || '#55606f', fontSize: 12, fontWeight: 700 }}>{u.status}</span>
                 </td>
                 <td style={{ padding: '10px 14px' }}>
                   <div style={{ display: 'flex', gap: 6 }}>
                     {u.status === 'PENDING' && (
                       <>
-                        <button onClick={() => updateUser(u.id, { status: 'APPROVED' })} style={{ padding: '4px 10px', borderRadius: 6, background: 'rgba(0,200,81,0.1)', border: '1px solid rgba(0,200,81,0.2)', color: '#00c851', cursor: 'pointer', fontSize: 12 }}>Approve</button>
-                        <button onClick={() => updateUser(u.id, { status: 'REJECTED' })} style={{ padding: '4px 10px', borderRadius: 6, background: 'rgba(255,68,68,0.08)', border: '1px solid rgba(255,68,68,0.15)', color: '#ff6666', cursor: 'pointer', fontSize: 12 }}>Reject</button>
+                        <button onClick={() => updateUser(u.id, { status: 'APPROVED' })} style={{ padding: '4px 10px', borderRadius: 6, background: 'rgba(22,163,74,0.1)', border: '1px solid rgba(22,163,74,0.2)', color: '#16a34a', cursor: 'pointer', fontSize: 12 }}>Approve</button>
+                        <button onClick={() => updateUser(u.id, { status: 'REJECTED' })} style={{ padding: '4px 10px', borderRadius: 6, background: 'rgba(220,38,38,0.08)', border: '1px solid rgba(220,38,38,0.15)', color: '#dc2626', cursor: 'pointer', fontSize: 12 }}>Reject</button>
                       </>
                     )}
-                    {u.status === 'APPROVED' && <span style={{ color: '#00c851', fontSize: 12 }}>✓ Active</span>}
-                    {u.status === 'REJECTED' && <button onClick={() => updateUser(u.id, { status: 'APPROVED' })} style={{ padding: '4px 10px', borderRadius: 6, background: 'rgba(245,197,24,0.08)', border: '1px solid rgba(245,197,24,0.15)', color: '#f5c518', cursor: 'pointer', fontSize: 12 }}>Re-approve</button>}
+                    {u.status === 'APPROVED' && <span style={{ color: '#16a34a', fontSize: 12 }}>✓ Active</span>}
+                    {u.status === 'REJECTED' && <button onClick={() => updateUser(u.id, { status: 'APPROVED' })} style={{ padding: '4px 10px', borderRadius: 6, background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.15)', color: '#2563eb', cursor: 'pointer', fontSize: 12 }}>Re-approve</button>}
                   </div>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        {filtered.length === 0 && <div style={{ textAlign: 'center', color: '#475569', padding: 32 }}>No users found.</div>}
+        {filtered.length === 0 && <div style={{ textAlign: 'center', color: '#9aa3b2', padding: 32 }}>No users found.</div>}
       </div>
     </div>
   )

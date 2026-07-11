@@ -12,25 +12,25 @@
 
   return (
     <div style={{ padding: '0 0 8px' }}>
-      <div style={{ padding: '20px 16px 12px', borderBottom: '1px solid rgba(245,197,24,0.08)' }}>
-        <h1 style={{ fontWeight: 800, fontSize: 20, color: 'white' }}>Market Watchlist</h1>
-        <p style={{ color: '#64748b', fontSize: 13, marginTop: 2 }}>Live prices powered by TradingView</p>
+      <div style={{ padding: '20px 16px 12px', borderBottom: '1px solid rgba(37,99,235,0.08)' }}>
+        <h1 style={{ fontWeight: 800, fontSize: 20, color: '#10131a' }}>Market Watchlist</h1>
+        <p style={{ color: '#7a8494', fontSize: 13, marginTop: 2 }}>Live prices powered by TradingView</p>
       </div>
 
       {/* TradingView Market Overview Widget */}
       <div style={{ padding: '12px 16px' }}>
-        <div style={{ background: '#111118', border: '1px solid rgba(245,197,24,0.1)', borderRadius: 14, overflow: 'hidden', marginBottom: 14 }}>
+        <div style={{ background: '#ffffff', border: '1px solid rgba(37,99,235,0.1)', borderRadius: 14, overflow: 'hidden', marginBottom: 14 }}>
           <TradingViewWidget />
         </div>
 
         {/* Mini charts for each pair */}
-        <div style={{ color: '#94a3b8', fontWeight: 700, fontSize: 13, marginBottom: 8 }}>Tracked Pairs</div>
+        <div style={{ color: '#55606f', fontWeight: 700, fontSize: 13, marginBottom: 8 }}>Tracked Pairs</div>
         {pairs.map(p => (
-          <div key={p.symbol} style={{ background: '#111118', border: '1px solid rgba(245,197,24,0.06)', borderRadius: 10, padding: '12px 14px', marginBottom: 8 }}>
+          <div key={p.symbol} style={{ background: '#ffffff', border: '1px solid rgba(37,99,235,0.06)', borderRadius: 10, padding: '12px 14px', marginBottom: 8 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
-                <div style={{ color: 'white', fontWeight: 700, fontSize: 14 }}>{p.symbol}</div>
-                <div style={{ color: '#475569', fontSize: 11, marginTop: 1 }}>{p.name}</div>
+                <div style={{ color: '#10131a', fontWeight: 700, fontSize: 14 }}>{p.symbol}</div>
+                <div style={{ color: '#9aa3b2', fontSize: 11, marginTop: 1 }}>{p.name}</div>
               </div>
               <MiniChartWidget symbol={p.symbol} />
             </div>
@@ -49,7 +49,7 @@ function TradingViewWidget() {
           <div class="tradingview-widget-container__widget"></div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
           {
-            "colorTheme": "dark",
+            "colorTheme": "light",
             "dateRange": "1D",
             "showChart": true,
             "locale": "en",
@@ -104,7 +104,7 @@ function MiniChartWidget({ symbol }: { symbol: string }) {
             "height": 40,
             "locale": "en",
             "dateRange": "1D",
-            "colorTheme": "dark",
+            "colorTheme": "light",
             "isTransparent": true,
             "autosize": false,
             "largeChartUrl": "",

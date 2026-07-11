@@ -14,8 +14,8 @@ function serviceToPlan(service: string) {
 }
 
 const SERVICES = ['Basic Training', 'Premium Signals', 'Advanced Trading Strategies', 'Mastery Bundle', 'Personal Mentorship']
-const planColors: Record<string, string> = { PREMIUM: '#a855f7', BASIC: '#f5c518' }
-const statusColors: Record<string, string> = { PENDING: '#f0b429', CONFIRMED: '#00c851', REJECTED: '#ff4444' }
+const planColors: Record<string, string> = { PREMIUM: '#7c3aed', BASIC: '#2563eb' }
+const statusColors: Record<string, string> = { PENDING: '#f59e0b', CONFIRMED: '#16a34a', REJECTED: '#dc2626' }
 
 export default function AdminPaymentsPage() {
   const [payments, setPayments] = useState<Payment[]>([])
@@ -43,9 +43,9 @@ export default function AdminPaymentsPage() {
   return (
     <div>
       <h1 style={{ fontWeight: 800, fontSize: 22, marginBottom: 4 }}>Payment Requests</h1>
-      <p style={{ color: '#64748b', marginBottom: 20 }}>
+      <p style={{ color: '#7a8494', marginBottom: 20 }}>
         {pending > 0
-          ? <span style={{ color: '#f0b429', fontWeight: 700 }}>{pending} awaiting confirmation</span>
+          ? <span style={{ color: '#f59e0b', fontWeight: 700 }}>{pending} awaiting confirmation</span>
           : 'All payments reviewed'}
         {' · '}{payments.length} total
       </p>
@@ -58,14 +58,14 @@ export default function AdminPaymentsPage() {
           const active = serviceFilter === svc
           return (
             <button key={svc} onClick={() => setServiceFilter(active ? 'ALL' : svc)} style={{
-              background: active ? 'rgba(245,197,24,0.12)' : '#111118',
-              border: `1px solid ${active ? 'rgba(245,197,24,0.4)' : 'rgba(245,197,24,0.08)'}`,
+              background: active ? 'rgba(37,99,235,0.12)' : '#ffffff',
+              border: `1px solid ${active ? 'rgba(37,99,235,0.4)' : 'rgba(37,99,235,0.08)'}`,
               borderRadius: 10, padding: '12px 14px', cursor: 'pointer', textAlign: 'left'
             }}>
               <div style={{ color: planColors[plan], fontSize: 10, fontWeight: 700, marginBottom: 2 }}>{plan}</div>
-              <div style={{ color: 'white', fontWeight: 700, fontSize: 13, lineHeight: 1.3 }}>{svc}</div>
-              <div style={{ color: '#f5c518', fontWeight: 900, fontSize: 22, marginTop: 4 }}>{count}</div>
-              <div style={{ color: '#64748b', fontSize: 11 }}>payment{count !== 1 ? 's' : ''}</div>
+              <div style={{ color: '#10131a', fontWeight: 700, fontSize: 13, lineHeight: 1.3 }}>{svc}</div>
+              <div style={{ color: '#2563eb', fontWeight: 900, fontSize: 22, marginTop: 4 }}>{count}</div>
+              <div style={{ color: '#7a8494', fontSize: 11 }}>payment{count !== 1 ? 's' : ''}</div>
             </button>
           )
         })}
@@ -76,18 +76,18 @@ export default function AdminPaymentsPage() {
         {['PENDING', 'CONFIRMED', 'REJECTED', 'ALL'].map(f => (
           <button key={f} onClick={() => setStatusFilter(f)} style={{
             padding: '6px 16px', borderRadius: 20, border: 'none', cursor: 'pointer', fontSize: 13,
-            background: statusFilter === f ? 'rgba(245,197,24,0.15)' : 'rgba(255,255,255,0.05)',
-            color: statusFilter === f ? '#f5c518' : '#64748b',
+            background: statusFilter === f ? 'rgba(37,99,235,0.15)' : 'rgba(16,19,26,0.05)',
+            color: statusFilter === f ? '#2563eb' : '#7a8494',
             fontWeight: statusFilter === f ? 700 : 400
           }}>
             {f}
             {f === 'PENDING' && pending > 0 && (
-              <span style={{ marginLeft: 6, background: '#f0b429', color: '#0a0a0f', borderRadius: 10, fontSize: 10, fontWeight: 800, padding: '1px 6px' }}>{pending}</span>
+              <span style={{ marginLeft: 6, background: '#f59e0b', color: '#fff', borderRadius: 10, fontSize: 10, fontWeight: 800, padding: '1px 6px' }}>{pending}</span>
             )}
           </button>
         ))}
         {serviceFilter !== 'ALL' && (
-          <button onClick={() => setServiceFilter('ALL')} style={{ padding: '6px 12px', borderRadius: 20, border: '1px solid rgba(245,197,24,0.3)', background: 'transparent', color: '#f5c518', cursor: 'pointer', fontSize: 12 }}>
+          <button onClick={() => setServiceFilter('ALL')} style={{ padding: '6px 12px', borderRadius: 20, border: '1px solid rgba(37,99,235,0.3)', background: 'transparent', color: '#2563eb', cursor: 'pointer', fontSize: 12 }}>
             × {serviceFilter}
           </button>
         )}
@@ -99,39 +99,39 @@ export default function AdminPaymentsPage() {
           const plan = serviceToPlan(p.service)
           return (
             <div key={p.id} style={{
-              background: '#111118',
-              border: `1px solid ${p.status === 'PENDING' ? 'rgba(240,180,41,0.25)' : 'rgba(245,197,24,0.06)'}`,
+              background: '#ffffff',
+              border: `1px solid ${p.status === 'PENDING' ? 'rgba(240,180,41,0.25)' : 'rgba(37,99,235,0.06)'}`,
               borderRadius: 14, padding: 18
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
                 <div>
-                  <div style={{ color: 'white', fontWeight: 700, fontSize: 16 }}>{p.clientName}</div>
-                  <div style={{ color: '#64748b', fontSize: 12, marginTop: 1 }}>{p.clientEmail}</div>
-                  {p.phone && <div style={{ color: '#475569', fontSize: 12 }}>{p.phone}</div>}
-                  {p.country && <div style={{ color: '#475569', fontSize: 12 }}>{p.country}</div>}
+                  <div style={{ color: '#10131a', fontWeight: 700, fontSize: 16 }}>{p.clientName}</div>
+                  <div style={{ color: '#7a8494', fontSize: 12, marginTop: 1 }}>{p.clientEmail}</div>
+                  {p.phone && <div style={{ color: '#9aa3b2', fontSize: 12 }}>{p.phone}</div>}
+                  {p.country && <div style={{ color: '#9aa3b2', fontSize: 12 }}>{p.country}</div>}
                 </div>
                 <div style={{ textAlign: 'right' }}>
-                  <div style={{ color: '#f5c518', fontWeight: 900, fontSize: 22 }}>${p.amount}</div>
-                  <span style={{ color: statusColors[p.status] ?? '#64748b', fontWeight: 700, fontSize: 12 }}>{p.status}</span>
-                  <div style={{ color: '#475569', fontSize: 11, marginTop: 2 }}>{new Date(p.createdAt).toLocaleDateString()}</div>
+                  <div style={{ color: '#2563eb', fontWeight: 900, fontSize: 22 }}>${p.amount}</div>
+                  <span style={{ color: statusColors[p.status] ?? '#7a8494', fontWeight: 700, fontSize: 12 }}>{p.status}</span>
+                  <div style={{ color: '#9aa3b2', fontSize: 11, marginTop: 2 }}>{new Date(p.createdAt).toLocaleDateString()}</div>
                 </div>
               </div>
 
               {/* Pills */}
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 12 }}>
-                <span style={{ background: 'rgba(255,255,255,0.06)', color: '#e2e8f0', fontSize: 12, padding: '3px 10px', borderRadius: 20 }}>
+                <span style={{ background: 'rgba(16,19,26,0.06)', color: '#2b3442', fontSize: 12, padding: '3px 10px', borderRadius: 20 }}>
                   📦 {p.service}
                 </span>
-                <span style={{ background: `rgba(${plan === 'PREMIUM' ? '168,85,247' : '245,197,24'},0.12)`, color: planColors[plan], fontSize: 12, fontWeight: 700, padding: '3px 10px', borderRadius: 20 }}>
+                <span style={{ background: `rgba(${plan === 'PREMIUM' ? '124,58,237' : '37,99,235'},0.12)`, color: planColors[plan], fontSize: 12, fontWeight: 700, padding: '3px 10px', borderRadius: 20 }}>
                   → activates {plan}
                 </span>
                 {p.paymentMethod && (
-                  <span style={{ background: 'rgba(0,200,81,0.08)', color: '#00c851', fontSize: 12, padding: '3px 10px', borderRadius: 20 }}>
+                  <span style={{ background: 'rgba(22,163,74,0.08)', color: '#16a34a', fontSize: 12, padding: '3px 10px', borderRadius: 20 }}>
                     💳 {p.paymentMethod}
                   </span>
                 )}
                 {p.referralCode && (
-                  <span style={{ background: 'rgba(148,163,184,0.08)', color: '#94a3b8', fontSize: 12, padding: '3px 10px', borderRadius: 20 }}>
+                  <span style={{ background: 'rgba(148,163,184,0.08)', color: '#55606f', fontSize: 12, padding: '3px 10px', borderRadius: 20 }}>
                     🔗 Ref: {p.referralCode}
                   </span>
                 )}
@@ -139,9 +139,9 @@ export default function AdminPaymentsPage() {
 
               {/* Payment proof */}
               {p.paymentNote && (
-                <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 8, padding: '10px 12px', marginBottom: 12 }}>
-                  <div style={{ color: '#64748b', fontSize: 11, marginBottom: 3 }}>TRANSACTION ID / PAYMENT PROOF</div>
-                  <div style={{ color: '#e2e8f0', fontSize: 13, wordBreak: 'break-all', fontFamily: 'monospace' }}>{p.paymentNote}</div>
+                <div style={{ background: 'rgba(16,19,26,0.03)', border: '1px solid rgba(16,19,26,0.07)', borderRadius: 8, padding: '10px 12px', marginBottom: 12 }}>
+                  <div style={{ color: '#7a8494', fontSize: 11, marginBottom: 3 }}>TRANSACTION ID / PAYMENT PROOF</div>
+                  <div style={{ color: '#2b3442', fontSize: 13, wordBreak: 'break-all', fontFamily: 'monospace' }}>{p.paymentNote}</div>
                 </div>
               )}
 
@@ -150,32 +150,32 @@ export default function AdminPaymentsPage() {
                 <div style={{ display: 'flex', gap: 8 }}>
                   <button
                     onClick={() => update(p.id, 'CONFIRMED')}
-                    style={{ flex: 1, padding: '10px', borderRadius: 8, background: 'rgba(0,200,81,0.1)', border: '1px solid rgba(0,200,81,0.25)', color: '#00c851', cursor: 'pointer', fontWeight: 700, fontSize: 13 }}
+                    style={{ flex: 1, padding: '10px', borderRadius: 8, background: 'rgba(22,163,74,0.1)', border: '1px solid rgba(22,163,74,0.25)', color: '#16a34a', cursor: 'pointer', fontWeight: 700, fontSize: 13 }}
                   >
                     ✓ Confirm — activate {plan}
                   </button>
                   <button
                     onClick={() => { const note = prompt('Reason for rejection?'); if (note !== null) update(p.id, 'REJECTED', note) }}
-                    style={{ flex: 1, padding: '10px', borderRadius: 8, background: 'rgba(255,68,68,0.08)', border: '1px solid rgba(255,68,68,0.2)', color: '#ff6666', cursor: 'pointer', fontWeight: 600, fontSize: 13 }}
+                    style={{ flex: 1, padding: '10px', borderRadius: 8, background: 'rgba(220,38,38,0.08)', border: '1px solid rgba(220,38,38,0.2)', color: '#dc2626', cursor: 'pointer', fontWeight: 600, fontSize: 13 }}
                   >
                     ✗ Reject
                   </button>
                 </div>
               )}
               {p.status === 'CONFIRMED' && (
-                <div style={{ color: '#00c851', fontSize: 13, fontWeight: 600 }}>
+                <div style={{ color: '#16a34a', fontSize: 13, fontWeight: 600 }}>
                   ✓ Confirmed · <span style={{ color: planColors[plan] }}>{plan} plan activated</span>
                 </div>
               )}
               {p.status === 'REJECTED' && (
-                <div style={{ color: '#ff6666', fontSize: 13 }}>✗ Rejected</div>
+                <div style={{ color: '#dc2626', fontSize: 13 }}>✗ Rejected</div>
               )}
             </div>
           )
         })}
 
         {filtered.length === 0 && (
-          <div style={{ textAlign: 'center', color: '#475569', padding: 60, background: '#111118', borderRadius: 14 }}>
+          <div style={{ textAlign: 'center', color: '#9aa3b2', padding: 60, background: '#ffffff', borderRadius: 14 }}>
             No {statusFilter !== 'ALL' ? statusFilter.toLowerCase() : ''} {serviceFilter !== 'ALL' ? serviceFilter : ''} payments.
           </div>
         )}
