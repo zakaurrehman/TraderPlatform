@@ -46,9 +46,8 @@ export default function AdminDashboard() {
       <View style={{ padding: spacing.lg }}>
         <Button
           title="Sign Out"
-          variant="danger"
+          variant="dangerSoft"
           icon="log-out-outline"
-          style={{ backgroundColor: 'rgba(220,38,38,0.12)' }}
           onPress={signOut}
         />
       </View>

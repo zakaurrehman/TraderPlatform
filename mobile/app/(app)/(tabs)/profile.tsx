@@ -28,11 +28,11 @@ type ProfileBundle = {
 }
 
 const LINKS: { href: string; label: string; sub: string }[] = [
-  { href: '/(app)/affiliate', label: '🔗 Affiliate Dashboard', sub: 'Referrals & commissions' },
+  { href: '/(app)/affiliate', label: 'Affiliate Dashboard', sub: 'Referrals & commissions' },
   { href: '/(app)/calculator', label: 'Risk Calculator', sub: 'Position size tool' },
-  { href: '/(app)/watchlist', label: '📈 Market Watchlist', sub: 'Live prices' },
-  { href: '/(app)/brokers', label: '🏦 Broker Recommendations', sub: 'Start trading' },
-  { href: '/(app)/resources', label: '📁 Resources', sub: 'Guides & downloads' },
+  { href: '/(app)/watchlist', label: 'Market Watchlist', sub: 'Live prices' },
+  { href: '/(app)/brokers', label: 'Broker Recommendations', sub: 'Start trading' },
+  { href: '/(app)/resources', label: 'Resources', sub: 'Guides & downloads' },
   { href: '/(app)/reviews', label: 'Leave a Review', sub: 'Share your experience' },
 ]
 
@@ -166,9 +166,9 @@ export default function ProfileScreen() {
 
         <Button
           title="Sign Out"
-          variant="danger"
+          variant="dangerSoft"
           icon="log-out-outline"
-          style={{ marginTop: spacing.md, backgroundColor: 'rgba(220,38,38,0.12)' }}
+          style={{ marginTop: spacing.md }}
           onPress={signOut}
         />
 

@@ -109,7 +109,7 @@ export function Button({
 }: {
   title: string
   onPress?: () => void
-  variant?: 'primary' | 'outline' | 'danger' | 'ghost'
+  variant?: 'primary' | 'outline' | 'danger' | 'dangerSoft' | 'ghost'
   loading?: boolean
   disabled?: boolean
   icon?: keyof typeof Ionicons.glyphMap
@@ -121,11 +121,15 @@ export function Button({
       ? colors.primary
       : variant === 'danger'
         ? colors.red
-        : 'transparent'
+        : variant === 'dangerSoft'
+          ? 'rgba(220,38,38,0.10)'
+          : 'transparent'
   const fg =
     variant === 'primary' || variant === 'danger'
       ? colors.white
-      : colors.primary
+      : variant === 'dangerSoft'
+        ? colors.red
+        : colors.primary
   return (
     <Pressable
       onPress={onPress}
