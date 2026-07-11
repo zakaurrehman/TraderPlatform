@@ -1,0 +1,23 @@
+<svg width="332" height="72" viewBox="0 0 332 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="b" x1="14" y1="14" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3B82F6"/>
+      <stop offset="0.55" stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#1D4ED8"/>
+    </linearGradient>
+    <linearGradient id="s" x1="36" y1="12" x2="36" y2="38" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffffff" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(12 12)">
+    <rect x="1.5" y="1.5" width="45" height="45" rx="13" fill="url(#b)"/>
+    <rect x="1.5" y="1.5" width="45" height="45" rx="13" fill="url(#s)"/>
+    <path d="M12 31.5 L20.5 23 L27 28 L36 15" stroke="#ffffff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M29 15 L36 15 L36 22" stroke="#ffffff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="12" cy="31.5" r="2.7" fill="#ffffff"/>
+  </g>
+  <text x="74" y="45" font-family="Sora, Inter, 'Segoe UI', system-ui, sans-serif" font-size="26" letter-spacing="-0.6">
+    <tspan fill="#10131A" fill-opacity="0.8" font-weight="600">Trade with </tspan><tspan fill="#10131A" font-weight="800">Shafy</tspan>
+  </text>
+</svg>

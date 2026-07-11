@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { Icon } from '@/components/brand/icons'
 
 const FAQS = [
   { q: 'What currency pairs do you trade?', a: 'We primarily focus on XAU/USD (Gold), EUR/USD, GBP/USD, USD/JPY, GBP/JPY, and USD/CHF. Gold is our highest-performing pair with consistent signal accuracy.' },
@@ -13,39 +14,42 @@ const FAQS = [
 ]
 
 export default function FAQSection() {
-  const [open, setOpen] = useState<number | null>(null)
+  const [open, setOpen] = useState<number | null>(0)
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-      {FAQS.map((faq, i) => (
-        <div
-          key={i}
-          style={{
-            background: '#111118',
-            border: open === i ? '1px solid rgba(245,197,24,0.3)' : '1px solid rgba(245,197,24,0.08)',
-            borderRadius: 12,
-            overflow: 'hidden',
-            transition: 'border-color 0.2s'
-          }}
-        >
-          <button
-            onClick={() => setOpen(open === i ? null : i)}
-            style={{
-              width: '100%', textAlign: 'left', padding: '16px 20px',
-              background: 'transparent', border: 'none', cursor: 'pointer',
-              display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12
-            }}
+    <div className="flex flex-col gap-3">
+      {FAQS.map((faq, i) => {
+        const isOpen = open === i
+        return (
+          <div
+            key={i}
+            className="rounded-xl overflow-hidden transition-colors"
+            style={{ background: 'var(--color-surface)', border: `1px solid ${isOpen ? 'var(--primary-line)' : 'var(--color-line)'}` }}
           >
-            <span style={{ color: 'white', fontWeight: 600, fontSize: 14, lineHeight: 1.4 }}>{faq.q}</span>
-            <span style={{ color: '#f5c518', fontSize: 18, flexShrink: 0, transition: 'transform 0.2s', transform: open === i ? 'rotate(45deg)' : 'rotate(0)' }}>+</span>
-          </button>
-          {open === i && (
-            <div style={{ padding: '0 20px 16px', color: '#94a3b8', fontSize: 13, lineHeight: 1.7 }}>
-              {faq.a}
+            <button
+              onClick={() => setOpen(isOpen ? null : i)}
+              className="w-full text-left px-5 py-4 flex items-center justify-between gap-4"
+              aria-expanded={isOpen}
+            >
+              <span className="text-ink font-semibold text-[15px] leading-snug">{faq.q}</span>
+              <span
+                className="shrink-0 w-7 h-7 rounded-lg flex items-center justify-center transition-transform duration-300"
+                style={{ background: 'var(--primary-tint)', color: 'var(--color-primary)', transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)' }}
+              >
+                <Icon name="plus" size={16} />
+              </span>
+            </button>
+            <div
+              className="grid transition-all duration-300 ease-out"
+              style={{ gridTemplateRows: isOpen ? '1fr' : '0fr' }}
+            >
+              <div className="overflow-hidden">
+                <p className="px-5 pb-4 text-muted text-[13px] leading-[1.75]">{faq.a}</p>
+              </div>
             </div>
-          )}
-        </div>
-      ))}
+          </div>
+        )
+      })}
     </div>
   )
 }

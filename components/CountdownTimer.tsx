@@ -1,8 +1,10 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { Icon } from '@/components/brand/icons'
 
 export default function CountdownTimer() {
   const [time, setTime] = useState({ h: 0, m: 0, s: 0 })
+  const [ready, setReady] = useState(false)
 
   useEffect(() => {
     let end = Number(localStorage.getItem('discount_end') || 0)
@@ -15,8 +17,9 @@ export default function CountdownTimer() {
       setTime({
         h: Math.floor(rem / 3600_000),
         m: Math.floor((rem % 3600_000) / 60_000),
-        s: Math.floor((rem % 60_000) / 1000)
+        s: Math.floor((rem % 60_000) / 1000),
       })
+      setReady(true)
     }
     tick()
     const id = setInterval(tick, 1000)
@@ -26,14 +29,24 @@ export default function CountdownTimer() {
   const pad = (n: number) => n.toString().padStart(2, '0')
 
   return (
-    <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: 'rgba(255,68,68,0.1)', border: '1px solid rgba(255,68,68,0.25)', borderRadius: 12, padding: '10px 18px' }}>
-      <span style={{ color: '#ff6666', fontSize: 13, fontWeight: 700 }}>⏰ Offer ends in:</span>
-      {[['HRS', time.h], ['MIN', time.m], ['SEC', time.s]].map(([label, val]) => (
-        <div key={label as string} style={{ textAlign: 'center', minWidth: 32 }}>
-          <div style={{ color: '#ff4444', fontWeight: 900, fontSize: 22, lineHeight: 1 }}>{pad(val as number)}</div>
-          <div style={{ color: '#ff6666', fontSize: 9, letterSpacing: 1, marginTop: 2 }}>{label}</div>
-        </div>
-      ))}
+    <div
+      className="inline-flex items-center gap-3 rounded-xl px-4 py-2.5"
+      style={{ background: 'var(--primary-tint)', border: '1px solid var(--primary-line)' }}
+    >
+      <span className="inline-flex items-center gap-1.5 text-primary text-[13px] font-semibold">
+        <Icon name="clock" size={15} /> Limited offer ends in
+      </span>
+      <div className="flex items-center gap-1.5" style={{ visibility: ready ? 'visible' : 'hidden' }}>
+        {([['HRS', time.h], ['MIN', time.m], ['SEC', time.s]] as [string, number][]).map(([label, val], i) => (
+          <div key={label} className="flex items-center gap-1.5">
+            <div className="text-center">
+              <div className="text-ink font-extrabold text-lg leading-none tabular font-display">{pad(val)}</div>
+              <div className="text-dim text-[8px] tracking-widest mt-0.5">{label}</div>
+            </div>
+            {i < 2 && <span className="text-primary/50 font-bold pb-2.5">:</span>}
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

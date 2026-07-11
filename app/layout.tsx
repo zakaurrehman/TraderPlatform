@@ -1,6 +1,21 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
+import { Inter, Sora } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-inter',
+  display: 'swap',
+})
+
+const sora = Sora({
+  subsets: ['latin'],
+  weight: ['600', '700', '800'],
+  variable: '--font-sora',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: 'Trade With Shaffy | Forex Trading Education & Smart Money Concepts',
@@ -16,9 +31,12 @@ export const metadata: Metadata = {
     google: 'WH90VIARChqv8TQ9jcx73L7ehHyR7bzVfu_aMLikfdk',
   },
   icons: {
-    icon: '/favicon.webp',
-    shortcut: '/favicon.webp',
-    apple: '/favicon.webp',
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.webp', type: 'image/webp' },
+    ],
+    shortcut: '/favicon.svg',
+    apple: '/icon.svg',
   },
   openGraph: {
     title: 'Trade With Shaffy | Forex Trading Education & Smart Money Concepts',
@@ -64,9 +82,15 @@ const jsonLd = {
   },
 }
 
+export const viewport: Viewport = {
+  themeColor: '#0a0b0f',
+  width: 'device-width',
+  initialScale: 1,
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${sora.variable}`}>
       <head>
         <script
           type="application/ld+json"

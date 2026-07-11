@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { signOut } from 'next-auth/react'
+import { Logo } from '@/components/brand/Logo'
 
 const navItems = [
   {
@@ -93,8 +94,8 @@ export default function SideNav() {
   return (
     <div className="app-side-nav">
       {/* Logo */}
-      <div style={{ padding: '16px', borderBottom: '1px solid rgba(245,197,24,0.08)' }}>
-        <img src="/Trade with Shafy Png.png" alt="Trade with Shafy" style={{ height: 40, width: 'auto', objectFit: 'contain' }} />
+      <div style={{ padding: '18px 16px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+        <Logo size={30} href="/research" className="text-white" />
       </div>
 
       {/* Nav items */}

@@ -1,8 +1,11 @@
-﻿'use client'
+'use client'
 import { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { Logo } from '@/components/brand/Logo'
+import { Button } from '@/components/ui/Button'
+import { Icon } from '@/components/brand/icons'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -26,37 +29,47 @@ export default function LoginPage() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0a0a0f', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
-      <div style={{ width: '100%', maxWidth: 400 }}>
-        <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <Link href="/"><img src="/Trade with Shafy Png.png" alt="Trade with Shafy" style={{ height: 52, width: 'auto', objectFit: 'contain', display: 'block', margin: '0 auto 4px', cursor: 'pointer' }} /></Link>
-          <p style={{ color: '#64748b', fontSize: 14 }}>Sign in to your account</p>
+    <div className="min-h-screen bg-canvas flex items-center justify-center p-5 relative overflow-hidden">
+      <div aria-hidden className="absolute inset-0 -z-10 bg-grid opacity-40 mask-fade-b" />
+      <div aria-hidden className="absolute -top-40 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full blur-3xl -z-10"
+           style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.12), transparent 65%)' }} />
+
+      <div className="w-full max-w-[400px]">
+        <div className="text-center mb-8">
+          <Link href="/" className="inline-flex"><Logo size={40} href={null} /></Link>
+          <p className="text-dim text-sm mt-4">Sign in to your account</p>
         </div>
 
-        <div style={{ background: '#111118', border: '1px solid rgba(245,197,24,0.1)', borderRadius: 16, padding: 28 }}>
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div className="card p-7">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div>
-              <label style={{ color: '#94a3b8', fontSize: 13, display: 'block', marginBottom: 6 }}>Username</label>
-              <input className="input-field" value={form.username} onChange={e => setForm(f => ({ ...f, username: e.target.value }))} placeholder="Enter username" required />
+              <label className="field-label">Username</label>
+              <input className="field" value={form.username} onChange={e => setForm(f => ({ ...f, username: e.target.value }))} placeholder="Enter username" required autoComplete="username" />
             </div>
             <div>
-              <label style={{ color: '#94a3b8', fontSize: 13, display: 'block', marginBottom: 6 }}>Password</label>
-              <input className="input-field" type="password" value={form.password} onChange={e => setForm(f => ({ ...f, password: e.target.value }))} placeholder="Enter password" required />
+              <label className="field-label">Password</label>
+              <input className="field" type="password" value={form.password} onChange={e => setForm(f => ({ ...f, password: e.target.value }))} placeholder="Enter password" required autoComplete="current-password" />
             </div>
-            {error && <div style={{ background: 'rgba(255,68,68,0.1)', border: '1px solid rgba(255,68,68,0.3)', borderRadius: 8, padding: '10px 14px', color: '#ff6666', fontSize: 13 }}>{error}</div>}
-            <button type="submit" disabled={loading} className="btn-primary" style={{ marginTop: 4, width: '100%', padding: '12px', fontSize: 15 }}>
-              {loading ? 'Signing in...' : 'Sign In'}
-            </button>
+            {error && (
+              <div className="flex items-start gap-2 rounded-lg px-3.5 py-2.5 text-danger text-[13px]" style={{ background: 'var(--danger-tint)', border: '1px solid rgba(248,113,113,0.28)' }}>
+                <Icon name="shield" size={16} className="shrink-0 mt-0.5" /> {error}
+              </div>
+            )}
+            <Button type="submit" loading={loading} block size="lg" className="mt-1">
+              {loading ? 'Signing in…' : 'Sign In'}
+            </Button>
           </form>
 
-          <p style={{ textAlign: 'center', color: '#475569', fontSize: 13, marginTop: 20 }}>
+          <p className="text-center text-dim text-[13px] mt-5">
             Don&apos;t have an account?{' '}
-            <Link href="/register" style={{ color: '#f5c518', textDecoration: 'none', fontWeight: 600 }}>Register as Affiliate</Link>
+            <Link href="/register" className="link-primary">Register as Affiliate</Link>
           </p>
         </div>
 
-        <p style={{ textAlign: 'center', marginTop: 20 }}>
-          <Link href="/" style={{ color: '#475569', fontSize: 13, textDecoration: 'none' }}>← Back to home</Link>
+        <p className="text-center mt-6">
+          <Link href="/" className="text-dim hover:text-muted text-[13px] inline-flex items-center gap-1 transition-colors">
+            <Icon name="arrowRight" size={14} className="rotate-180" /> Back to home
+          </Link>
         </p>
       </div>
     </div>

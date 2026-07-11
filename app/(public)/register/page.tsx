@@ -1,6 +1,9 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
+import { Logo } from '@/components/brand/Logo'
+import { Button } from '@/components/ui/Button'
+import { Icon } from '@/components/brand/icons'
 
 const COUNTRIES = [
   'Afghanistan','Albania','Algeria','Andorra','Angola','Antigua and Barbuda',
@@ -32,23 +35,16 @@ const COUNTRIES = [
   'Thailand','Timor-Leste','Togo','Tonga','Trinidad and Tobago','Tunisia',
   'Turkey','Turkmenistan','Tuvalu','Uganda','Ukraine','United Arab Emirates',
   'United Kingdom','United States','Uruguay','Uzbekistan','Vanuatu','Vatican City',
-  'Venezuela','Vietnam','Yemen','Zambia','Zimbabwe'
+  'Venezuela','Vietnam','Yemen','Zambia','Zimbabwe',
 ]
 
-const PAYMENT_METHODS = [
-  'Bank Transfer',
-  'PayPal',
-  'Wise',
-  'Crypto (USDT/BTC)',
-  'Mobile Money',
-  'Other'
-]
+const PAYMENT_METHODS = ['Bank Transfer', 'PayPal', 'Wise', 'Crypto (USDT/BTC)', 'Mobile Money', 'Other']
 
 export default function RegisterPage() {
   const [form, setForm] = useState({
     fullName: '', email: '', phone: '', city: '', country: '',
     username: '', password: '', confirmPassword: '',
-    paymentMethod: '', socialHandle: ''
+    paymentMethod: '', socialHandle: '',
   })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -62,19 +58,13 @@ export default function RegisterPage() {
   async function handleSubmit(e: { preventDefault(): void }) {
     e.preventDefault()
     setError('')
-    if (form.password !== form.confirmPassword) {
-      setError('Passwords do not match.')
-      return
-    }
-    if (form.password.length < 8) {
-      setError('Password must be at least 8 characters.')
-      return
-    }
+    if (form.password !== form.confirmPassword) { setError('Passwords do not match.'); return }
+    if (form.password.length < 8) { setError('Password must be at least 8 characters.'); return }
     setLoading(true)
     const res = await fetch('/api/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...form, role: 'AFFILIATE' })
+      body: JSON.stringify({ ...form, role: 'AFFILIATE' }),
     })
     const data = await res.json()
     if (!res.ok) { setError(data.error || 'Registration failed'); setLoading(false); return }
@@ -83,197 +73,98 @@ export default function RegisterPage() {
 
   if (success) {
     return (
-      <div style={{ minHeight: '100vh', background: '#0a0a0f', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20 }}>
-        <div style={{ textAlign: 'center', maxWidth: 400 }}>
-          <div style={{ fontSize: 64, marginBottom: 16 }}>✅</div>
-          <h2 style={{ color: 'white', fontWeight: 800, fontSize: 24, marginBottom: 8 }}>Application Submitted!</h2>
-          <p style={{ color: '#64748b', lineHeight: 1.7, marginBottom: 24 }}>Your affiliate account is under review. You will be notified once approved.</p>
-          <Link href="/login" style={{ padding: '12px 28px', borderRadius: 8, background: 'linear-gradient(135deg, #f5c518, #c9a000)', color: '#0a0a0f', textDecoration: 'none', fontWeight: 700 }}>Back to Login</Link>
+      <div className="min-h-screen bg-canvas flex items-center justify-center p-5">
+        <div className="text-center max-w-[400px]">
+          <div className="w-20 h-20 rounded-2xl mx-auto flex items-center justify-center" style={{ background: 'var(--success-tint)', border: '1px solid rgba(22,163,74,0.24)', color: 'var(--color-success)' }}>
+            <Icon name="checkCircle" size={40} />
+          </div>
+          <h2 className="text-ink font-bold text-2xl mt-6 mb-2">Application Submitted!</h2>
+          <p className="text-muted leading-relaxed mb-7">Your affiliate account is under review. You will be notified once approved.</p>
+          <Button href="/login">Back to Login</Button>
         </div>
       </div>
     )
   }
 
-  const inputStyle: React.CSSProperties = {
-    background: 'rgba(255,255,255,0.05)',
-    border: '1px solid rgba(255,255,255,0.12)',
-    borderRadius: 8, color: 'white',
-    padding: '11px 14px', width: '100%', outline: 'none',
-    fontSize: 14, transition: 'border-color 0.2s'
-  }
-
-  const labelStyle: React.CSSProperties = {
-    color: '#94a3b8', fontSize: 13, fontWeight: 600,
-    display: 'block', marginBottom: 6
-  }
-
   const fields = [
-    { label: 'Full Name *', field: 'fullName', placeholder: 'John Doe' },
-    { label: 'Email *', field: 'email', placeholder: 'you@email.com', type: 'email' },
-    { label: 'Phone *', field: 'phone', placeholder: '+1 234 567 8900' },
-    { label: 'City', field: 'city', placeholder: 'New York' },
-  ]
-
-  const fields2 = [
-    { label: 'Username *', field: 'username', placeholder: 'johndoe' },
+    { label: 'Full Name', field: 'fullName', placeholder: 'John Doe', required: true },
+    { label: 'Email', field: 'email', placeholder: 'you@email.com', type: 'email', required: true },
+    { label: 'Phone', field: 'phone', placeholder: '+1 234 567 8900', required: true },
+    { label: 'City', field: 'city', placeholder: 'New York', required: false },
   ]
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0a0a0f', padding: '40px 20px' }}>
-      <style>{`
-        .reg-input:focus { border-color: #f5c518 !important; }
-        .reg-select:focus { border-color: #f5c518 !important; outline: none; }
-        .reg-select option { background: #1a1a24; color: #f0f0f0; }
-      `}</style>
+    <div className="min-h-screen bg-canvas py-10 px-5">
+      <div className="max-w-[540px] mx-auto">
+        <Link href="/" className="text-dim hover:text-muted text-[13px] inline-flex items-center gap-1.5 transition-colors mb-4">
+          <Icon name="arrowRight" size={14} className="rotate-180" /> Back to Home
+        </Link>
 
-      <div style={{ maxWidth: 540, margin: '0 auto' }}>
-        <div style={{ marginBottom: 16 }}>
-          <Link href="/" style={{ color: '#64748b', textDecoration: 'none', fontSize: 13, display: 'inline-flex', alignItems: 'center', gap: 4 }}>← Back to Home</Link>
+        <div className="text-center mb-7">
+          <Link href="/" className="inline-flex"><Logo size={38} href={null} /></Link>
+          <p className="text-dim mt-3">Register as an Affiliate</p>
         </div>
 
-        <div style={{ textAlign: 'center', marginBottom: 28 }}>
-          <Link href="/"><img src="/Trade with Shafy Png.png" alt="Trade with Shafy" style={{ height: 48, width: 'auto', objectFit: 'contain', display: 'block', margin: '0 auto 4px', cursor: 'pointer' }} /></Link>
-          <p style={{ color: '#64748b' }}>Register as an Affiliate</p>
-        </div>
-
-        <div style={{ background: '#111118', border: '1px solid rgba(245,197,24,0.12)', borderRadius: 16, padding: 28 }}>
-          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-
-            {/* Full Name, Email, Phone, City */}
-            {fields.map(({ label, field, placeholder, type }) => (
+        <div className="card p-7">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            {fields.map(({ label, field, placeholder, type, required }) => (
               <div key={field}>
-                <label style={labelStyle}>{label}</label>
-                <input
-                  className="reg-input"
-                  style={inputStyle}
-                  type={type || 'text'}
-                  placeholder={placeholder}
-                  value={form[field as keyof typeof form]}
-                  onChange={set(field)}
-                  required={!label.includes('(optional)') && !label.includes('City')}
-                />
+                <label className="field-label">{label} {required && <span className="text-primary">*</span>}</label>
+                <input className="field" type={type || 'text'} placeholder={placeholder}
+                  value={form[field as keyof typeof form]} onChange={set(field)} required={required} />
               </div>
             ))}
 
-            {/* Country dropdown */}
             <div>
-              <label style={labelStyle}>Country *</label>
-              <select
-                className="reg-select"
-                style={{
-                  ...inputStyle,
-                  cursor: 'pointer',
-                  appearance: 'auto',
-                  borderColor: form.country ? 'rgba(245,197,24,0.4)' : 'rgba(255,255,255,0.12)'
-                }}
-                value={form.country}
-                onChange={set('country')}
-                required
-              >
+              <label className="field-label">Country <span className="text-primary">*</span></label>
+              <select className="field" value={form.country} onChange={set('country')} required>
                 <option value="">Select your country</option>
-                {COUNTRIES.map(c => (
-                  <option key={c} value={c}>{c}</option>
-                ))}
+                {COUNTRIES.map(c => <option key={c} value={c}>{c}</option>)}
               </select>
             </div>
 
-            {/* Username */}
-            {fields2.map(({ label, field, placeholder }) => (
-              <div key={field}>
-                <label style={labelStyle}>{label}</label>
-                <input
-                  className="reg-input"
-                  style={inputStyle}
-                  type="text"
-                  placeholder={placeholder}
-                  value={form[field as keyof typeof form]}
-                  onChange={set(field)}
-                  required
-                />
-              </div>
-            ))}
-
-            {/* Payment Method dropdown */}
             <div>
-              <label style={labelStyle}>Preferred Payment Method *</label>
-              <select
-                className="reg-select"
-                style={{
-                  ...inputStyle,
-                  cursor: 'pointer',
-                  appearance: 'auto',
-                  borderColor: form.paymentMethod ? 'rgba(245,197,24,0.4)' : 'rgba(255,255,255,0.12)'
-                }}
-                value={form.paymentMethod}
-                onChange={set('paymentMethod')}
-                required
-              >
+              <label className="field-label">Username <span className="text-primary">*</span></label>
+              <input className="field" type="text" placeholder="johndoe" value={form.username} onChange={set('username')} required autoComplete="username" />
+            </div>
+
+            <div>
+              <label className="field-label">Preferred Payment Method <span className="text-primary">*</span></label>
+              <select className="field" value={form.paymentMethod} onChange={set('paymentMethod')} required>
                 <option value="">Select payment method</option>
-                {PAYMENT_METHODS.map(m => (
-                  <option key={m} value={m}>{m}</option>
-                ))}
+                {PAYMENT_METHODS.map(m => <option key={m} value={m}>{m}</option>)}
               </select>
             </div>
 
-            {/* Password fields side by side */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            <div className="grid grid-cols-2 gap-3">
               <div>
-                <label style={labelStyle}>Password *</label>
-                <input
-                  className="reg-input"
-                  style={inputStyle}
-                  type="password"
-                  placeholder="••••••••"
-                  value={form.password}
-                  onChange={set('password')}
-                  required
-                />
+                <label className="field-label">Password <span className="text-primary">*</span></label>
+                <input className="field" type="password" placeholder="••••••••" value={form.password} onChange={set('password')} required autoComplete="new-password" />
               </div>
               <div>
-                <label style={labelStyle}>Re-enter Password *</label>
-                <input
-                  className="reg-input"
-                  style={inputStyle}
-                  type="password"
-                  placeholder="••••••••"
-                  value={form.confirmPassword}
-                  onChange={set('confirmPassword')}
-                  required
-                />
+                <label className="field-label">Re-enter <span className="text-primary">*</span></label>
+                <input className="field" type="password" placeholder="••••••••" value={form.confirmPassword} onChange={set('confirmPassword')} required autoComplete="new-password" />
               </div>
             </div>
 
-            {/* Social handle */}
             <div>
-              <label style={labelStyle}>Social Handle (optional)</label>
-              <input
-                className="reg-input"
-                style={inputStyle}
-                type="text"
-                placeholder="@yourhandle"
-                value={form.socialHandle}
-                onChange={set('socialHandle')}
-              />
+              <label className="field-label">Social Handle <span className="text-dim font-normal">(optional)</span></label>
+              <input className="field" type="text" placeholder="@yourhandle" value={form.socialHandle} onChange={set('socialHandle')} />
             </div>
 
             {error && (
-              <div style={{ background: 'rgba(255,68,68,0.1)', border: '1px solid rgba(255,68,68,0.3)', borderRadius: 8, padding: '10px 14px', color: '#ff6666', fontSize: 13 }}>
-                {error}
+              <div className="flex items-start gap-2 rounded-lg px-3.5 py-2.5 text-danger text-[13px]" style={{ background: 'var(--danger-tint)', border: '1px solid rgba(248,113,113,0.28)' }}>
+                <Icon name="shield" size={16} className="shrink-0 mt-0.5" /> {error}
               </div>
             )}
 
-            <button
-              type="submit"
-              disabled={loading}
-              style={{ marginTop: 4, padding: '13px', borderRadius: 8, background: 'linear-gradient(135deg, #f5c518, #c9a000)', color: '#0a0a0f', border: 'none', fontWeight: 800, fontSize: 15, cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1 }}
-            >
-              {loading ? 'Submitting...' : 'Submit Application →'}
-            </button>
+            <Button type="submit" loading={loading} block size="lg" iconRight="arrowRight" className="mt-1">
+              {loading ? 'Submitting…' : 'Submit Application'}
+            </Button>
           </form>
 
-          <p style={{ textAlign: 'center', color: '#475569', fontSize: 13, marginTop: 20 }}>
-            Already registered?{' '}
-            <Link href="/login" style={{ color: '#f5c518', textDecoration: 'none', fontWeight: 600 }}>Sign In</Link>
+          <p className="text-center text-dim text-[13px] mt-5">
+            Already registered? <Link href="/login" className="link-primary">Sign In</Link>
           </p>
         </div>
       </div>

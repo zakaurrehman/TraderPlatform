@@ -3,13 +3,17 @@ import { prisma } from '@/lib/prisma'
 import { StarDisplay } from '@/components/StarRating'
 import CountdownTimer from '@/components/CountdownTimer'
 import FAQSection from '@/components/FAQSection'
-import LandingNavLinks from '@/components/LandingNavLinks'
-import NavbarLogo from '@/components/NavbarLogo'
+import Navbar from '@/components/marketing/Navbar'
+import Footer from '@/components/marketing/Footer'
+import Reveal from '@/components/ui/Reveal'
+import Counter from '@/components/ui/Counter'
+import { Button } from '@/components/ui/Button'
+import { Icon, type IconName } from '@/components/brand/icons'
 
 async function getData() {
   const [reviews, signals] = await Promise.all([
     prisma.review.findMany({ where: { status: 'APPROVED' }, orderBy: { createdAt: 'desc' }, take: 3 }),
-    prisma.signalStat.findMany({ orderBy: { month: 'desc' }, take: 3 })
+    prisma.signalStat.findMany({ orderBy: { month: 'desc' }, take: 3 }),
   ])
   return { reviews, signals }
 }
@@ -20,603 +24,510 @@ const FALLBACK_REVIEWS = [
   { id: 'f3', clientName: 'James O.', rating: 5, content: 'Best Forex mentor I\'ve found online. The community is active, the signals are accurate, and the 50% affiliate program is a great bonus.' },
 ]
 
+/* ── Local presentational helpers ─────────────────────────────────────────── */
+function SectionHeading({ eyebrow, title, subtitle, center = true }: { eyebrow: string; title: React.ReactNode; subtitle?: string; center?: boolean }) {
+  return (
+    <div className={center ? 'text-center max-w-2xl mx-auto' : ''}>
+      <Reveal><span className="eyebrow">{eyebrow}</span></Reveal>
+      <Reveal delay={60}><h2 className="mt-4 text-[clamp(1.75rem,4vw,2.5rem)] font-bold text-ink">{title}</h2></Reveal>
+      {subtitle && <Reveal delay={120}><p className="mt-3 text-muted text-[15px] leading-relaxed">{subtitle}</p></Reveal>}
+    </div>
+  )
+}
+
+function IconTile({ name, tone = 'primary' }: { name: IconName; tone?: 'primary' | 'green' }) {
+  const isPrimary = tone === 'primary'
+  return (
+    <div
+      className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
+      style={{
+        background: isPrimary ? 'var(--primary-tint)' : 'var(--success-tint)',
+        border: `1px solid ${isPrimary ? 'var(--primary-line)' : 'rgba(22,163,74,0.24)'}`,
+        color: isPrimary ? 'var(--color-primary)' : 'var(--color-success)',
+      }}
+    >
+      <Icon name={name} size={22} />
+    </div>
+  )
+}
+
 export default async function LandingPage() {
   const { reviews, signals } = await getData()
   const displayReviews = reviews.length > 0 ? reviews : FALLBACK_REVIEWS
 
   type ServiceItem = {
     name: string; price: string; period: string; desc: string; features: string[]
-    color: string; border: string; originalPrice?: string; badge?: string; highlight?: boolean; disabled?: boolean
+    originalPrice?: string; badge?: string; highlight?: boolean; disabled?: boolean; monthly?: boolean
   }
 
   const services: ServiceItem[] = [
-    {
-      name: 'Basic Training', originalPrice: '$37.70', price: '$30', period: 'one-time',
-      desc: 'Start your Forex journey with solid fundamentals',
-      features: ['Forex fundamentals course', 'Chart reading basics', 'Risk management guide', 'Community access', 'Email support'],
-      color: '#111118', border: '1px solid rgba(255,255,255,0.07)'
-    },
-    {
-      name: 'Advanced Trading Strategies', originalPrice: '$128.70', price: '$103', period: 'one-time',
-      desc: 'Master proven strategies used by professional traders',
-      features: ['All Basic features', 'Advanced technical analysis', 'Entry & exit strategies', 'Weekly live sessions', 'Priority support', 'Strategy playbooks'],
-      badge: 'Most Popular', highlight: true,
-      color: 'linear-gradient(145deg, #f5c518, #e0a800)', border: 'none'
-    },
-    {
-      name: 'Mastery Bundle', originalPrice: '$154.70', price: '$124', period: 'one-time',
-      desc: 'The complete path to consistent profitability',
-      features: ['All Advanced features', 'Full course library access', 'Exclusive masterclasses', 'Trade review sessions', 'Lifetime updates', '1-on-1 onboarding call'],
-      badge: 'Best Value', color: '#111118', border: '1px solid rgba(245,197,24,0.2)'
-    },
-    {
-      name: 'Premium Signals', originalPrice: '$63.70', price: '$51', period: 'per month',
-      desc: 'Daily professional trade signals with full analysis',
-      features: ['Daily forex signals', 'XAU/USD & major pairs', 'Entry, TP & SL included', 'Telegram delivery', 'Win rate tracking'],
-      color: '#111118', border: '1px solid rgba(255,255,255,0.07)'
-    },
-    {
-      name: 'Personal Mentorship', originalPrice: '$258.70', price: '$207', period: 'one-time',
-      desc: 'Direct 1-on-1 coaching with Shafy himself',
-      features: ['All Mastery Bundle features', '4 private mentorship calls', 'Personalized trade plan', 'Psychology coaching', 'Direct mentor access', 'Portfolio review'],
-      color: '#111118', border: '1px solid rgba(255,255,255,0.07)'
-    },
-    {
-      name: 'Trading Bot', price: 'TBA', period: 'coming soon',
-      desc: 'Automated signal execution on your account',
-      features: ['Automated trade execution', 'Custom strategy config', 'Risk management built-in', 'Performance analytics', '24/7 market monitoring'],
-      color: '#111118', border: '1px solid rgba(255,255,255,0.05)', disabled: true
-    }
+    { name: 'Basic Training', originalPrice: '$37.70', price: '$30', period: 'one-time', desc: 'Start your Forex journey with solid fundamentals', features: ['Forex fundamentals course', 'Chart reading basics', 'Risk management guide', 'Community access', 'Email support'] },
+    { name: 'Advanced Trading Strategies', originalPrice: '$128.70', price: '$103', period: 'one-time', desc: 'Master proven strategies used by professional traders', features: ['All Basic features', 'Advanced technical analysis', 'Entry & exit strategies', 'Weekly live sessions', 'Priority support', 'Strategy playbooks'], badge: 'Most Popular', highlight: true },
+    { name: 'Mastery Bundle', originalPrice: '$154.70', price: '$124', period: 'one-time', desc: 'The complete path to consistent profitability', features: ['All Advanced features', 'Full course library access', 'Exclusive masterclasses', 'Trade review sessions', 'Lifetime updates', '1-on-1 onboarding call'], badge: 'Best Value' },
+    { name: 'Premium Signals', originalPrice: '$63.70', price: '$51', period: 'per month', desc: 'Daily professional trade signals with full analysis', features: ['Daily forex signals', 'XAU/USD & major pairs', 'Entry, TP & SL included', 'Telegram delivery', 'Win rate tracking'] },
+    { name: 'Personal Mentorship', originalPrice: '$258.70', price: '$207', period: 'one-time', desc: 'Direct 1-on-1 coaching with Shafy himself', features: ['All Mastery Bundle features', '4 private mentorship calls', 'Personalized trade plan', 'Psychology coaching', 'Direct mentor access', 'Portfolio review'] },
+    { name: 'Trading Bot', price: 'TBA', period: 'coming soon', desc: 'Automated signal execution on your account', features: ['Automated trade execution', 'Custom strategy config', 'Risk management built-in', 'Performance analytics', '24/7 market monitoring'], disabled: true },
+  ]
+
+  const pairs = [
+    { pair: 'XAU/USD', flag: '🥇', hot: true }, { pair: 'EUR/USD', flag: '🇪🇺' }, { pair: 'GBP/USD', flag: '🇬🇧' },
+    { pair: 'USD/JPY', flag: '🇯🇵' }, { pair: 'GBP/JPY', flag: '🇬🇧' }, { pair: 'USD/CHF', flag: '🇨🇭' },
+    { pair: 'AUD/USD', flag: '🇦🇺' }, { pair: 'USD/CAD', flag: '🇨🇦' },
   ]
 
   return (
-    <div style={{ background: '#0a0a0f', color: '#e2e8f0', minHeight: '100vh' }}>
-      <style>{`
-        .nav-link:hover { color: #f5c518 !important; }
-      `}</style>
+    <div className="bg-canvas text-ink min-h-screen overflow-x-hidden">
+      <Navbar />
 
-      {/* ── Navbar ── */}
-      <nav style={{ position: 'sticky', top: 0, zIndex: 50, background: 'rgba(10,10,15,0.95)', backdropFilter: 'blur(12px)', borderBottom: '1px solid rgba(245,197,24,0.1)', padding: '0 20px' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
-          <NavbarLogo />
-          <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
-            <LandingNavLinks />
-            <div style={{ display: 'flex', gap: 8 }}>
-              <Link href="/login" style={{ padding: '8px 16px', borderRadius: 8, border: '1px solid rgba(245,197,24,0.3)', color: '#f5c518', textDecoration: 'none', fontSize: 14, fontWeight: 600 }}>Login</Link>
-              <Link href="/register" style={{ padding: '8px 16px', borderRadius: 8, background: 'linear-gradient(135deg, #f5c518, #c9a000)', color: '#0a0a0f', textDecoration: 'none', fontSize: 14, fontWeight: 700 }}>Register</Link>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* ── Hero ── */}
-      <section style={{ padding: '90px 20px 70px', textAlign: 'center', maxWidth: 900, margin: '0 auto', position: 'relative' }}>
-        <div style={{ display: 'inline-block', background: 'rgba(245,197,24,0.1)', border: '1px solid rgba(245,197,24,0.2)', borderRadius: 20, padding: '4px 14px', fontSize: 12, color: '#f5c518', fontWeight: 700, marginBottom: 20, letterSpacing: 1 }}>PROFESSIONAL FOREX EDUCATION & SIGNALS</div>
-        <h1 style={{ fontSize: 'clamp(36px, 6vw, 68px)', fontWeight: 900, lineHeight: 1.1, marginBottom: 20, letterSpacing: '-2px' }}>
-          Trade Smarter.<br />
-          <span style={{ background: 'linear-gradient(135deg, #f5c518, #00ff88)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Earn More.</span>
-        </h1>
-        <p style={{ color: '#94a3b8', fontSize: 18, lineHeight: 1.7, marginBottom: 36, maxWidth: 600, margin: '0 auto 36px' }}>
-          Join thousands of traders learning ICT &amp; Smart Money Concepts, receiving live Forex signals, and building consistent profits with Shafy&apos;s proven methodology.
-        </p>
-        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 20 }}>
-          <Link href="#pricing" style={{ padding: '14px 32px', borderRadius: 10, background: 'linear-gradient(135deg, #f5c518, #c9a000)', color: '#0a0a0f', textDecoration: 'none', fontWeight: 800, fontSize: 16, boxShadow: '0 4px 20px rgba(245,197,24,0.3)' }}>View Plans →</Link>
-          <Link href="/order" style={{ padding: '14px 32px', borderRadius: 10, border: '1px solid rgba(245,197,24,0.3)', color: '#f5c518', textDecoration: 'none', fontWeight: 700, fontSize: 16 }}>Get Live Signals</Link>
+      {/* ══ HERO ══ */}
+      <section className="relative isolate overflow-hidden">
+        {/* background decoration */}
+        <div aria-hidden className="absolute inset-0 -z-10">
+          <div className="absolute inset-0 bg-grid opacity-60 mask-fade-b" />
+          <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[820px] h-[820px] rounded-full blur-3xl animate-float-slow"
+               style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.16), transparent 62%)' }} />
+          <div className="absolute top-24 -left-24 w-[380px] h-[380px] rounded-full blur-3xl animate-float"
+               style={{ background: 'radial-gradient(circle, rgba(22,163,74,0.08), transparent 65%)' }} />
         </div>
 
-        {/* Download buttons */}
-        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 24, alignItems: 'center' }}>
-          <a
-            href="https://apps.apple.com/us/app/trade-with-shafy/id6772309277"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '10px 20px', borderRadius: 10, background: '#000', border: '1px solid rgba(255,255,255,0.15)', textDecoration: 'none', minHeight: 52 }}
-          >
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
-              <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
-            </svg>
-            <div style={{ textAlign: 'left' }}>
-              <div style={{ color: '#94a3b8', fontSize: 10, lineHeight: 1 }}>Download on the</div>
-              <div style={{ color: 'white', fontSize: 17, fontWeight: 700, lineHeight: 1.2 }}>App Store</div>
-            </div>
-          </a>
-          <span
-            style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '10px 20px', borderRadius: 10, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', minHeight: 52, opacity: 0.6, cursor: 'not-allowed' }}
-          >
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="#94a3b8">
-              <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.205-5.05l2.832 1.64a1 1 0 0 1 0 1.73l-2.832 1.64L15.119 12l2.585-2.343zM5.864 2.658L16.802 8.99l-2.303 2.303-8.635-8.635z"/>
-            </svg>
-            <div style={{ textAlign: 'left' }}>
-              <div style={{ color: '#64748b', fontSize: 10, lineHeight: 1 }}>Coming soon to</div>
-              <div style={{ color: '#94a3b8', fontSize: 17, fontWeight: 700, lineHeight: 1.2 }}>Google Play</div>
-            </div>
-          </span>
-        </div>
-
-        {/* Trust line */}
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 20, flexWrap: 'wrap', color: '#475569', fontSize: 13 }}>
-          {['⭐ 4.9/5 Rating', '✅ 5,000+ Traders', '🔒 Secure Payments', '📱 Instant Access'].map(t => (
-            <span key={t}>{t}</span>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Stats bar ── */}
-      <section style={{ background: 'rgba(245,197,24,0.05)', borderTop: '1px solid rgba(245,197,24,0.08)', borderBottom: '1px solid rgba(245,197,24,0.08)', padding: '28px 20px' }}>
-        <div className="l-stats-grid" style={{ maxWidth: 900, margin: '0 auto', display: 'grid', gap: 20, textAlign: 'center' }}>
-          {[
-            { value: '80%+', label: 'Signal Win Rate' },
-            { value: '5,000+', label: 'Active Traders' },
-            { value: '50%', label: 'Affiliate Commission' },
-            { value: '24/7', label: 'Signal Coverage' }
-          ].map(s => (
-            <div key={s.label}>
-              <div style={{ color: '#f5c518', fontWeight: 900, fontSize: 28 }}>{s.value}</div>
-              <div style={{ color: '#64748b', fontSize: 13, marginTop: 2 }}>{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── How It Works ── */}
-      <section style={{ padding: '70px 20px', maxWidth: 1000, margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: 48 }}>
-          <div style={{ display: 'inline-block', background: 'rgba(245,197,24,0.08)', border: '1px solid rgba(245,197,24,0.15)', borderRadius: 20, padding: '4px 14px', fontSize: 11, color: '#f5c518', fontWeight: 700, letterSpacing: 1, marginBottom: 12 }}>HOW IT WORKS</div>
-          <h2 style={{ fontSize: 32, fontWeight: 800, marginBottom: 8 }}>Start Trading in 3 Simple Steps</h2>
-          <p style={{ color: '#64748b' }}>From registration to your first profitable trade in days, not months</p>
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 24, position: 'relative' }}>
-          {[
-            { step: '01', icon: '🎯', title: 'Choose Your Plan', desc: 'Pick a course or signal plan that matches your current level — beginner, intermediate, or pro. Instant access after payment confirmation.' },
-            { step: '02', icon: '📚', title: 'Learn & Receive Signals', desc: 'Access structured courses, live trading sessions, and daily BUY/SELL signals with precise Entry, TP1, TP2 and Stop Loss levels.' },
-            { step: '03', icon: '💹', title: 'Trade & Earn Consistently', desc: 'Apply what you\'ve learned, follow the signals, manage your risk, and build a consistent record. Share your journey with our community.' },
-          ].map((s, i) => (
-            <div key={i} style={{ background: '#111118', border: '1px solid rgba(245,197,24,0.1)', borderRadius: 16, padding: 28, position: 'relative', overflow: 'hidden' }}>
-              <div style={{ position: 'absolute', top: 16, right: 20, fontSize: 40, fontWeight: 900, color: 'rgba(245,197,24,0.06)', letterSpacing: -2 }}>{s.step}</div>
-              <div style={{ fontSize: 36, marginBottom: 14 }}>{s.icon}</div>
-              <div style={{ color: '#f5c518', fontSize: 11, fontWeight: 800, letterSpacing: 1, marginBottom: 6 }}>STEP {s.step}</div>
-              <div style={{ fontWeight: 800, fontSize: 17, marginBottom: 10, color: 'white' }}>{s.title}</div>
-              <div style={{ color: '#64748b', fontSize: 13, lineHeight: 1.7 }}>{s.desc}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Meet Shafy ── */}
-      <section id="about" style={{ padding: '70px 20px', background: 'rgba(245,197,24,0.03)', borderTop: '1px solid rgba(245,197,24,0.07)', borderBottom: '1px solid rgba(245,197,24,0.07)' }}>
-        <div className="l-about-grid" style={{ maxWidth: 1000, margin: '0 auto' }}>
-          {/* Avatar / Photo */}
-          <div style={{ textAlign: 'center' }}>
-            <div style={{
-              width: 220, height: 220, borderRadius: '50%', margin: '0 auto 20px',
-              boxShadow: '0 0 0 6px rgba(245,197,24,0.2), 0 8px 40px rgba(245,197,24,0.3)',
-              overflow: 'hidden', flexShrink: 0
-            }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/shafy.jpeg" alt="Shafqat Rafique" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top' }} />
-            </div>
-            <div style={{ color: '#f5c518', fontWeight: 900, fontSize: 22 }}>Shafqat Rafique</div>
-            <div style={{ color: '#64748b', fontSize: 13, marginTop: 4 }}>Professional Forex Trader & Mentor</div>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: 10, marginTop: 16, flexWrap: 'wrap' }}>
-              {['ICT Concepts', 'Smart Money', 'XAU/USD'].map(tag => (
-                <span key={tag} style={{ background: 'rgba(245,197,24,0.1)', border: '1px solid rgba(245,197,24,0.2)', borderRadius: 20, padding: '3px 10px', fontSize: 11, color: '#f5c518', fontWeight: 700 }}>{tag}</span>
-              ))}
-            </div>
-          </div>
-          {/* Bio */}
-          <div>
-            <div style={{ display: 'inline-block', background: 'rgba(245,197,24,0.08)', border: '1px solid rgba(245,197,24,0.15)', borderRadius: 20, padding: '4px 14px', fontSize: 11, color: '#f5c518', fontWeight: 700, letterSpacing: 1, marginBottom: 16 }}>MEET YOUR MENTOR</div>
-            <h2 style={{ fontSize: 32, fontWeight: 900, marginBottom: 16, lineHeight: 1.2 }}>Trading is a Skill.<br />I&apos;ll Help You Master It.</h2>
-            <p style={{ color: '#94a3b8', fontSize: 14, lineHeight: 1.8, marginBottom: 16 }}>
-              With years of full-time Forex trading experience, Shafy has developed a methodology rooted in <strong style={{ color: '#f5c518' }}>ICT (Inner Circle Trader) concepts</strong> and <strong style={{ color: '#f5c518' }}>Smart Money trading</strong> — tracking institutional order flow, liquidity sweeps, and market structure to predict high-probability moves.
+        <div className="container-x pt-20 pb-16 md:pt-28 md:pb-20 text-center">
+          <Reveal>
+            <span className="eyebrow">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary live-dot" /> Professional Forex Education &amp; Signals
+            </span>
+          </Reveal>
+          <Reveal delay={80}>
+            <h1 className="mt-6 mx-auto max-w-4xl text-[clamp(2.5rem,7vw,4.5rem)] font-extrabold leading-[1.05] tracking-tight">
+              Trade Smarter.<br />
+              <span className="text-gradient">Earn With Confidence.</span>
+            </h1>
+          </Reveal>
+          <Reveal delay={160}>
+            <p className="mt-6 mx-auto max-w-2xl text-muted text-[clamp(1rem,2.2vw,1.2rem)] leading-relaxed">
+              Join thousands of traders learning ICT &amp; Smart Money Concepts, receiving live Forex signals, and building
+              consistent profits with Shafy&apos;s proven methodology.
             </p>
-            <p style={{ color: '#94a3b8', fontSize: 14, lineHeight: 1.8, marginBottom: 24 }}>
-              After years of research and refining his edge, Shafy now shares his exact strategy, live signals, and weekly sessions with a growing community of 5,000+ traders worldwide — from complete beginners to funded prop traders.
-            </p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
+          </Reveal>
+
+          <Reveal delay={220}>
+            <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+              <Button href="#pricing" size="lg" iconRight="arrowRight">View Plans</Button>
+              <Button href="/order" size="lg" variant="outline" icon="activity">Get Live Signals</Button>
+            </div>
+          </Reveal>
+
+          {/* store badges */}
+          <Reveal delay={280}>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+              <a href="https://apps.apple.com/us/app/trade-with-shafy/id6772309277" target="_blank" rel="noopener noreferrer"
+                 className="inline-flex items-center gap-2.5 px-5 h-[52px] rounded-xl bg-black border border-line-strong hover:border-white/30 transition-colors">
+                <Icon name="apple" size={24} className="text-white" />
+                <span className="text-left leading-tight">
+                  <span className="block text-[10px] text-muted">Download on the</span>
+                  <span className="block text-[17px] font-semibold text-white">App Store</span>
+                </span>
+              </a>
+              <span className="inline-flex items-center gap-2.5 px-5 h-[52px] rounded-xl bg-surface border border-line opacity-60 cursor-not-allowed">
+                <Icon name="play" size={22} className="text-dim" />
+                <span className="text-left leading-tight">
+                  <span className="block text-[10px] text-dim">Coming soon to</span>
+                  <span className="block text-[17px] font-semibold text-muted">Google Play</span>
+                </span>
+              </span>
+            </div>
+          </Reveal>
+
+          {/* trust chips */}
+          <Reveal delay={340}>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-dim text-[13px]">
               {[
-                { value: '8+', label: 'Years Trading' },
-                { value: '80%+', label: 'Signal Accuracy' },
-                { value: '5K+', label: 'Students Taught' },
-              ].map(s => (
-                <div key={s.label} style={{ background: '#111118', border: '1px solid rgba(245,197,24,0.1)', borderRadius: 12, padding: '14px 16px', textAlign: 'center' }}>
-                  <div style={{ color: '#f5c518', fontWeight: 900, fontSize: 22 }}>{s.value}</div>
-                  <div style={{ color: '#64748b', fontSize: 12, marginTop: 2 }}>{s.label}</div>
-                </div>
+                { icon: 'star' as IconName, label: '4.9/5 Rating' },
+                { icon: 'users' as IconName, label: '5,000+ Traders' },
+                { icon: 'lock' as IconName, label: 'Secure Payments' },
+                { icon: 'phone' as IconName, label: 'Instant Access' },
+              ].map((t) => (
+                <span key={t.label} className="inline-flex items-center gap-1.5">
+                  <Icon name={t.icon} size={15} className="text-primary" /> {t.label}
+                </span>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Signal Performance ── */}
-      <section id="signals" style={{ padding: '70px 20px', maxWidth: 1100, margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: 40 }}>
-          <div style={{ display: 'inline-block', background: 'rgba(245,197,24,0.08)', border: '1px solid rgba(245,197,24,0.15)', borderRadius: 20, padding: '4px 14px', fontSize: 11, color: '#f5c518', fontWeight: 700, letterSpacing: 1, marginBottom: 12 }}>LIVE PERFORMANCE</div>
-          <h2 style={{ fontSize: 32, fontWeight: 800, marginBottom: 8 }}>Verified Signal Performance</h2>
-          <p style={{ color: '#64748b' }}>Transparent monthly results — no cherry-picking</p>
+          </Reveal>
         </div>
 
-        {signals.length > 0 ? (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
-            {signals.map(s => (
-              <div key={s.id} style={{ background: '#111118', border: '1px solid rgba(245,197,24,0.1)', borderRadius: 16, padding: 24 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
-                  <div style={{ color: '#94a3b8', fontSize: 13 }}>{s.month}</div>
-                  <div style={{ color: '#f5c518', fontWeight: 800, fontSize: 18 }}>{s.winRate}% WR</div>
-                </div>
-                <div style={{ background: 'rgba(245,197,24,0.08)', borderRadius: 8, height: 8, marginBottom: 16 }}>
-                  <div style={{ background: 'linear-gradient(90deg,#f5c518,#00ff88)', height: '100%', borderRadius: 8, width: `${s.winRate}%` }} />
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-                  <div style={{ background: 'rgba(0,200,81,0.08)', border: '1px solid rgba(0,200,81,0.15)', borderRadius: 8, padding: '10px 12px' }}>
-                    <div style={{ color: '#64748b', fontSize: 11 }}>Pips Gained</div>
-                    <div style={{ color: '#00c851', fontWeight: 800, fontSize: 20 }}>+{s.pipsGained}</div>
-                  </div>
-                  <div style={{ background: 'rgba(148,163,184,0.06)', border: '1px solid rgba(148,163,184,0.12)', borderRadius: 8, padding: '10px 12px' }}>
-                    <div style={{ color: '#64748b', fontSize: 11 }}>Total Signals</div>
-                    <div style={{ color: 'white', fontWeight: 800, fontSize: 20 }}>{s.totalSignals}</div>
-                  </div>
-                </div>
-              </div>
+        {/* pairs ticker */}
+        <div className="ticker relative border-y border-line py-4 mask-fade-edges" style={{ background: 'rgba(16,19,26,0.02)' }}>
+          <div className="ticker-track gap-3 pr-3">
+            {[...pairs, ...pairs].map((p, i) => (
+              <span key={i} className="inline-flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-semibold shrink-0"
+                    style={p.hot
+                      ? { background: 'var(--primary-tint)', borderColor: 'var(--primary-line)', color: 'var(--color-primary)' }
+                      : { background: 'var(--color-surface)', borderColor: 'var(--color-line)', color: 'var(--color-muted)' }}>
+                <span>{p.flag}</span>{p.pair}
+                {p.hot && <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded" style={{ background: 'var(--color-primary)', color: '#ffffff' }}>HOT</span>}
+              </span>
             ))}
           </div>
-        ) : (
-          /* Placeholder performance table when no DB data */
-          <div className="l-perf-table">
-          <div style={{ background: '#111118', border: '1px solid rgba(245,197,24,0.1)', borderRadius: 16, overflow: 'hidden', minWidth: 420 }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr', padding: '12px 20px', background: 'rgba(245,197,24,0.06)', borderBottom: '1px solid rgba(245,197,24,0.08)' }}>
-              {['Month', 'Signals', 'Wins', 'Win Rate', 'Pips'].map(h => <div key={h} style={{ color: '#f5c518', fontSize: 12, fontWeight: 700 }}>{h}</div>)}
-            </div>
-            {[
-              ['Apr 2025', '38', '32', '84%', '+487'],
-              ['Mar 2025', '41', '34', '83%', '+512'],
-              ['Feb 2025', '35', '29', '83%', '+441'],
-            ].map(([month, sigs, wins, wr, pips]) => (
-              <div key={month} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr', padding: '14px 20px', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
-                <div style={{ color: '#94a3b8', fontSize: 13 }}>{month}</div>
-                <div style={{ color: 'white', fontSize: 13 }}>{sigs}</div>
-                <div style={{ color: '#00c851', fontSize: 13 }}>{wins}</div>
-                <div style={{ color: '#f5c518', fontWeight: 700, fontSize: 13 }}>{wr}</div>
-                <div style={{ color: '#00c851', fontWeight: 700, fontSize: 13 }}>{pips}</div>
-              </div>
-            ))}
-          </div>
-          </div>
-        )}
+        </div>
       </section>
 
-      {/* ── Sample Signal ── */}
-      <section style={{ padding: '0 20px 70px', maxWidth: 1100, margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: 36 }}>
-          <div style={{ display: 'inline-block', background: 'rgba(245,197,24,0.08)', border: '1px solid rgba(245,197,24,0.15)', borderRadius: 20, padding: '4px 14px', fontSize: 11, color: '#f5c518', fontWeight: 700, letterSpacing: 1, marginBottom: 12 }}>WHAT YOU RECEIVE</div>
-          <h2 style={{ fontSize: 32, fontWeight: 800, marginBottom: 8 }}>This Is What a Signal Looks Like</h2>
-          <p style={{ color: '#64748b' }}>Every signal includes full trade details — no guesswork</p>
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20, maxWidth: 800, margin: '0 auto' }}>
-          {/* BUY Signal */}
-          <div style={{ background: '#111118', border: '1px solid rgba(0,200,81,0.2)', borderRadius: 16, padding: 24, boxShadow: '0 4px 20px rgba(0,200,81,0.08)' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
-              <div>
-                <div style={{ color: '#00c851', fontSize: 11, fontWeight: 800, letterSpacing: 1 }}>● LIVE SIGNAL</div>
-                <div style={{ color: 'white', fontWeight: 900, fontSize: 22, marginTop: 2 }}>XAU/USD</div>
-              </div>
-              <div style={{ background: 'linear-gradient(135deg, #00c851, #009940)', color: 'white', fontWeight: 900, fontSize: 16, padding: '8px 20px', borderRadius: 10 }}>BUY</div>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {[
-                { label: 'Entry', value: '2,345.50', color: 'white' },
-                { label: 'Take Profit 1', value: '2,358.00  +125 pips', color: '#00c851' },
-                { label: 'Take Profit 2', value: '2,372.00  +265 pips', color: '#00c851' },
-                { label: 'Stop Loss', value: '2,335.00  -105 pips', color: '#ff6666' },
-              ].map(row => (
-                <div key={row.label} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 12px', background: 'rgba(255,255,255,0.03)', borderRadius: 8 }}>
-                  <span style={{ color: '#64748b', fontSize: 13 }}>{row.label}</span>
-                  <span style={{ color: row.color, fontWeight: 700, fontSize: 13 }}>{row.value}</span>
-                </div>
-              ))}
-            </div>
-            <div style={{ marginTop: 14, padding: '10px 12px', background: 'rgba(0,200,81,0.06)', border: '1px solid rgba(0,200,81,0.12)', borderRadius: 8, color: '#64748b', fontSize: 12, lineHeight: 1.5 }}>
-              📊 Rationale: BOS on H4, OB retest at 2,345, LQ sweep above 2,370 expected. Risk 1% of account.
-            </div>
-          </div>
-          {/* Features of signals */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 14, justifyContent: 'center' }}>
+      {/* ══ STATS ══ */}
+      <section className="border-b border-line" style={{ background: 'rgba(37,99,235,0.03)' }}>
+        <div className="container-x py-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {[
-              { icon: '⚡', title: 'Instant Delivery', desc: 'Signals sent to platform + Telegram the moment they are issued' },
-              { icon: '🎯', title: 'Full Analysis', desc: 'Every signal includes rationale — you learn WHY, not just what' },
-              { icon: '📉', title: 'Risk Management', desc: 'SL and position sizing guidance included with every signal' },
-              { icon: '📊', title: 'Win Rate Tracked', desc: 'Every signal result recorded publicly. Full transparency.' },
-            ].map(f => (
-              <div key={f.title} style={{ display: 'flex', gap: 14, alignItems: 'flex-start', background: '#111118', border: '1px solid rgba(245,197,24,0.08)', borderRadius: 12, padding: '14px 16px' }}>
-                <span style={{ fontSize: 22, flexShrink: 0 }}>{f.icon}</span>
+              { node: <><Counter to={80} suffix="%+" /></>, label: 'Signal Win Rate' },
+              { node: <><Counter to={5000} suffix="+" /></>, label: 'Active Traders' },
+              { node: <><Counter to={50} suffix="%" /></>, label: 'Affiliate Commission' },
+              { node: <>24/7</>, label: 'Signal Coverage' },
+            ].map((s, i) => (
+              <Reveal key={s.label} delay={i * 70}>
                 <div>
-                  <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 2 }}>{f.title}</div>
-                  <div style={{ color: '#64748b', fontSize: 12, lineHeight: 1.5 }}>{f.desc}</div>
+                  <div className="text-gradient font-extrabold text-[clamp(1.6rem,4vw,2.1rem)] font-display">{s.node}</div>
+                  <div className="text-dim text-[13px] mt-1">{s.label}</div>
                 </div>
-              </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Pairs We Trade ── */}
-      <section style={{ padding: '0 20px 70px', maxWidth: 1100, margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: 28 }}>
-          <h3 style={{ fontSize: 18, fontWeight: 700, color: '#94a3b8' }}>Pairs We Trade</h3>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 12 }}>
+      {/* ══ HOW IT WORKS ══ */}
+      <section className="container-x py-20 md:py-24">
+        <SectionHeading eyebrow="How It Works" title="Start Trading in 3 Simple Steps" subtitle="From registration to your first profitable trade in days, not months" />
+        <div className="mt-14 grid gap-6 md:grid-cols-3">
           {[
-            { pair: 'XAU/USD', flag: '🥇', hot: true },
-            { pair: 'EUR/USD', flag: '🇪🇺' },
-            { pair: 'GBP/USD', flag: '🇬🇧' },
-            { pair: 'USD/JPY', flag: '🇯🇵' },
-            { pair: 'GBP/JPY', flag: '🇬🇧' },
-            { pair: 'USD/CHF', flag: '🇨🇭' },
-            { pair: 'AUD/USD', flag: '🇦🇺' },
-            { pair: 'USD/CAD', flag: '🇨🇦' },
-          ].map(({ pair, flag, hot }) => (
-            <div key={pair} style={{
-              display: 'flex', alignItems: 'center', gap: 8, padding: '10px 18px',
-              background: hot ? 'rgba(245,197,24,0.1)' : '#111118',
-              border: hot ? '1px solid rgba(245,197,24,0.3)' : '1px solid rgba(255,255,255,0.07)',
-              borderRadius: 12, fontSize: 14, fontWeight: 700,
-              color: hot ? '#f5c518' : '#94a3b8'
-            }}>
-              <span>{flag}</span>
-              <span>{pair}</span>
-              {hot && <span style={{ fontSize: 10, background: '#f5c518', color: '#0a0a0f', borderRadius: 6, padding: '1px 6px', fontWeight: 800 }}>HOT</span>}
-            </div>
+            { step: '01', icon: 'target' as IconName, title: 'Choose Your Plan', desc: 'Pick a course or signal plan that matches your level — beginner, intermediate, or pro. Instant access after payment confirmation.' },
+            { step: '02', icon: 'bookOpen' as IconName, title: 'Learn & Receive Signals', desc: 'Access structured courses, live trading sessions, and daily BUY/SELL signals with precise Entry, TP1, TP2 and Stop Loss levels.' },
+            { step: '03', icon: 'trendingUp' as IconName, title: 'Trade & Earn Consistently', desc: 'Apply what you\'ve learned, follow the signals, manage your risk, and build a consistent record with our community.' },
+          ].map((s, i) => (
+            <Reveal key={s.step} delay={i * 90}>
+              <div className="card card-hover relative h-full p-7 overflow-hidden">
+                <span className="absolute top-4 right-5 font-display font-extrabold text-6xl leading-none" style={{ color: 'rgba(37,99,235,0.07)' }}>{s.step}</span>
+                <IconTile name={s.icon} />
+                <div className="text-primary text-[11px] font-bold tracking-widest mt-5 mb-2">STEP {s.step}</div>
+                <h3 className="text-ink font-semibold text-lg mb-2.5">{s.title}</h3>
+                <p className="text-muted text-sm leading-relaxed">{s.desc}</p>
+              </div>
+            </Reveal>
           ))}
         </div>
       </section>
 
-      {/* ── Pricing ── */}
-      <section id="pricing" style={{ padding: '70px 20px', background: 'rgba(245,197,24,0.02)', borderTop: '1px solid rgba(245,197,24,0.07)' }}>
-        <div style={{ maxWidth: 1140, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 40 }}>
-            <div style={{ display: 'inline-block', background: 'rgba(245,197,24,0.08)', border: '1px solid rgba(245,197,24,0.15)', borderRadius: 20, padding: '4px 14px', fontSize: 11, color: '#f5c518', fontWeight: 700, letterSpacing: 1, marginBottom: 12 }}>PRICING PLANS</div>
-            <h2 style={{ fontSize: 32, fontWeight: 800, marginBottom: 8 }}>Choose Your Plan</h2>
-            <p style={{ color: '#64748b', marginBottom: 16 }}>From beginner fundamentals to personal mentorship</p>
-            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 8 }}>
-              <CountdownTimer />
+      {/* ══ MEET SHAFY ══ */}
+      <section id="about" className="border-y border-line" style={{ background: 'rgba(37,99,235,0.02)' }}>
+        <div className="container-x py-20 md:py-24">
+          <div className="grid gap-12 md:gap-16 items-center md:grid-cols-[minmax(220px,320px)_1fr]">
+            <Reveal className="text-center">
+              <div className="relative mx-auto w-[220px] h-[220px]">
+                <div aria-hidden className="absolute inset-0 rounded-full blur-2xl" style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.35), transparent 70%)' }} />
+                <div className="relative w-full h-full rounded-full overflow-hidden" style={{ boxShadow: '0 0 0 5px rgba(37,99,235,0.22), var(--shadow-lift)' }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/shafy.jpeg" alt="Shafqat Rafique" loading="lazy" decoding="async" className="w-full h-full object-cover" style={{ objectPosition: 'top' }} />
+                </div>
+              </div>
+              <div className="text-primary font-bold text-xl font-display mt-5">Shafqat Rafique</div>
+              <div className="text-dim text-[13px] mt-1">Professional Forex Trader &amp; Mentor</div>
+              <div className="flex justify-center gap-2 mt-4 flex-wrap">
+                {['ICT Concepts', 'Smart Money', 'XAU/USD'].map((t) => (
+                  <span key={t} className="pill" style={{ background: 'var(--primary-tint)', border: '1px solid var(--primary-line)', color: 'var(--color-primary)' }}>{t}</span>
+                ))}
+              </div>
+            </Reveal>
+
+            <div className="text-center md:text-left">
+              <Reveal><span className="eyebrow">Meet Your Mentor</span></Reveal>
+              <Reveal delay={70}>
+                <h2 className="mt-4 text-[clamp(1.75rem,4vw,2.5rem)] font-bold text-ink leading-tight">Trading is a Skill.<br />I&apos;ll Help You Master It.</h2>
+              </Reveal>
+              <Reveal delay={140}>
+                <p className="mt-5 text-muted text-[15px] leading-[1.8] text-left">
+                  With years of full-time Forex trading experience, Shafy has developed a methodology rooted in{' '}
+                  <strong className="text-primary font-semibold">ICT (Inner Circle Trader) concepts</strong> and{' '}
+                  <strong className="text-primary font-semibold">Smart Money trading</strong> — tracking institutional order flow, liquidity sweeps,
+                  and market structure to predict high-probability moves.
+                </p>
+              </Reveal>
+              <Reveal delay={200}>
+                <p className="mt-4 text-muted text-[15px] leading-[1.8] text-left">
+                  After years of research and refining his edge, Shafy now shares his exact strategy, live signals, and weekly sessions with a
+                  growing community of 5,000+ traders worldwide — from complete beginners to funded prop traders.
+                </p>
+              </Reveal>
+              <Reveal delay={260}>
+                <div className="mt-7 grid grid-cols-3 gap-3">
+                  {[{ value: '8+', label: 'Years Trading' }, { value: '80%+', label: 'Signal Accuracy' }, { value: '5K+', label: 'Students Taught' }].map((s) => (
+                    <div key={s.label} className="card2 text-center py-4">
+                      <div className="text-gradient font-extrabold text-xl font-display">{s.value}</div>
+                      <div className="text-dim text-xs mt-1">{s.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </Reveal>
             </div>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20 }}>
-            {services.map(svc => {
-              const isHighlight = !!svc.highlight
-              const textColor = isHighlight ? '#0a0a0f' : '#f0f0f0'
-              const subColor = isHighlight ? 'rgba(0,0,0,0.6)' : '#64748b'
-              const featureColor = isHighlight ? 'rgba(0,0,0,0.7)' : '#94a3b8'
-              const checkColor = isHighlight ? '#0a0a0f' : '#f5c518'
-              return (
-                <div key={svc.name} className={isHighlight ? 'l-card-featured' : ''} style={{
-                  background: svc.color, border: svc.border, borderRadius: 18,
-                  padding: '28px 24px', position: 'relative',
-                  opacity: svc.disabled ? 0.65 : 1,
-                  boxShadow: isHighlight ? '0 8px 40px rgba(245,197,24,0.35)' : '0 2px 12px rgba(0,0,0,0.3)',
-                }}>
-                  {svc.badge && (
-                    <div style={{
-                      position: 'absolute', top: -14, left: '50%', transform: 'translateX(-50%)',
-                      background: isHighlight ? '#0a0a0f' : 'linear-gradient(135deg,#f5c518,#c9a000)',
-                      color: isHighlight ? '#f5c518' : '#0a0a0f',
-                      fontSize: 11, fontWeight: 800, padding: '5px 16px', borderRadius: 20,
-                      whiteSpace: 'nowrap', letterSpacing: 0.5
-                    }}>{svc.badge}</div>
-                  )}
-                  {svc.originalPrice && (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
-                      <span style={{ color: subColor, fontSize: 13, textDecoration: 'line-through' }}>{svc.originalPrice}</span>
-                      <span style={{ background: isHighlight ? 'rgba(0,0,0,0.25)' : 'rgba(245,197,24,0.15)', color: isHighlight ? '#0a0a0f' : '#f5c518', fontSize: 11, fontWeight: 800, padding: '2px 8px', borderRadius: 10 }}>20% OFF</span>
+        </div>
+      </section>
+
+      {/* ══ SIGNAL PERFORMANCE ══ */}
+      <section id="signals" className="container-x py-20 md:py-24">
+        <SectionHeading eyebrow="Live Performance" title="Verified Signal Performance" subtitle="Transparent monthly results — no cherry-picking" />
+        <div className="mt-12">
+          {signals.length > 0 ? (
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {signals.map((s, i) => (
+                <Reveal key={s.id} delay={i * 80}>
+                  <div className="card card-hover p-6 h-full">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-muted text-sm">{s.month}</span>
+                      <span className="text-primary font-bold text-lg tabular">{s.winRate}% WR</span>
                     </div>
-                  )}
-                  <div style={{ color: textColor, fontWeight: 800, fontSize: 20, marginBottom: 2 }}>{svc.name}</div>
-                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginBottom: 6 }}>
-                    {svc.price === 'TBA' ? (
-                      <span style={{ color: textColor, fontWeight: 900, fontSize: 34 }}>TBA</span>
-                    ) : (
-                      <>
-                        <span style={{ color: textColor, fontWeight: 900, fontSize: 34 }}>${svc.price.replace('$', '')}</span>
-                        <span style={{ color: subColor, fontSize: 13 }}>/{svc.period}</span>
-                      </>
-                    )}
+                    <div className="h-2 rounded-full overflow-hidden mb-5" style={{ background: 'var(--primary-tint)' }}>
+                      <div className="h-full rounded-full" style={{ width: `${s.winRate}%`, background: 'var(--grad-primary)' }} />
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="rounded-lg px-3 py-2.5" style={{ background: 'var(--success-tint)', border: '1px solid rgba(22,163,74,0.18)' }}>
+                        <div className="text-dim text-[11px]">Pips Gained</div>
+                        <div className="text-success font-bold text-xl tabular">+{s.pipsGained}</div>
+                      </div>
+                      <div className="rounded-lg px-3 py-2.5" style={{ background: 'rgba(16,19,26,0.045)', border: '1px solid var(--color-line)' }}>
+                        <div className="text-dim text-[11px]">Total Signals</div>
+                        <div className="text-ink font-bold text-xl tabular">{s.totalSignals}</div>
+                      </div>
+                    </div>
                   </div>
-                  <div style={{ color: subColor, fontSize: 13, marginBottom: 18, lineHeight: 1.5 }}>{svc.desc}</div>
-                  <ul style={{ listStyle: 'none', padding: 0, marginBottom: 22 }}>
-                    {svc.features.map(f => (
-                      <li key={f} style={{ display: 'flex', alignItems: 'center', gap: 8, color: featureColor, fontSize: 13, marginBottom: 8 }}>
-                        <span style={{ color: checkColor, fontWeight: 700, fontSize: 14 }}>✓</span> {f}
-                      </li>
-                    ))}
-                  </ul>
-                  {!svc.disabled ? (
-                    <Link href="/order" style={{
-                      display: 'block', textAlign: 'center', padding: '12px', borderRadius: 10,
-                      background: isHighlight ? '#0a0a0f' : 'linear-gradient(135deg,#f5c518,#c9a000)',
-                      color: isHighlight ? '#f5c518' : '#0a0a0f',
-                      textDecoration: 'none', fontWeight: 800, fontSize: 15,
-                      border: isHighlight ? '2px solid rgba(0,0,0,0.2)' : 'none'
-                    }}>Get Started</Link>
-                  ) : (
-                    <div style={{ textAlign: 'center', padding: '12px', borderRadius: 10, background: 'rgba(255,255,255,0.05)', color: '#475569', fontSize: 14 }}>Coming Soon</div>
-                  )}
+                </Reveal>
+              ))}
+            </div>
+          ) : (
+            <Reveal>
+              <div className="overflow-x-auto">
+                <div className="card p-0 overflow-hidden min-w-[460px]">
+                  <div className="grid grid-cols-5 px-6 py-3.5 text-primary text-xs font-bold" style={{ background: 'var(--primary-tint)', borderBottom: '1px solid var(--primary-line)' }}>
+                    {['Month', 'Signals', 'Wins', 'Win Rate', 'Pips'].map((h) => <div key={h}>{h}</div>)}
+                  </div>
+                  {[['Apr 2025', '38', '32', '84%', '+487'], ['Mar 2025', '41', '34', '83%', '+512'], ['Feb 2025', '35', '29', '83%', '+441']].map(([m, sg, w, wr, p]) => (
+                    <div key={m} className="grid grid-cols-5 px-6 py-3.5 text-sm border-b border-line last:border-0">
+                      <div className="text-muted">{m}</div>
+                      <div className="text-ink tabular">{sg}</div>
+                      <div className="text-success tabular">{w}</div>
+                      <div className="text-primary font-bold tabular">{wr}</div>
+                      <div className="text-success font-bold tabular">{p}</div>
+                    </div>
+                  ))}
                 </div>
+              </div>
+            </Reveal>
+          )}
+        </div>
+      </section>
+
+      {/* ══ SAMPLE SIGNAL ══ */}
+      <section className="container-x pb-20 md:pb-24">
+        <SectionHeading eyebrow="What You Receive" title="This Is What a Signal Looks Like" subtitle="Every signal includes full trade details — no guesswork" />
+        <div className="mt-12 grid gap-6 lg:grid-cols-2 max-w-4xl mx-auto items-center">
+          <Reveal>
+            <div className="card p-6 glow-green" style={{ borderColor: 'rgba(22,163,74,0.24)' }}>
+              <div className="flex items-center justify-between mb-5">
+                <div>
+                  <div className="text-success text-[11px] font-bold tracking-widest inline-flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-success live-dot" /> LIVE SIGNAL
+                  </div>
+                  <div className="text-ink font-extrabold text-2xl mt-1 font-display">XAU/USD</div>
+                </div>
+                <span className="buy-badge text-base px-5 py-2">BUY</span>
+              </div>
+              <div className="flex flex-col gap-2.5">
+                {[
+                  { label: 'Entry', value: '2,345.50', color: 'text-ink' },
+                  { label: 'Take Profit 1', value: '2,358.00  ·  +125 pips', color: 'text-success' },
+                  { label: 'Take Profit 2', value: '2,372.00  ·  +265 pips', color: 'text-success' },
+                  { label: 'Stop Loss', value: '2,335.00  ·  −105 pips', color: 'text-danger' },
+                ].map((r) => (
+                  <div key={r.label} className="flex items-center justify-between px-3.5 py-2.5 rounded-lg" style={{ background: 'rgba(16,19,26,0.045)' }}>
+                    <span className="text-dim text-[13px]">{r.label}</span>
+                    <span className={`${r.color} font-semibold text-[13px] tabular`}>{r.value}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-4 flex gap-2.5 px-3.5 py-3 rounded-lg text-muted text-xs leading-relaxed" style={{ background: 'var(--success-tint)', border: '1px solid rgba(22,163,74,0.16)' }}>
+                <Icon name="chart" size={16} className="text-success shrink-0 mt-0.5" />
+                <span>Rationale: BOS on H4, OB retest at 2,345, LQ sweep above 2,370 expected. Risk 1% of account.</span>
+              </div>
+            </div>
+          </Reveal>
+
+          <div className="flex flex-col gap-3.5">
+            {[
+              { icon: 'bolt' as IconName, title: 'Instant Delivery', desc: 'Signals sent to platform + Telegram the moment they are issued' },
+              { icon: 'target' as IconName, title: 'Full Analysis', desc: 'Every signal includes rationale — you learn WHY, not just what' },
+              { icon: 'shield' as IconName, title: 'Risk Management', desc: 'SL and position sizing guidance included with every signal' },
+              { icon: 'activity' as IconName, title: 'Win Rate Tracked', desc: 'Every signal result recorded publicly. Full transparency.' },
+            ].map((f, i) => (
+              <Reveal key={f.title} delay={i * 70}>
+                <div className="card card-hover flex gap-4 items-start p-4">
+                  <IconTile name={f.icon} />
+                  <div>
+                    <div className="text-ink font-semibold text-[15px] mb-1">{f.title}</div>
+                    <div className="text-muted text-[13px] leading-relaxed">{f.desc}</div>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══ PRICING ══ */}
+      <section id="pricing" className="border-t border-line" style={{ background: 'rgba(37,99,235,0.02)' }}>
+        <div className="container-x py-20 md:py-24">
+          <SectionHeading eyebrow="Pricing Plans" title="Choose Your Plan" subtitle="From beginner fundamentals to personal mentorship" />
+          <Reveal delay={150}><div className="flex justify-center mt-6"><CountdownTimer /></div></Reveal>
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((svc, i) => {
+              const featured = !!svc.highlight
+              return (
+                <Reveal key={svc.name} delay={(i % 3) * 80}>
+                  <div
+                    className="relative h-full rounded-2xl p-7 card-hover"
+                    style={
+                      featured
+                        ? { background: 'linear-gradient(var(--color-surface),var(--color-surface)) padding-box, var(--grad-primary) border-box', border: '1.5px solid transparent', boxShadow: 'var(--shadow-primary)' }
+                        : { background: 'var(--color-surface)', border: '1px solid var(--color-line)', opacity: svc.disabled ? 0.68 : 1 }
+                    }
+                  >
+                    {svc.badge && (
+                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 text-[11px] font-extrabold px-3.5 py-1.5 rounded-full whitespace-nowrap"
+                           style={featured ? { background: 'var(--grad-primary)', color: '#ffffff' } : { background: 'var(--color-surface-3)', color: 'var(--color-primary)', border: '1px solid var(--primary-line)' }}>
+                        {svc.badge}
+                      </div>
+                    )}
+                    {svc.originalPrice && (
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-dim text-[13px] line-through">{svc.originalPrice}</span>
+                        <span className="text-[11px] font-extrabold px-2 py-0.5 rounded-md" style={{ background: 'var(--primary-tint)', color: 'var(--color-primary)' }}>20% OFF</span>
+                      </div>
+                    )}
+                    <h3 className="text-ink font-bold text-xl">{svc.name}</h3>
+                    <div className="flex items-baseline gap-1.5 mt-2 mb-2">
+                      {svc.price === 'TBA'
+                        ? <span className="text-ink font-extrabold text-4xl font-display">TBA</span>
+                        : <><span className="text-ink font-extrabold text-4xl font-display tabular">${svc.price.replace('$', '')}</span><span className="text-dim text-[13px]">/{svc.period}</span></>}
+                    </div>
+                    <p className="text-muted text-[13px] leading-relaxed mb-5">{svc.desc}</p>
+                    <ul className="space-y-2.5 mb-7">
+                      {svc.features.map((f) => (
+                        <li key={f} className="flex items-start gap-2.5 text-muted text-[13px]">
+                          <Icon name="check" size={16} className="text-primary shrink-0 mt-0.5" /> {f}
+                        </li>
+                      ))}
+                    </ul>
+                    {!svc.disabled
+                      ? <Button href="/order" variant={featured ? 'primary' : 'secondary'} block>Get Started</Button>
+                      : <div className="btn btn-secondary btn-block" aria-disabled="true" style={{ opacity: 0.7 }}>Coming Soon</div>}
+                  </div>
+                </Reveal>
               )
             })}
           </div>
         </div>
       </section>
 
-      {/* ── Why Choose Us ── */}
-      <section style={{ padding: '70px 20px' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 48 }}>
-            <div style={{ display: 'inline-block', background: 'rgba(245,197,24,0.08)', border: '1px solid rgba(245,197,24,0.15)', borderRadius: 20, padding: '4px 14px', fontSize: 11, color: '#f5c518', fontWeight: 700, letterSpacing: 1, marginBottom: 12 }}>WHY CHOOSE US</div>
-            <h2 style={{ fontSize: 32, fontWeight: 800, marginBottom: 8 }}>Why Trade with Shafy?</h2>
-            <p style={{ color: '#64748b' }}>Everything you need to become a consistently profitable trader</p>
-          </div>
-          <div className="l-why-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
-            {[
-              { icon: '⚡', title: 'Real-Time Signals', desc: 'Live BUY/SELL signals with exact Entry, TP1, TP2 and SL levels delivered instantly to platform + Telegram.' },
-              { icon: '📚', title: 'ICT & SMC Courses', desc: 'Step-by-step curriculum from Beginner to Master covering ICT concepts, order blocks, FVGs and market structure.' },
-              { icon: '📊', title: 'Proven Track Record', desc: 'Full signal history with transparent win rates, pip counts and monthly performance. Nothing hidden.' },
-              { icon: '🌍', title: 'Economic Calendar', desc: 'Never miss a high-impact event. NFP, FOMC, CPI alerts built right into the platform.' },
-              { icon: '🤝', title: '50% Affiliate Commission', desc: 'Refer friends and earn 50% commission on every sale they make. No cap, no minimum, withdraw anytime.' },
-              { icon: '🏆', title: 'Community & Leaderboard', desc: 'Learn alongside other traders, share analysis, post charts and compete on the monthly leaderboard.' }
-            ].map(f => (
-              <div key={f.title} style={{ background: '#111118', border: '1px solid rgba(245,197,24,0.08)', borderRadius: 14, padding: 20 }}>
-                <div style={{ fontSize: 28, marginBottom: 10 }}>{f.icon}</div>
-                <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 6 }}>{f.title}</div>
-                <div style={{ color: '#64748b', fontSize: 13, lineHeight: 1.6 }}>{f.desc}</div>
+      {/* ══ WHY CHOOSE US ══ */}
+      <section className="container-x py-20 md:py-24">
+        <SectionHeading eyebrow="Why Choose Us" title="Why Trade with Shafy?" subtitle="Everything you need to become a consistently profitable trader" />
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            { icon: 'bolt' as IconName, title: 'Real-Time Signals', desc: 'Live BUY/SELL signals with exact Entry, TP1, TP2 and SL levels delivered instantly to platform + Telegram.' },
+            { icon: 'graduation' as IconName, title: 'ICT & SMC Courses', desc: 'Step-by-step curriculum from Beginner to Master covering ICT concepts, order blocks, FVGs and market structure.' },
+            { icon: 'chart' as IconName, title: 'Proven Track Record', desc: 'Full signal history with transparent win rates, pip counts and monthly performance. Nothing hidden.' },
+            { icon: 'calendar' as IconName, title: 'Economic Calendar', desc: 'Never miss a high-impact event. NFP, FOMC, CPI alerts built right into the platform.' },
+            { icon: 'gift' as IconName, title: '50% Affiliate Commission', desc: 'Refer friends and earn 50% commission on every sale they make. No cap, no minimum, withdraw anytime.' },
+            { icon: 'trophy' as IconName, title: 'Community & Leaderboard', desc: 'Learn alongside other traders, share analysis, post charts and compete on the monthly leaderboard.' },
+          ].map((f, i) => (
+            <Reveal key={f.title} delay={(i % 3) * 80}>
+              <div className="card card-hover h-full p-6">
+                <IconTile name={f.icon} />
+                <h3 className="text-ink font-semibold text-[15px] mt-4 mb-2">{f.title}</h3>
+                <p className="text-muted text-[13px] leading-relaxed">{f.desc}</p>
               </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* ══ TESTIMONIALS ══ */}
+      <section id="reviews" className="border-y border-line" style={{ background: 'rgba(37,99,235,0.02)' }}>
+        <div className="container-x py-20 md:py-24">
+          <SectionHeading eyebrow="Testimonials" title="What Traders Are Saying" subtitle="Real feedback from our community of 5,000+ traders" />
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {displayReviews.map((r: { id: string; clientName: string; rating: number; content: string }, i: number) => (
+              <Reveal key={r.id} delay={(i % 3) * 80}>
+                <figure className="card card-hover h-full p-6 flex flex-col">
+                  <Icon name="quote" size={30} className="text-primary opacity-30 mb-3" />
+                  <StarDisplay rating={r.rating} />
+                  <blockquote className="text-muted text-[13px] leading-[1.8] my-4 flex-1">&ldquo;{r.content}&rdquo;</blockquote>
+                  <figcaption className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-full flex items-center justify-center text-[13px] font-bold shrink-0" style={{ background: 'var(--grad-primary)', color: '#ffffff' }}>
+                      {r.clientName.charAt(0)}
+                    </div>
+                    <div>
+                      <div className="text-primary font-semibold text-sm">{r.clientName}</div>
+                      <div className="text-dim text-[11px] inline-flex items-center gap-1"><Icon name="checkCircle" size={12} className="text-success" /> Verified Trader</div>
+                    </div>
+                  </figcaption>
+                </figure>
+              </Reveal>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ── Testimonials ── */}
-      <section id="reviews" style={{ padding: '70px 20px', background: 'rgba(245,197,24,0.02)', borderTop: '1px solid rgba(245,197,24,0.07)' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: 40 }}>
-            <div style={{ display: 'inline-block', background: 'rgba(245,197,24,0.08)', border: '1px solid rgba(245,197,24,0.15)', borderRadius: 20, padding: '4px 14px', fontSize: 11, color: '#f5c518', fontWeight: 700, letterSpacing: 1, marginBottom: 12 }}>TESTIMONIALS</div>
-            <h2 style={{ fontSize: 32, fontWeight: 800, marginBottom: 8 }}>What Traders Are Saying</h2>
-            <p style={{ color: '#64748b' }}>Real feedback from our community of 5,000+ traders</p>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
-            {displayReviews.map((r: { id: string; clientName: string; rating: number; content: string }) => (
-              <div key={r.id} style={{ background: '#111118', border: '1px solid rgba(245,197,24,0.08)', borderRadius: 14, padding: 22, position: 'relative' }}>
-                <div style={{ color: '#f5c518', fontSize: 28, lineHeight: 1, marginBottom: 10, opacity: 0.4 }}>&ldquo;</div>
-                <StarDisplay rating={r.rating} />
-                <p style={{ color: '#94a3b8', fontSize: 13, lineHeight: 1.8, margin: '10px 0 14px' }}>&ldquo;{r.content}&rdquo;</p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg,#f5c518,#c9a000)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 800, color: '#0a0a0f', flexShrink: 0 }}>
-                    {r.clientName.charAt(0)}
-                  </div>
-                  <div>
-                    <div style={{ fontWeight: 700, fontSize: 14, color: '#f5c518' }}>{r.clientName}</div>
-                    <div style={{ color: '#475569', fontSize: 11 }}>Verified Trader</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div style={{ textAlign: 'center', marginTop: 28 }}>
-            <Link href="/reviews" style={{ color: '#f5c518', textDecoration: 'none', fontSize: 14, fontWeight: 600, border: '1px solid rgba(245,197,24,0.2)', padding: '10px 24px', borderRadius: 8 }}>Read All Reviews →</Link>
+          <div className="text-center mt-10">
+            <Button href="/reviews" variant="outline" iconRight="arrowRight">Read All Reviews</Button>
           </div>
         </div>
       </section>
 
-      {/* ── FAQ ── */}
-      <section id="faq" style={{ padding: '70px 20px', maxWidth: 800, margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: 40 }}>
-          <div style={{ display: 'inline-block', background: 'rgba(245,197,24,0.08)', border: '1px solid rgba(245,197,24,0.15)', borderRadius: 20, padding: '4px 14px', fontSize: 11, color: '#f5c518', fontWeight: 700, letterSpacing: 1, marginBottom: 12 }}>FAQ</div>
-          <h2 style={{ fontSize: 32, fontWeight: 800, marginBottom: 8 }}>Frequently Asked Questions</h2>
-          <p style={{ color: '#64748b' }}>Everything you need to know before joining</p>
-        </div>
-        <FAQSection />
+      {/* ══ FAQ ══ */}
+      <section id="faq" className="container-tight py-20 md:py-24">
+        <SectionHeading eyebrow="FAQ" title="Frequently Asked Questions" subtitle="Everything you need to know before joining" />
+        <div className="mt-12"><FAQSection /></div>
       </section>
 
-      {/* ── Affiliate CTA ── */}
-      <section style={{ padding: '70px 20px', background: 'linear-gradient(135deg, rgba(245,197,24,0.08), rgba(0,200,81,0.05))', borderTop: '1px solid rgba(245,197,24,0.1)' }}>
-        <div style={{ maxWidth: 700, margin: '0 auto', textAlign: 'center' }}>
-          <div style={{ fontSize: 48, marginBottom: 16 }}>💰</div>
-          <h2 style={{ fontSize: 36, fontWeight: 900, marginBottom: 12 }}>Earn While You Learn</h2>
-          <p style={{ color: '#94a3b8', fontSize: 16, lineHeight: 1.7, marginBottom: 28 }}>
-            Refer traders to Trade with Shafy and earn <strong style={{ color: '#00c851' }}>50% commission</strong> on every subscription. No limit. No minimum. Withdraw anytime.
-          </p>
-          <Link href="/register" style={{ display: 'inline-block', padding: '14px 36px', borderRadius: 10, background: 'linear-gradient(135deg, #00c851, #009940)', color: 'white', textDecoration: 'none', fontWeight: 800, fontSize: 16, boxShadow: '0 4px 20px rgba(0,200,81,0.3)' }}>Become an Affiliate →</Link>
+      {/* ══ AFFILIATE CTA ══ */}
+      <section className="relative overflow-hidden border-t border-line">
+        <div aria-hidden className="absolute inset-0 -z-10">
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(37,99,235,0.08), rgba(22,163,74,0.05))' }} />
+          <div className="absolute -bottom-32 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full blur-3xl" style={{ background: 'radial-gradient(circle, rgba(22,163,74,0.12), transparent 65%)' }} />
+        </div>
+        <div className="container-tight py-20 md:py-24 text-center">
+          <Reveal>
+            <div className="w-16 h-16 rounded-2xl mx-auto flex items-center justify-center" style={{ background: 'var(--success-tint)', border: '1px solid rgba(22,163,74,0.24)', color: 'var(--color-success)' }}>
+              <Icon name="gift" size={30} />
+            </div>
+          </Reveal>
+          <Reveal delay={80}><h2 className="mt-6 text-[clamp(2rem,5vw,3rem)] font-extrabold text-ink">Earn While You Learn</h2></Reveal>
+          <Reveal delay={140}>
+            <p className="mt-4 text-muted text-[16px] leading-relaxed max-w-xl mx-auto">
+              Refer traders to Trade with Shafy and earn <strong className="text-success font-semibold">50% commission</strong> on every subscription.
+              No limit. No minimum. Withdraw anytime.
+            </p>
+          </Reveal>
+          <Reveal delay={200}><div className="mt-8"><Button href="/register" variant="success" size="lg" iconRight="arrowRight">Become an Affiliate</Button></div></Reveal>
         </div>
       </section>
 
-      {/* ── Risk Disclaimer ── */}
-      <section style={{ padding: '24px 20px', background: '#07070c', borderTop: '1px solid rgba(255,255,255,0.04)' }}>
-        <div style={{ maxWidth: 900, margin: '0 auto', textAlign: 'center' }}>
-          <p style={{ color: '#334155', fontSize: 11, lineHeight: 1.7 }}>
-            <strong style={{ color: '#475569' }}>Risk Disclaimer:</strong> Trading Forex and financial markets involves significant risk of loss and is not suitable for all investors. Past performance of signals is not indicative of future results. You should never invest money that you cannot afford to lose. Trade with Shafy provides educational content and signals for informational purposes only. We are not financial advisors. Please consult a licensed financial professional before making any investment decisions.
+      {/* ══ RISK DISCLAIMER ══ */}
+      <section className="bg-canvas-2 border-t border-line">
+        <div className="container-x py-6 text-center">
+          <p className="text-faint text-[11px] leading-relaxed max-w-4xl mx-auto">
+            <strong className="text-dim">Risk Disclaimer:</strong> Trading Forex and financial markets involves significant risk of loss and is not suitable for all
+            investors. Past performance of signals is not indicative of future results. You should never invest money that you cannot afford to lose. Trade with Shafy
+            provides educational content and signals for informational purposes only. We are not financial advisors. Please consult a licensed financial professional
+            before making any investment decisions.
           </p>
         </div>
       </section>
 
-      {/* ── Footer ── */}
-      <footer style={{ background: '#07070c', borderTop: '1px solid rgba(245,197,24,0.08)', padding: '48px 20px 24px' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 36, marginBottom: 40 }}>
-            <div>
-              <Link href="/"><img src="/Trade with Shafy Png.png" alt="Trade with Shafy" style={{ height: 40, width: 'auto', objectFit: 'contain', marginBottom: 10, cursor: 'pointer' }} /></Link>
-              <p style={{ color: '#475569', fontSize: 13, lineHeight: 1.7, marginBottom: 16 }}>Professional Forex education, live signals, and a thriving community of traders worldwide.</p>
-
-              {/* App Store badge */}
-              <a
-                href="https://apps.apple.com/us/app/trade-with-shafy/id6772309277"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '8px 14px', borderRadius: 8, background: '#000', border: '1px solid rgba(255,255,255,0.15)', textDecoration: 'none', marginBottom: 14 }}
-              >
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
-                  <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
-                </svg>
-                <div style={{ textAlign: 'left' }}>
-                  <div style={{ color: '#94a3b8', fontSize: 9, lineHeight: 1 }}>Download on the</div>
-                  <div style={{ color: 'white', fontSize: 14, fontWeight: 700, lineHeight: 1.2 }}>App Store</div>
-                </div>
-              </a>
-
-              {/* Social links */}
-              <div style={{ display: 'flex', gap: 10 }}>
-                {[
-                  {
-                    label: 'WhatsApp', href: 'https://whatsapp.com/channel/0029Vb1eRV4BPzjT2Y9X6Y0K', color: '#25D366',
-                    svg: <svg width="18" height="18" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                  },
-                  {
-                    label: 'Telegram', href: '#', color: '#229ED9',
-                    svg: <svg width="18" height="18" viewBox="0 0 24 24" fill="#229ED9"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-                  },
-                  {
-                    label: 'Instagram', href: 'https://www.instagram.com/shafqatrafiquee?igsh=MXR1NXdldjh5bjdmZw==', color: '#E1306C',
-                    svg: <svg width="18" height="18" viewBox="0 0 24 24" fill="url(#ig-grad)"><defs><linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stopColor="#f09433"/><stop offset="25%" stopColor="#e6683c"/><stop offset="50%" stopColor="#dc2743"/><stop offset="75%" stopColor="#cc2366"/><stop offset="100%" stopColor="#bc1888"/></linearGradient></defs><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-                  },
-                  {
-                    label: 'YouTube', href: '#', color: '#FF0000',
-                    svg: <svg width="18" height="18" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                  },
-                ].map(s => (
-                  <a key={s.label} href={s.href} title={s.label} target="_blank" rel="noopener noreferrer" style={{ width: 36, height: 36, borderRadius: 8, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}>{s.svg}</a>
-                ))}
-              </div>
-            </div>
-            <div>
-              <div style={{ color: 'white', fontWeight: 700, marginBottom: 14 }}>Platform</div>
-              {[['Research', '/research'], ['Live Signals', '/signals'], ['Classroom', '/classroom'], ['Community', '/community'], ['Calculator', '/calculator']].map(([l, h]) => (
-                <Link key={l} href={h} style={{ display: 'block', color: '#475569', textDecoration: 'none', fontSize: 13, marginBottom: 8 }}>{l}</Link>
-              ))}
-            </div>
-            <div>
-              <div style={{ color: 'white', fontWeight: 700, marginBottom: 14 }}>Get Started</div>
-              {[['Register as Affiliate', '/register'], ['Login', '/login'], ['Order a Plan', '/order'], ['Leave a Review', '/reviews']].map(([l, h]) => (
-                <Link key={l} href={h} style={{ display: 'block', color: '#475569', textDecoration: 'none', fontSize: 13, marginBottom: 8 }}>{l}</Link>
-              ))}
-            </div>
-            <div>
-              <div style={{ color: 'white', fontWeight: 700, marginBottom: 14 }}>Contact</div>
-              <p style={{ color: '#475569', fontSize: 13, lineHeight: 1.7 }}>
-                Have questions?<br />
-                Reach out via Telegram or email us at<br />
-                <span style={{ color: '#94a3b8' }}>shafqatrafique45978@gmail.com</span>
-              </p>
-            </div>
-          </div>
-          <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: 20, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
-            <div style={{ color: '#334155', fontSize: 12 }}>© {new Date().getFullYear()} Trade with Shafy. All rights reserved.</div>
-            <div style={{ display: 'flex', gap: 20 }}>
-              {[['Privacy Policy', '#'], ['Terms of Service', '#']].map(([l, h]) => (
-                <a key={l} href={h} style={{ color: '#334155', fontSize: 12, textDecoration: 'none' }}>{l}</a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }
