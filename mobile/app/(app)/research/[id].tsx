@@ -39,7 +39,7 @@ export default function ResearchDetailScreen() {
       <View style={{ padding: spacing.lg }}>
         <View style={styles.badges}>
           <Badge label={post.category} />
-          {post.isPremium ? <Badge label="⭐ Premium" color="#f59e0b" /> : null}
+          {post.isPremium ? <Badge label="Premium" color="#f59e0b" /> : null}
         </View>
         <Text style={styles.title}>{post.title}</Text>
         <View style={styles.metaRow}>

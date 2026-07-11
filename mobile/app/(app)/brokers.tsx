@@ -1,4 +1,5 @@
 import React from 'react'
+import { Ionicons } from '@expo/vector-icons'
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 import * as WebBrowser from 'expo-web-browser'
 import { useApi } from '@/api/hooks'
@@ -16,7 +17,7 @@ export default function BrokersScreen() {
     <Screen scroll refreshing={isRefetching} onRefresh={refetch}>
       <View style={{ padding: spacing.lg }}>
         <View style={styles.disclaimer}>
-          <Text style={styles.discTitle}>⚠️ Disclaimer</Text>
+          <Text style={styles.discTitle}>Disclaimer</Text>
           <Text style={styles.discBody}>
             These are affiliate broker links. Always do your own research. Trading involves risk and you
             may lose more than you invest.
@@ -35,9 +36,10 @@ export default function BrokersScreen() {
               ]}
             >
               {b.isRecommended ? (
-                <View style={styles.pickBadge}>
+                <View style={[styles.pickBadge, { flexDirection: 'row', alignItems: 'center', gap: 4 }]}>
+                  <Ionicons name="star" size={11} color="#f59e0b" />
                   <Text style={{ color: '#f59e0b', fontSize: font.tiny, fontWeight: '700' }}>
-                    ⭐ Shafy&apos;s Pick
+                    Shafy&apos;s Pick
                   </Text>
                 </View>
               ) : null}

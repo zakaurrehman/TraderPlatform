@@ -53,7 +53,7 @@ export default function CalculatorScreen() {
 
         {result && (
           <View style={styles.resultCard}>
-            <Text style={styles.resultLabel}>📊 Position Size Result</Text>
+            <Text style={styles.resultLabel}>Position Size Result</Text>
             <View style={styles.resultGrid}>
               <View style={[styles.resultBox, { backgroundColor: 'rgba(37,99,235,0.08)', borderColor: 'rgba(37,99,235,0.15)' }]}>
                 <Text style={styles.resultBoxLabel}>Lot Size</Text>

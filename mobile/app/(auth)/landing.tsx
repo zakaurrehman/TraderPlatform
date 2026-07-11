@@ -4,7 +4,7 @@ import { Image } from 'expo-image'
 import { useRouter } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import * as WebBrowser from 'expo-web-browser'
-import { Screen, colors, font, spacing, radius } from '@/components/ui'
+import { Screen, colors, font, spacing, radius, family } from '@/components/ui'
 
 const LOGO = require('../../assets/logo.png')
 const SHAFY = require('../../assets/shafy.jpeg')
@@ -15,11 +15,11 @@ const SHAFY = require('../../assets/shafy.jpeg')
 // three static testimonials the web uses when the DB is empty.
 // ────────────────────────────────────────────────────────────────────────────
 
-const TRUST = [
-  '⭐ 4.9/5 Rating',
-  '✅ 5,000+ Traders',
-  '🔒 Secure Payments',
-  '📱 Instant Access',
+const TRUST: { icon: keyof typeof Ionicons.glyphMap; label: string }[] = [
+  { icon: 'star', label: '4.9/5 Rating' },
+  { icon: 'people', label: '5,000+ Traders' },
+  { icon: 'lock-closed', label: 'Secure Payments' },
+  { icon: 'phone-portrait', label: 'Instant Access' },
 ]
 
 const STATS = [
@@ -29,19 +29,19 @@ const STATS = [
   { value: '24/7', label: 'Signal Coverage' },
 ]
 
-const STEPS = [
-  { step: '01', icon: '🎯', title: 'Choose Your Plan', desc: 'Pick a course or signal plan that matches your level — beginner, intermediate, or pro.' },
-  { step: '02', icon: '📚', title: 'Learn & Receive Signals', desc: 'Structured courses, live sessions, and daily BUY/SELL signals with precise Entry, TP and SL levels.' },
-  { step: '03', icon: '💹', title: 'Trade Consistently', desc: 'Apply what you have learned, follow the signals, manage risk, and build consistent results.' },
+const STEPS: { step: string; icon: keyof typeof Ionicons.glyphMap; title: string; desc: string }[] = [
+  { step: '01', icon: 'locate-outline', title: 'Choose Your Plan', desc: 'Pick a course or signal plan that matches your level — beginner, intermediate, or pro.' },
+  { step: '02', icon: 'book-outline', title: 'Learn & Receive Signals', desc: 'Structured courses, live sessions, and daily BUY/SELL signals with precise Entry, TP and SL levels.' },
+  { step: '03', icon: 'trending-up', title: 'Trade Consistently', desc: 'Apply what you have learned, follow the signals, manage risk, and build consistent results.' },
 ]
 
-const FEATURES = [
-  { icon: '⚡', title: 'Real-Time Signals', desc: 'Live BUY/SELL signals with exact Entry, TP1, TP2 and SL — delivered instantly.' },
-  { icon: '📚', title: 'ICT & SMC Courses', desc: 'From beginner to master: order blocks, FVGs, market structure, smart money concepts.' },
-  { icon: '📊', title: 'Proven Track Record', desc: 'Full signal history with transparent win rates and pip counts. Nothing hidden.' },
-  { icon: '🌍', title: 'Economic Calendar', desc: 'NFP, FOMC, CPI alerts built into the platform.' },
-  { icon: '🤝', title: '50% Affiliate Commission', desc: 'Refer friends and earn 50% on every sale they make. No cap, no minimum.' },
-  { icon: '🏆', title: 'Active Community', desc: 'Learn alongside other traders, share analysis, compete on the leaderboard.' },
+const FEATURES: { icon: keyof typeof Ionicons.glyphMap; title: string; desc: string }[] = [
+  { icon: 'flash-outline', title: 'Real-Time Signals', desc: 'Live BUY/SELL signals with exact Entry, TP1, TP2 and SL — delivered instantly.' },
+  { icon: 'school-outline', title: 'ICT & SMC Courses', desc: 'From beginner to master: order blocks, FVGs, market structure, smart money concepts.' },
+  { icon: 'stats-chart-outline', title: 'Proven Track Record', desc: 'Full signal history with transparent win rates and pip counts. Nothing hidden.' },
+  { icon: 'globe-outline', title: 'Economic Calendar', desc: 'NFP, FOMC, CPI alerts built into the platform.' },
+  { icon: 'gift-outline', title: '50% Affiliate Commission', desc: 'Refer friends and earn 50% on every sale they make. No cap, no minimum.' },
+  { icon: 'trophy-outline', title: 'Active Community', desc: 'Learn alongside other traders, share analysis, compete on the leaderboard.' },
 ]
 
 const PAIRS = [
@@ -148,7 +148,10 @@ export default function LandingScreen() {
           </View>
           <View style={styles.trustRow}>
             {TRUST.map((t) => (
-              <Text key={t} style={styles.trustItem}>{t}</Text>
+              <View key={t.label} style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+                <Ionicons name={t.icon} size={13} color={colors.primary} />
+                <Text style={styles.trustItem}>{t.label}</Text>
+              </View>
             ))}
           </View>
         </View>
@@ -170,7 +173,9 @@ export default function LandingScreen() {
           {STEPS.map((s) => (
             <View key={s.step} style={styles.stepCard}>
               <Text style={styles.stepWatermark}>{s.step}</Text>
-              <Text style={{ fontSize: 32, marginBottom: 10 }}>{s.icon}</Text>
+              <View style={styles.iconTile}>
+                <Ionicons name={s.icon} size={22} color={colors.primary} />
+              </View>
               <Text style={styles.stepStepNum}>STEP {s.step}</Text>
               <Text style={styles.stepTitle}>{s.title}</Text>
               <Text style={styles.stepDesc}>{s.desc}</Text>
@@ -240,8 +245,9 @@ export default function LandingScreen() {
               </View>
             ))}
             <View style={styles.signalNote}>
-              <Text style={styles.signalNoteText}>
-                📊 Rationale: BOS on H4, OB retest at 2,345, LQ sweep above 2,370 expected. Risk 1% of account.
+              <Ionicons name="stats-chart-outline" size={15} color={colors.green} style={{ marginTop: 1 }} />
+              <Text style={[styles.signalNoteText, { flex: 1 }]}>
+                Rationale: BOS on H4, OB retest at 2,345, LQ sweep above 2,370 expected. Risk 1% of account.
               </Text>
             </View>
           </View>
@@ -319,7 +325,9 @@ export default function LandingScreen() {
         <Section eyebrow="WHY CHOOSE US" title="Why Trade with Shafy?" sub="Everything you need to become a consistently profitable trader">
           {FEATURES.map((f) => (
             <View key={f.title} style={styles.featureCard}>
-              <Text style={{ fontSize: 26, marginBottom: 8 }}>{f.icon}</Text>
+              <View style={styles.iconTile}>
+                <Ionicons name={f.icon} size={22} color={colors.primary} />
+              </View>
               <Text style={styles.featureTitle}>{f.title}</Text>
               <Text style={styles.featureDesc}>{f.desc}</Text>
             </View>
@@ -355,7 +363,9 @@ export default function LandingScreen() {
 
         {/* ── Affiliate CTA ── */}
         <View style={styles.affCta}>
-          <Text style={{ fontSize: 40, marginBottom: 8 }}>💰</Text>
+          <View style={[styles.iconTile, { width: 56, height: 56, borderRadius: 16, backgroundColor: 'rgba(22,163,74,0.1)', borderColor: 'rgba(22,163,74,0.25)' }]}>
+            <Ionicons name="gift-outline" size={28} color={colors.green} />
+          </View>
           <Text style={styles.affCtaTitle}>Earn While You Learn</Text>
           <Text style={styles.affCtaBody}>
             Refer traders and earn <Text style={{ color: colors.green, fontWeight: '800' }}>50% commission</Text>{' '}
@@ -467,7 +477,7 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   heroChipText: { color: colors.primary, fontSize: 10, fontWeight: '800', letterSpacing: 1 },
-  heroTitle: { color: colors.ink, fontSize: 38, fontWeight: '900', textAlign: 'center', lineHeight: 44, letterSpacing: -0.5, marginBottom: 14 },
+  heroTitle: { color: colors.ink, fontSize: 36, fontFamily: family.displayHeavy, textAlign: 'center', lineHeight: 42, letterSpacing: -0.5, marginBottom: 14 },
   heroTitleAccent: { color: colors.primary },
   heroSub: { color: colors.secondary, fontSize: font.body, lineHeight: 22, textAlign: 'center', marginBottom: 22 },
   ctaRow: { flexDirection: 'row', gap: 10, marginBottom: 18 },
@@ -505,7 +515,7 @@ const styles = StyleSheet.create({
   },
   statsGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around', gap: 12 },
   statBox: { alignItems: 'center', flexBasis: '22%', minWidth: 70 },
-  statValue: { color: colors.primary, fontWeight: '900', fontSize: 22 },
+  statValue: { color: colors.primary, fontFamily: family.displayHeavy, fontSize: 22 },
   statLabel: { color: colors.muted, fontSize: 11, marginTop: 2, textAlign: 'center' },
 
   // Section
@@ -519,11 +529,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   eyebrowText: { color: colors.primary, fontSize: 10, fontWeight: '800', letterSpacing: 1 },
-  sectionTitle: { color: colors.ink, fontSize: 24, fontWeight: '800', textAlign: 'center', marginBottom: 6 },
+  sectionTitle: { color: colors.ink, fontSize: 24, fontFamily: family.display, textAlign: 'center', letterSpacing: -0.3, marginBottom: 6 },
   sectionSub: { color: colors.muted, fontSize: font.small, textAlign: 'center' },
 
   // Steps
   stepCard: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border, borderRadius: radius.lg, padding: 18, marginBottom: 12, position: 'relative', overflow: 'hidden' },
+  iconTile: { width: 44, height: 44, borderRadius: 12, backgroundColor: 'rgba(37,99,235,0.08)', borderWidth: 1, borderColor: 'rgba(37,99,235,0.2)', alignItems: 'center', justifyContent: 'center', marginBottom: 10 },
   stepWatermark: { position: 'absolute', top: 8, right: 14, fontSize: 50, fontWeight: '900', color: 'rgba(37,99,235,0.06)' },
   stepStepNum: { color: colors.primary, fontSize: 10, fontWeight: '800', letterSpacing: 1, marginBottom: 4 },
   stepTitle: { color: colors.ink, fontWeight: '800', fontSize: 16, marginBottom: 6 },
@@ -542,31 +553,31 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(37,99,235,0.2)',
   },
   avatar: { width: '100%', height: '100%' },
-  aboutName: { color: colors.primary, fontWeight: '900', fontSize: 22 },
+  aboutName: { color: colors.primary, fontFamily: family.display, fontSize: 22 },
   aboutRole: { color: colors.muted, fontSize: font.small, marginTop: 4 },
   tagsRow: { flexDirection: 'row', gap: 8, marginTop: 14, flexWrap: 'wrap', justifyContent: 'center' },
   tag: { backgroundColor: 'rgba(37,99,235,0.1)', borderColor: 'rgba(37,99,235,0.2)', borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 10, paddingVertical: 3 },
   tagText: { color: colors.primary, fontSize: 10, fontWeight: '700' },
   aboutChip: { backgroundColor: 'rgba(37,99,235,0.08)', borderColor: 'rgba(37,99,235,0.15)', borderWidth: 1, borderRadius: radius.pill, paddingHorizontal: 12, paddingVertical: 4, marginTop: 24, marginBottom: 12 },
   aboutChipText: { color: colors.primary, fontSize: 10, fontWeight: '800', letterSpacing: 1 },
-  aboutHeadline: { color: colors.ink, fontSize: 22, fontWeight: '900', textAlign: 'center', lineHeight: 28, marginBottom: 14 },
+  aboutHeadline: { color: colors.ink, fontSize: 22, fontFamily: family.display, textAlign: 'center', lineHeight: 28, marginBottom: 14 },
   aboutBody: { color: colors.secondary, fontSize: font.body, lineHeight: 22, textAlign: 'center', marginBottom: 18 },
   miniStats: { flexDirection: 'row', gap: 10 },
   miniStat: { backgroundColor: colors.card, borderWidth: 1, borderColor: colors.border, borderRadius: radius.md, paddingHorizontal: 14, paddingVertical: 12, alignItems: 'center', flex: 1 },
-  miniStatV: { color: colors.primary, fontWeight: '900', fontSize: 20 },
+  miniStatV: { color: colors.primary, fontFamily: family.displayHeavy, fontSize: 20 },
   miniStatL: { color: colors.muted, fontSize: 11, marginTop: 2 },
 
   // Signal card
   signalCard: { backgroundColor: colors.card, borderWidth: 1, borderColor: 'rgba(22,163,74,0.2)', borderRadius: radius.lg, padding: 20 },
   signalHead: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 },
   signalLive: { color: colors.green, fontSize: 10, fontWeight: '800', letterSpacing: 1 },
-  signalPair: { color: colors.ink, fontWeight: '900', fontSize: 22, marginTop: 2 },
+  signalPair: { color: colors.ink, fontFamily: family.displayHeavy, fontSize: 22, marginTop: 2 },
   buyBadge: { backgroundColor: colors.green, paddingHorizontal: 18, paddingVertical: 7, borderRadius: 10 },
   buyBadgeText: { color: colors.white, fontWeight: '900', fontSize: 15 },
   signalRow: { flexDirection: 'row', justifyContent: 'space-between', backgroundColor: 'rgba(16,19,26,0.03)', borderRadius: 8, paddingHorizontal: 12, paddingVertical: 10, marginBottom: 8 },
   signalRowLabel: { color: colors.muted, fontSize: font.small },
   signalRowValue: { fontWeight: '700', fontSize: font.small },
-  signalNote: { backgroundColor: 'rgba(22,163,74,0.06)', borderColor: 'rgba(22,163,74,0.12)', borderWidth: 1, borderRadius: 8, padding: 10, marginTop: 8 },
+  signalNote: { flexDirection: 'row', gap: 8, backgroundColor: 'rgba(22,163,74,0.06)', borderColor: 'rgba(22,163,74,0.12)', borderWidth: 1, borderRadius: 8, padding: 10, marginTop: 8 },
   signalNoteText: { color: colors.muted, fontSize: font.small, lineHeight: 18 },
 
   // Pairs
@@ -633,7 +644,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 32,
   },
-  affCtaTitle: { color: colors.ink, fontWeight: '900', fontSize: 26, marginBottom: 8, textAlign: 'center' },
+  affCtaTitle: { color: colors.ink, fontFamily: family.displayHeavy, fontSize: 26, marginBottom: 8, textAlign: 'center' },
   affCtaBody: { color: colors.secondary, fontSize: font.body, lineHeight: 22, textAlign: 'center', marginBottom: 18 },
   affCtaBtn: { flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: colors.green, paddingHorizontal: 24, paddingVertical: 13, borderRadius: 10 },
   affCtaBtnText: { color: '#fff', fontWeight: '800', fontSize: 15 },

@@ -7,7 +7,7 @@ export default function AppLayout() {
       screenOptions={{
         headerStyle: { backgroundColor: colors.card },
         headerTintColor: colors.primary,
-        headerTitleStyle: { color: colors.ink, fontWeight: '800' },
+        headerTitleStyle: { color: colors.ink, fontFamily: 'Sora_700Bold' },
         contentStyle: { backgroundColor: colors.bg },
         headerShadowVisible: false,
       }}

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Ionicons } from '@expo/vector-icons'
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 import * as WebBrowser from 'expo-web-browser'
 import { useApi } from '@/api/hooks'
@@ -48,7 +49,7 @@ export default function ResourcesScreen() {
                         <View style={[styles.tierTag, { backgroundColor: tc.bg }]}>
                           <Text style={{ color: tc.color, fontSize: font.micro, fontWeight: '700' }}>{r.tier}</Text>
                         </View>
-                        {locked ? <Text style={{ color: colors.muted }}>🔒</Text> : null}
+                        {locked ? <Ionicons name="lock-closed" size={14} color={colors.muted} /> : null}
                       </View>
                       <Text style={styles.title}>{r.title}</Text>
                       <Text style={styles.desc}>{r.description}</Text>
@@ -62,7 +63,7 @@ export default function ResourcesScreen() {
                           style={styles.btn}
                           onPress={() => WebBrowser.openBrowserAsync(r.fileUrl)}
                         >
-                          <Text style={styles.btnText}>📄 Download PDF</Text>
+                          <Text style={styles.btnText}>Download PDF</Text>
                         </Pressable>
                       )}
                     </View>

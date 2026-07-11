@@ -59,6 +59,20 @@ export const font = {
   micro: 10,
 } as const
 
+/**
+ * Font families (loaded in app/_layout.tsx via @expo-google-fonts).
+ * NOTE: when using these, do NOT also set fontWeight — Android ignores
+ * custom families combined with fontWeight and falls back to system.
+ */
+export const family = {
+  sans: 'Inter_400Regular',
+  sansMedium: 'Inter_500Medium',
+  sansSemiBold: 'Inter_600SemiBold',
+  sansBold: 'Inter_700Bold',
+  display: 'Sora_700Bold',
+  displayHeavy: 'Sora_800ExtraBold',
+} as const
+
 /** Soft elevation for cards on the light canvas. */
 export const shadow = {
   card: {

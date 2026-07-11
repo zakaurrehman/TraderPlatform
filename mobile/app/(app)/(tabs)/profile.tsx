@@ -29,11 +29,11 @@ type ProfileBundle = {
 
 const LINKS: { href: string; label: string; sub: string }[] = [
   { href: '/(app)/affiliate', label: '🔗 Affiliate Dashboard', sub: 'Referrals & commissions' },
-  { href: '/(app)/calculator', label: '📊 Risk Calculator', sub: 'Position size tool' },
+  { href: '/(app)/calculator', label: 'Risk Calculator', sub: 'Position size tool' },
   { href: '/(app)/watchlist', label: '📈 Market Watchlist', sub: 'Live prices' },
   { href: '/(app)/brokers', label: '🏦 Broker Recommendations', sub: 'Start trading' },
   { href: '/(app)/resources', label: '📁 Resources', sub: 'Guides & downloads' },
-  { href: '/(app)/reviews', label: '⭐ Leave a Review', sub: 'Share your experience' },
+  { href: '/(app)/reviews', label: 'Leave a Review', sub: 'Share your experience' },
 ]
 
 export default function ProfileScreen() {
@@ -129,7 +129,7 @@ export default function ProfileScreen() {
 
         {data.certificates.length > 0 && (
           <Card>
-            <Text style={styles.cardTitle}>🏆 Certificates</Text>
+            <Text style={styles.cardTitle}>Certificates</Text>
             {data.certificates.map((c) => (
               <View key={c.id} style={styles.certRow}>
                 <Text style={{ fontSize: 18 }}>🎓</Text>
@@ -157,7 +157,7 @@ export default function ProfileScreen() {
 
         {data.plan === 'FREE' && Platform.OS !== 'ios' && (
           <View style={styles.upgrade}>
-            <Text style={{ fontSize: 28 }}>⭐</Text>
+            <Ionicons name="star" size={26} color="#f59e0b" />
             <Text style={styles.upgradeTitle}>Upgrade Your Plan</Text>
             <Text style={styles.upgradeSub}>Unlock premium research, signals, and courses.</Text>
             <Button title="View Plans" onPress={() => router.push('/(app)/order')} />

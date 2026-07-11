@@ -45,7 +45,7 @@ export default function LiveScreen() {
                 style={styles.watchBtn}
                 onPress={() => WebBrowser.openBrowserAsync(s.streamUrl as string)}
               >
-                <Text style={styles.watchBtnText}>🔴 Watch Live</Text>
+                <Text style={styles.watchBtnText}>Watch Live</Text>
               </Pressable>
             ) : null}
           </View>
@@ -63,7 +63,7 @@ export default function LiveScreen() {
               <View style={styles.cardHead}>
                 <Text style={styles.cardTitle}>{s.title}</Text>
                 <View style={styles.chip}>
-                  <Text style={styles.chipText}>⏰ {countdown(s.scheduledAt)}</Text>
+                  <Text style={styles.chipText}>{countdown(s.scheduledAt)}</Text>
                 </View>
               </View>
               {s.description ? <Text style={styles.cardDesc}>{s.description}</Text> : null}

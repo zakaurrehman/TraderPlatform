@@ -3,7 +3,7 @@ import { View, Text, Pressable, StyleSheet, Animated } from 'react-native'
 import { Tabs } from 'expo-router'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Ionicons } from '@expo/vector-icons'
-import { colors, font } from '@/theme'
+import { colors, font, family } from '@/theme'
 
 type TabDef = {
   name: string
@@ -98,7 +98,7 @@ export default function TabsLayout() {
       screenOptions={{
         headerStyle: { backgroundColor: colors.card },
         headerTintColor: colors.primary,
-        headerTitleStyle: { color: colors.ink, fontWeight: '800' },
+        headerTitleStyle: { color: colors.ink, fontFamily: family.display },
         headerShadowVisible: false,
       }}
     >
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   item: { flex: 1, alignItems: 'center', paddingVertical: 4, gap: 2 },
-  label: { fontSize: font.micro, fontWeight: '600' },
+  label: { fontSize: font.micro, fontFamily: family.sansSemiBold },
   dot: { width: 4, height: 4, borderRadius: 2, backgroundColor: colors.primary, marginTop: 1 },
   dotPlaceholder: { width: 4, height: 4, marginTop: 1 },
   centerWrap: { flex: 1, alignItems: 'center', marginTop: -22 },

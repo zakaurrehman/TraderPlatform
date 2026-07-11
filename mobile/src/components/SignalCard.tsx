@@ -6,10 +6,10 @@ import { formatDateTime } from '@/lib/format'
 import type { Signal, SignalStatus } from '@/types'
 
 const STATUS_MAP: Record<SignalStatus, { label: string; color: string; bg: string }> = {
-  ACTIVE: { label: '🟢 Active', color: colors.green, bg: 'rgba(22,163,74,0.12)' },
-  HIT_TP: { label: '✅ TP Hit', color: colors.primary, bg: 'rgba(37,99,235,0.12)' },
-  HIT_SL: { label: '❌ SL Hit', color: colors.red, bg: 'rgba(220,38,38,0.12)' },
-  CLOSED: { label: '⬜ Closed', color: colors.secondary, bg: 'rgba(148,163,184,0.1)' },
+  ACTIVE: { label: 'Active', color: colors.green, bg: 'rgba(22,163,74,0.12)' },
+  HIT_TP: { label: 'TP Hit', color: colors.primary, bg: 'rgba(37,99,235,0.12)' },
+  HIT_SL: { label: 'SL Hit', color: colors.red, bg: 'rgba(220,38,38,0.12)' },
+  CLOSED: { label: 'Closed', color: colors.secondary, bg: 'rgba(148,163,184,0.1)' },
 }
 
 function Cell({ label, value }: { label: string; value: string }) {

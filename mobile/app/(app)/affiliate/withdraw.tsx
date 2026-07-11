@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Ionicons } from '@expo/vector-icons'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { useQueryClient } from '@tanstack/react-query'
 import { useForm, Controller } from 'react-hook-form'
@@ -71,7 +72,7 @@ export default function WithdrawScreen() {
 
         {success ? (
           <View style={styles.successBox}>
-            <Text style={{ fontSize: 32 }}>✅</Text>
+            <Ionicons name="checkmark-circle" size={34} color={colors.green} />
             <Text style={styles.successText}>Request submitted! Admin will process within 24–48h.</Text>
           </View>
         ) : (

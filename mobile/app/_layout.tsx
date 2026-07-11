@@ -8,11 +8,23 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { QueryClientProvider } from '@tanstack/react-query'
 import * as Linking from 'expo-linking'
 import * as Notifications from 'expo-notifications'
+import * as SplashScreen from 'expo-splash-screen'
+import { useFonts } from 'expo-font'
+import {
+  Inter_400Regular,
+  Inter_500Medium,
+  Inter_600SemiBold,
+  Inter_700Bold,
+} from '@expo-google-fonts/inter'
+import { Sora_700Bold, Sora_800ExtraBold } from '@expo-google-fonts/sora'
 import { queryClient } from '@/api/queryClient'
 import { AuthProvider, useAuth } from '@/auth/AuthContext'
 import { registerForPush } from '@/lib/push'
 import { parseRefCode, saveRefCode } from '@/lib/refcode'
 import { Loader, colors } from '@/components/ui'
+
+// Keep the splash visible while fonts load.
+SplashScreen.preventAutoHideAsync().catch(() => {})
 
 function RootNavigator() {
   const { user, bootstrapping } = useAuth()
@@ -83,6 +95,21 @@ function RootNavigator() {
 }
 
 export default function RootLayout() {
+  const [fontsLoaded] = useFonts({
+    Inter_400Regular,
+    Inter_500Medium,
+    Inter_600SemiBold,
+    Inter_700Bold,
+    Sora_700Bold,
+    Sora_800ExtraBold,
+  })
+
+  useEffect(() => {
+    if (fontsLoaded) SplashScreen.hideAsync().catch(() => {})
+  }, [fontsLoaded])
+
+  if (!fontsLoaded) return null
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>

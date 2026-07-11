@@ -75,7 +75,7 @@ export default function AffiliateDashboard() {
 
         <View style={styles.quickRow}>
           <Pressable style={styles.quickCard} onPress={() => router.push('/(app)/affiliate/commissions')}>
-            <Text style={{ fontSize: 22 }}>📊</Text>
+            <Ionicons name="stats-chart" size={20} color={colors.primary} />
             <Text style={styles.quickTitle}>Commissions</Text>
             <Text style={styles.quickSub}>{data.commissionsCount} records</Text>
           </Pressable>

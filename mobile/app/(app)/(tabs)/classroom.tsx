@@ -65,9 +65,9 @@ export default function ClassroomScreen() {
                   <View style={{ flex: 1 }}>
                     <View style={styles.badgeRow}>
                       <Badge label={course.level} />
-                      {course.isPremium ? <Badge label="⭐ PREMIUM" color="#7c3aed" /> : null}
-                      {locked ? <Badge label="🔒 Upgrade" color="#7c3aed" /> : null}
-                      {certified ? <Badge label="✅ Certified" color={colors.green} /> : null}
+                      {course.isPremium ? <Badge label="PREMIUM" color="#7c3aed" /> : null}
+                      {locked ? <Badge label="Upgrade" color="#7c3aed" /> : null}
+                      {certified ? <Badge label="Certified" color={colors.green} /> : null}
                     </View>
                     <Text style={[styles.cTitle, { color: locked ? colors.muted : colors.ink }]}>
                       {course.title}

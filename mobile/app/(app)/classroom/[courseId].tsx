@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Ionicons } from '@expo/vector-icons'
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 import { useLocalSearchParams } from 'expo-router'
 import { WebView } from 'react-native-webview'
@@ -70,7 +71,7 @@ export default function CourseDetailScreen() {
           <View style={styles.activeRow}>
             <Text style={styles.activeTitle}>{active.title}</Text>
             {completed.includes(active.id) ? (
-              <Text style={styles.doneText}>✅ Completed</Text>
+              <Text style={styles.doneText}>Completed</Text>
             ) : (
               <Button title="✓ Mark Complete" onPress={() => markComplete(active.id)} variant="primary" />
             )}
@@ -111,7 +112,7 @@ export default function CourseDetailScreen() {
 
       {pct === 100 ? (
         <View style={styles.cert}>
-          <Text style={{ fontSize: 32 }}>🏆</Text>
+          <Ionicons name="trophy" size={30} color="#f59e0b" />
           <Text style={styles.certTitle}>Course Complete!</Text>
           <Text style={styles.certSub}>Your certificate has been issued.</Text>
         </View>

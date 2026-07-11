@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Ionicons } from '@expo/vector-icons'
 import { View, Text, StyleSheet, Pressable } from 'react-native'
 import { useQueryClient } from '@tanstack/react-query'
 import { useForm, Controller } from 'react-hook-form'
@@ -61,7 +62,7 @@ export default function ReviewsScreen() {
       <View style={{ padding: spacing.lg }}>
         {success ? (
           <View style={styles.successBox}>
-            <Text style={{ fontSize: 36 }}>✅</Text>
+            <Ionicons name="checkmark-circle" size={38} color={colors.green} />
             <Text style={styles.successText}>Review submitted! Pending approval.</Text>
           </View>
         ) : (

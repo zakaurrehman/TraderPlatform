@@ -74,8 +74,8 @@ export default function ResearchScreen() {
                 <View style={{ padding: 14 }}>
                   <View style={styles.badgeRow}>
                     <Badge label={post.category} />
-                    {post.isPremium ? <Badge label="⭐ PREMIUM" color="#7c3aed" /> : null}
-                    {locked ? <Badge label="🔒 Locked" color={colors.redText} /> : null}
+                    {post.isPremium ? <Badge label="PREMIUM" color="#7c3aed" /> : null}
+                    {locked ? <Badge label="Locked" color={colors.redText} /> : null}
                   </View>
                   <Text style={[styles.cardTitle, { color: locked ? colors.muted : colors.ink }]}>
                     {post.title}
@@ -83,7 +83,7 @@ export default function ResearchScreen() {
                   {locked ? (
                     <View style={styles.lockBox}>
                       <Text style={{ color: '#7c3aed', fontSize: font.small, fontWeight: '600' }}>
-                        🔒 PREMIUM plan required · Tap to upgrade
+                        PREMIUM plan required · Tap to upgrade
                       </Text>
                     </View>
                   ) : (

@@ -14,7 +14,7 @@ import {
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Ionicons } from '@expo/vector-icons'
-import { colors, radius, spacing, font, planColors, shadow } from '@/theme'
+import { colors, radius, spacing, font, family, planColors, shadow } from '@/theme'
 
 export function Screen({
   children,
@@ -144,7 +144,7 @@ export function Button({
       ) : (
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           {icon ? <Ionicons name={icon} size={16} color={fg} /> : null}
-          <Text style={{ color: fg, fontWeight: '800', fontSize: 15 }}>{title}</Text>
+          <Text style={{ color: fg, fontFamily: family.sansBold, fontSize: 15 }}>{title}</Text>
         </View>
       )}
     </Pressable>
@@ -266,7 +266,7 @@ export function LockBanner({ message }: { message: string }) {
 export function RiskDisclaimer() {
   return (
     <Text style={styles.disclaimer}>
-      ⚠️ Risk warning: Trading Forex/CFDs carries a high level of risk and may not be
+      Risk warning: Trading Forex/CFDs carries a high level of risk and may not be
       suitable for all investors. Past performance is not indicative of future results.
       Educational content only — not financial advice.
     </Text>
@@ -284,8 +284,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: colors.borderSoft,
   },
-  headerTitle: { color: colors.ink, fontWeight: '800', fontSize: font.h1 },
-  headerSub: { color: colors.muted, fontSize: font.body, marginTop: 2 },
+  headerTitle: { color: colors.ink, fontFamily: family.display, fontSize: font.h1, letterSpacing: -0.4 },
+  headerSub: { color: colors.muted, fontFamily: family.sans, fontSize: font.body, marginTop: 2 },
   card: {
     backgroundColor: colors.card,
     borderWidth: 1,
@@ -323,11 +323,13 @@ const styles = StyleSheet.create({
   },
   center: { alignItems: 'center', justifyContent: 'center', padding: 40, gap: 10 },
   muted: { color: colors.muted, fontSize: font.body, textAlign: 'center' },
-  emptyTitle: { color: colors.body, fontSize: font.h3, fontWeight: '700', textAlign: 'center' },
+  emptyTitle: { color: colors.body, fontSize: font.h3, fontFamily: family.sansSemiBold, textAlign: 'center' },
   section: {
     color: colors.secondary,
-    fontWeight: '700',
+    fontFamily: family.sansSemiBold,
     fontSize: font.body,
+    textTransform: 'uppercase',
+    letterSpacing: 0.6,
     marginHorizontal: spacing.lg,
     marginTop: spacing.lg,
     marginBottom: spacing.sm,
@@ -358,4 +360,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export { colors, radius, spacing, font, shadow } from '@/theme'
+export { colors, radius, spacing, font, family, shadow } from '@/theme'
