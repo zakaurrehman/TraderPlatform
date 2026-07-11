@@ -93,7 +93,7 @@ export default function AdminVideosPage() {
               <span style={{ color: '#9aa3b2', width: 20 }}>{i + 1}.</span>
               <span style={{ color: '#10131a', flex: 1 }}>{v.title}</span>
               {v.duration && <span style={{ color: '#9aa3b2', fontSize: 11 }}>{v.duration}</span>}
-              {v.isPremium && <span style={{ color: '#f59e0b', fontSize: 11 }}>⭐</span>}
+              {v.isPremium && <Icon name="star" size={12} style={{ color: '#f59e0b' }} />}
             </div>
           ))}
         </div>
@@ -101,3 +101,4 @@ export default function AdminVideosPage() {
     </div>
   )
 }
+import { Icon } from '@/components/brand/icons'

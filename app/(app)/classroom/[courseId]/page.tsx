@@ -1,3 +1,4 @@
+import { Icon } from '@/components/brand/icons'
 ﻿'use client'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
@@ -97,7 +98,7 @@ export default function CoursePage({ params }: { params: Promise<{ courseId: str
 
       {pct === 100 && (
         <div style={{ margin: '12px 16px', background: 'rgba(22,163,74,0.08)', border: '1px solid rgba(22,163,74,0.2)', borderRadius: 12, padding: 16, textAlign: 'center' }}>
-          <div style={{ fontSize: 32, marginBottom: 6 }}>🏆</div>
+          <div style={{ marginBottom: 6, display: 'flex', justifyContent: 'center' }}><Icon name="trophy" size={30} style={{ color: '#f59e0b' }} /></div>
           <div style={{ color: '#16a34a', fontWeight: 800, fontSize: 16 }}>Course Complete!</div>
           <div style={{ color: '#7a8494', fontSize: 12, marginTop: 4 }}>Your certificate has been issued.</div>
         </div>

@@ -1,3 +1,4 @@
+import { Icon } from '@/components/brand/icons'
 ﻿'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -53,7 +54,7 @@ export default function WithdrawPage() {
           </form>
         ) : (
           <div style={{ background: 'rgba(22,163,74,0.08)', border: '1px solid rgba(22,163,74,0.2)', borderRadius: 12, padding: 20, textAlign: 'center', marginBottom: 24 }}>
-            <div style={{ fontSize: 36, marginBottom: 8 }}>✅</div>
+            <div style={{ marginBottom: 8, display: 'flex', justifyContent: 'center' }}><Icon name="checkCircle" size={36} style={{ color: '#16a34a' }} /></div>
             <p style={{ color: '#16a34a', fontWeight: 700 }}>Request submitted! Admin will process within 24–48h.</p>
           </div>
         )}

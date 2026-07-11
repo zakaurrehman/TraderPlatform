@@ -77,7 +77,7 @@ export default async function ProfilePage() {
         {/* Certificates */}
         {certs.length > 0 && (
           <div style={{ background: '#ffffff', border: '1px solid rgba(37,99,235,0.08)', borderRadius: 14, padding: 16, marginBottom: 12 }}>
-            <div style={{ color: '#55606f', fontWeight: 700, fontSize: 13, marginBottom: 10 }}>🏆 Certificates</div>
+            <div style={{ color: '#55606f', fontWeight: 700, fontSize: 13, marginBottom: 10 }}>Certificates</div>
             {certs.map(c => (
               <div key={c.id} style={{ display: 'flex', gap: 8, alignItems: 'center', padding: '8px 0', borderBottom: '1px solid rgba(16,19,26,0.04)' }}>
                 <span style={{ fontSize: 18 }}>🎓</span>
@@ -94,10 +94,10 @@ export default async function ProfilePage() {
         <div style={{ background: '#ffffff', border: '1px solid rgba(37,99,235,0.08)', borderRadius: 14, padding: 16, marginBottom: 12 }}>
           <div style={{ color: '#55606f', fontWeight: 700, fontSize: 13, marginBottom: 10 }}>Quick Links</div>
           {[
-            { href: '/affiliate', label: '🔗 Affiliate Dashboard', sub: 'Referrals & commissions' },
-            { href: '/calculator', label: '📊 Risk Calculator', sub: 'Position size tool' },
-            { href: '/watchlist', label: '📈 Market Watchlist', sub: 'Live prices' },
-            { href: '/brokers', label: '🏦 Broker Recommendations', sub: 'Start trading' }
+            { href: '/affiliate', label: 'Affiliate Dashboard', sub: 'Referrals & commissions' },
+            { href: '/calculator', label: 'Risk Calculator', sub: 'Position size tool' },
+            { href: '/watchlist', label: 'Market Watchlist', sub: 'Live prices' },
+            { href: '/brokers', label: 'Broker Recommendations', sub: 'Start trading' }
           ].map(l => (
             <Link key={l.href} href={l.href} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '9px 0', borderBottom: '1px solid rgba(16,19,26,0.04)', textDecoration: 'none' }}>
               <div>

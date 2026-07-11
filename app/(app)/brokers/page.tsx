@@ -12,7 +12,7 @@ export default async function BrokersPage() {
 
       <div style={{ padding: '12px 16px' }}>
         <div style={{ background: 'rgba(240,180,41,0.08)', border: '1px solid rgba(240,180,41,0.2)', borderRadius: 12, padding: 12, marginBottom: 14 }}>
-          <div style={{ color: '#f59e0b', fontWeight: 700, fontSize: 13 }}>⚠️ Disclaimer</div>
+          <div style={{ color: '#f59e0b', fontWeight: 700, fontSize: 13 }}>Disclaimer</div>
           <p style={{ color: '#55606f', fontSize: 12, lineHeight: 1.5, marginTop: 4 }}>These are affiliate broker links. Always do your own research. Trading involves risk and you may lose more than you invest.</p>
         </div>
 
@@ -22,7 +22,7 @@ export default async function BrokersPage() {
           <div key={broker.id} style={{ background: '#ffffff', border: `1px solid ${broker.isRecommended ? 'rgba(240,180,41,0.25)' : 'rgba(37,99,235,0.08)'}`, borderRadius: 14, padding: 16, marginBottom: 12 }}>
             {broker.isRecommended && (
               <div style={{ background: 'rgba(240,180,41,0.1)', border: '1px solid rgba(240,180,41,0.2)', borderRadius: 6, padding: '2px 8px', display: 'inline-block', marginBottom: 8 }}>
-                <span style={{ color: '#f59e0b', fontSize: 11, fontWeight: 700 }}>⭐ Shafy&apos;s Pick</span>
+                <span style={{ color: '#f59e0b', fontSize: 11, fontWeight: 700 }}>Shafy&apos;s Pick</span>
               </div>
             )}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>

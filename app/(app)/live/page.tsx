@@ -1,3 +1,4 @@
+import { Icon } from '@/components/brand/icons'
 ﻿import { prisma } from '@/lib/prisma'
 import { formatDateTime } from '@/lib/utils'
 
@@ -27,7 +28,7 @@ export default async function LivePage() {
             {session.description && <p style={{ color: '#55606f', fontSize: 13, marginBottom: 12 }}>{session.description}</p>}
             {session.streamUrl && (
               <a href={session.streamUrl} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', padding: '10px 22px', borderRadius: 8, background: 'linear-gradient(135deg,#dc2626,#b91c1c)', color: '#fff', textDecoration: 'none', fontWeight: 700, fontSize: 14 }}>
-                🔴 Watch Live
+                Watch Live
               </a>
             )}
           </div>
@@ -35,7 +36,7 @@ export default async function LivePage() {
 
         {liveSessions.length === 0 && (
           <div style={{ background: '#ffffff', border: '1px solid rgba(16,19,26,0.06)', borderRadius: 14, padding: 24, textAlign: 'center', marginBottom: 14 }}>
-            <div style={{ fontSize: 40, marginBottom: 10 }}>📡</div>
+            <div style={{ marginBottom: 10, display: 'flex', justifyContent: 'center' }}><Icon name="activity" size={36} style={{ color: '#9aa3b2' }} /></div>
             <p style={{ color: '#7a8494', fontSize: 14 }}>No live session right now.</p>
             <p style={{ color: '#aeb6c2', fontSize: 12, marginTop: 4 }}>Check upcoming sessions below.</p>
           </div>

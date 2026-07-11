@@ -59,14 +59,14 @@ export default async function ResearchPage({ searchParams }: { searchParams: Pro
                 <div style={{ padding: 14 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 8 }}>
                     <span style={{ background: 'rgba(37,99,235,0.1)', color: '#2563eb', fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 20 }}>{post.category}</span>
-                    {post.isPremium && <span style={{ background: 'rgba(168,85,247,0.15)', color: '#7c3aed', fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 20 }}>⭐ PREMIUM</span>}
-                    {locked && <span style={{ background: 'rgba(220,38,38,0.1)', color: '#dc2626', fontSize: 11, padding: '2px 8px', borderRadius: 20 }}>🔒 Locked</span>}
+                    {post.isPremium && <span style={{ background: 'rgba(168,85,247,0.15)', color: '#7c3aed', fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 20 }}>PREMIUM</span>}
+                    {locked && <span style={{ background: 'rgba(220,38,38,0.1)', color: '#dc2626', fontSize: 11, padding: '2px 8px', borderRadius: 20 }}>Locked</span>}
                   </div>
-                  <h3 style={{ color: locked ? '#7a8494' : 'white', fontWeight: 700, fontSize: 15, lineHeight: 1.4, marginBottom: 6 }}>{post.title}</h3>
+                  <h3 style={{ color: locked ? '#7a8494' : '#10131a', fontWeight: 700, fontSize: 15, lineHeight: 1.4, marginBottom: 6 }}>{post.title}</h3>
                   {!locked && <p style={{ color: '#7a8494', fontSize: 12, lineHeight: 1.5, marginBottom: 8 }}>{post.content.slice(0, 100)}...</p>}
                   {locked && (
                     <div style={{ background: 'rgba(168,85,247,0.08)', border: '1px solid rgba(168,85,247,0.2)', borderRadius: 8, padding: '8px 12px', marginBottom: 8 }}>
-                      <p style={{ color: '#7c3aed', fontSize: 12, fontWeight: 600 }}>🔒 PREMIUM plan required · Tap to upgrade →</p>
+                      <p style={{ color: '#7c3aed', fontSize: 12, fontWeight: 600 }}>PREMIUM plan required · Tap to upgrade →</p>
                     </div>
                   )}
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

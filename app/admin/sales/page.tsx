@@ -51,7 +51,7 @@ export default function AdminSalesPage() {
                 <input style={inputStyle} type={type} placeholder={ph} value={form[field as keyof typeof form]} onChange={e => setForm(f => ({ ...f, [field]: e.target.value }))} required={field !== 'description'} />
               </div>
             ))}
-            {success && <div style={{ color: '#16a34a', fontSize: 13, fontWeight: 600 }}>✅ Sale logged! Commission created.</div>}
+            {success && <div style={{ color: '#16a34a', fontSize: 13, fontWeight: 600 }}>Sale logged! Commission created.</div>}
             <button type="submit" disabled={loading} style={{ padding: '10px', borderRadius: 8, background: 'linear-gradient(135deg,#2563eb,#1d4ed8)', color: '#fff', border: 'none', fontWeight: 700, cursor: 'pointer' }}>
               {loading ? 'Logging...' : 'Log Sale'}
             </button>

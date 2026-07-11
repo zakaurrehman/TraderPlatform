@@ -45,7 +45,7 @@ export default function AdminBrokersPage() {
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <input type="checkbox" checked={form.isRecommended} onChange={e => setForm(f => ({ ...f, isRecommended: e.target.checked }))} />
-              <label style={{ color: '#55606f', fontSize: 13 }}>⭐ Shafy&apos;s Pick</label>
+              <label style={{ color: '#55606f', fontSize: 13 }}>Shafy&apos;s Pick</label>
             </div>
             <button type="submit" disabled={loading} style={{ padding: '10px', borderRadius: 8, background: 'linear-gradient(135deg,#2563eb,#1d4ed8)', color: '#fff', border: 'none', fontWeight: 700, cursor: 'pointer' }}>{loading ? '...' : 'Add Broker'}</button>
           </form>

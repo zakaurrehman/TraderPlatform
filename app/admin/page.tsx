@@ -1,4 +1,5 @@
 ﻿import Link from 'next/link'
+import { Icon, type IconName } from '@/components/brand/icons'
 import { prisma } from '@/lib/prisma'
 import { formatCurrency } from '@/lib/utils'
 
@@ -15,15 +16,15 @@ export default async function AdminOverviewPage() {
   ])
 
   const cards = [
-    { label: 'Total Users', value: users, icon: '👥', color: '#2563eb', href: '/admin/users' },
-    { label: 'Active Signals', value: signals, icon: '⚡', color: '#16a34a', href: '/admin/signals' },
-    { label: 'Total Sales', value: formatCurrency(sales._sum.amount || 0), icon: '💰', color: '#f59e0b', href: '/admin/sales' },
-    { label: 'Total Commissions', value: formatCurrency(commissions._sum.amount || 0), icon: '💸', color: '#2563eb', href: '/admin/withdrawals' },
-    { label: 'Pending Payments', value: pendingPayments, icon: '💳', color: '#2563eb', urgent: pendingPayments > 0, href: '/admin/payments' },
-    { label: 'Pending Affiliates', value: affiliates, icon: '🔗', color: '#f59e0b', urgent: affiliates > 0, href: '/admin/affiliates' },
-    { label: 'Pending Reviews', value: reviews, icon: '⭐', color: '#55606f', urgent: reviews > 0, href: '/admin/reviews' },
-    { label: 'Pending Withdrawals', value: withdrawals, icon: '🏧', color: '#dc2626', urgent: withdrawals > 0, href: '/admin/withdrawals' },
-    { label: 'Sale Count', value: sales._count, icon: '📊', color: '#55606f', href: '/admin/sales' }
+    { label: 'Total Users', value: users, icon: 'users' as IconName, color: '#2563eb', href: '/admin/users' },
+    { label: 'Active Signals', value: signals, icon: 'bolt' as IconName, color: '#16a34a', href: '/admin/signals' },
+    { label: 'Total Sales', value: formatCurrency(sales._sum.amount || 0), icon: 'dollar' as IconName, color: '#f59e0b', href: '/admin/sales' },
+    { label: 'Total Commissions', value: formatCurrency(commissions._sum.amount || 0), icon: 'trendingUp' as IconName, color: '#2563eb', href: '/admin/withdrawals' },
+    { label: 'Pending Payments', value: pendingPayments, icon: 'clock' as IconName, color: '#2563eb', urgent: pendingPayments > 0, href: '/admin/payments' },
+    { label: 'Pending Affiliates', value: affiliates, icon: 'gift' as IconName, color: '#f59e0b', urgent: affiliates > 0, href: '/admin/affiliates' },
+    { label: 'Pending Reviews', value: reviews, icon: 'star' as IconName, color: '#55606f', urgent: reviews > 0, href: '/admin/reviews' },
+    { label: 'Pending Withdrawals', value: withdrawals, icon: 'arrowRight' as IconName, color: '#dc2626', urgent: withdrawals > 0, href: '/admin/withdrawals' },
+    { label: 'Sale Count', value: sales._count, icon: 'chart' as IconName, color: '#55606f', href: '/admin/sales' }
   ]
 
   const recentSales = await prisma.sale.findMany({
@@ -46,7 +47,7 @@ export default async function AdminOverviewPage() {
             borderRadius: 12, padding: 16
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-              <span style={{ fontSize: 22 }}>{c.icon}</span>
+              <Icon name={c.icon} size={20} style={{ color: c.color }} />
               {c.urgent && <span style={{ background: 'rgba(220,38,38,0.15)', color: '#dc2626', fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: 20 }}>ACTION</span>}
             </div>
             <div style={{ color: c.color, fontWeight: 900, fontSize: 26 }}>{c.value}</div>

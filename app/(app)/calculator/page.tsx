@@ -63,7 +63,7 @@ export default function CalculatorPage() {
 
         {result && (
           <div style={{ background: 'linear-gradient(135deg, rgba(37,99,235,0.08), rgba(22,163,74,0.06))', border: '1px solid rgba(37,99,235,0.15)', borderRadius: 16, padding: 20 }}>
-            <div style={{ color: '#55606f', fontSize: 13, marginBottom: 14, fontWeight: 600 }}>📊 Position Size Result</div>
+            <div style={{ color: '#55606f', fontSize: 13, marginBottom: 14, fontWeight: 600 }}>Position Size Result</div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
               <div style={{ background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.15)', borderRadius: 12, padding: 14, textAlign: 'center' }}>
                 <div style={{ color: '#7a8494', fontSize: 11, marginBottom: 4 }}>Lot Size</div>

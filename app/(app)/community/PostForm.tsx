@@ -20,7 +20,7 @@ export default function CommunityPostForm() {
 
   if (!open) return (
     <button onClick={() => setOpen(true)} style={{ width: '100%', padding: '12px', borderRadius: 10, background: 'rgba(37,99,235,0.06)', border: '1px solid rgba(37,99,235,0.15)', color: '#7a8494', cursor: 'pointer', textAlign: 'left', marginBottom: 12, fontSize: 14 }}>
-      📝 Share your analysis or question...
+      Share your analysis or question...
     </button>
   )
 

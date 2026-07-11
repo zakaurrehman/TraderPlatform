@@ -44,12 +44,13 @@ export const metadata: Metadata = {
     url: 'https://www.tradewithshaffy.com',
     siteName: 'Trade With Shaffy',
     type: 'website',
-    images: [{ url: 'https://www.tradewithshaffy.com/Trade%20with%20Shaffy%20Png.png' }],
+    images: [{ url: 'https://www.tradewithshaffy.com/og.png', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Trade With Shaffy | Forex Trading Education & Smart Money Concepts',
     description: 'Learn forex trading, smart money concepts, gold trading strategies, and market analysis with Trade With Shaffy.',
+    images: ['https://www.tradewithshaffy.com/og.png'],
   },
   robots: {
     index: true,
@@ -68,7 +69,7 @@ const jsonLd = {
   '@type': 'Organization',
   name: 'Trade With Shaffy',
   url: 'https://www.tradewithshaffy.com/',
-  logo: 'https://www.tradewithshaffy.com/Trade%20with%20Shaffy%20Png.png',
+  logo: 'https://www.tradewithshaffy.com/logo-mark.png',
   sameAs: [
     'https://www.facebook.com/',
     'https://www.instagram.com/shafqatrafiquee',

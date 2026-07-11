@@ -72,7 +72,7 @@ export default function AdminSignalsPage() {
             </div>
             <div style={{ gridColumn: '1/-1' }}>
               <button type="submit" disabled={loading} style={{ width: '100%', padding: '10px', borderRadius: 8, background: 'linear-gradient(135deg,#16a34a,#15803d)', color: '#fff', border: 'none', fontWeight: 700, cursor: 'pointer' }}>
-                {loading ? 'Posting...' : '⚡ Post Signal'}
+                {loading ? 'Posting...' : 'Post Signal'}
               </button>
             </div>
           </form>

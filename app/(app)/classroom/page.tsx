@@ -48,11 +48,11 @@ export default async function ClassroomPage() {
                   <div>
                     <div style={{ display: 'flex', gap: 6, marginBottom: 4 }}>
                       <span style={{ background: 'rgba(37,99,235,0.1)', color: '#2563eb', fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 20 }}>{course.level}</span>
-                      {course.isPremium && <span style={{ background: 'rgba(168,85,247,0.15)', color: '#7c3aed', fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 20 }}>⭐ PREMIUM</span>}
-                      {locked && <span style={{ background: 'rgba(168,85,247,0.1)', color: '#7c3aed', fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 20 }}>🔒 Upgrade to unlock</span>}
-                      {certified && <span style={{ background: 'rgba(22,163,74,0.15)', color: '#16a34a', fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 20 }}>✅ Certified</span>}
+                      {course.isPremium && <span style={{ background: 'rgba(168,85,247,0.15)', color: '#7c3aed', fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 20 }}>PREMIUM</span>}
+                      {locked && <span style={{ background: 'rgba(168,85,247,0.1)', color: '#7c3aed', fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 20 }}>Upgrade to unlock</span>}
+                      {certified && <span style={{ background: 'rgba(22,163,74,0.15)', color: '#16a34a', fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 20 }}>Certified</span>}
                     </div>
-                    <h3 style={{ color: locked ? '#7a8494' : 'white', fontWeight: 700, fontSize: 16 }}>{course.title}</h3>
+                    <h3 style={{ color: locked ? '#7a8494' : '#10131a', fontWeight: 700, fontSize: 16 }}>{course.title}</h3>
                     <p style={{ color: '#9aa3b2', fontSize: 12, marginTop: 2 }}>{course.description}</p>
                   </div>
                   <div style={{ textAlign: 'right', flexShrink: 0, marginLeft: 12 }}>

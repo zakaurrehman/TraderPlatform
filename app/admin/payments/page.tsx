@@ -127,12 +127,12 @@ export default function AdminPaymentsPage() {
                 </span>
                 {p.paymentMethod && (
                   <span style={{ background: 'rgba(22,163,74,0.08)', color: '#16a34a', fontSize: 12, padding: '3px 10px', borderRadius: 20 }}>
-                    💳 {p.paymentMethod}
+                    {p.paymentMethod}
                   </span>
                 )}
                 {p.referralCode && (
                   <span style={{ background: 'rgba(148,163,184,0.08)', color: '#55606f', fontSize: 12, padding: '3px 10px', borderRadius: 20 }}>
-                    🔗 Ref: {p.referralCode}
+                    Ref: {p.referralCode}
                   </span>
                 )}
               </div>
