@@ -67,7 +67,6 @@ export default function ReviewsScreen() {
           </View>
         ) : (
           <View style={styles.card}>
-            <Text style={styles.title}>Leave a Review</Text>
             <Controller control={control} name="clientName" render={({ field: { onChange, value } }) => (
               <Field label="Your Name" placeholder="John Doe" value={value} onChangeText={onChange} error={errors.clientName?.message} />
             )} />

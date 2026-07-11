@@ -29,7 +29,6 @@ export default function NotificationsScreen() {
   return (
     <Screen scroll refreshing={isRefetching} onRefresh={refetch}>
       <View style={styles.head}>
-        <Text style={styles.title}>Notifications</Text>
         <Text style={styles.sub}>{unread} unread</Text>
       </View>
       <View style={{ padding: spacing.lg }}>

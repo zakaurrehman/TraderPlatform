@@ -30,7 +30,6 @@ export default function AffiliateDashboard() {
   return (
     <Screen scroll refreshing={isRefetching} onRefresh={refetch}>
       <View style={styles.head}>
-        <Text style={styles.title}>Affiliate Dashboard</Text>
         <Text style={styles.sub}>50% commission on every sale</Text>
       </View>
 
