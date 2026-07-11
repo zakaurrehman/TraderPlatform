@@ -1,5 +1,5 @@
+'use client'
 import { Icon } from '@/components/brand/icons'
-﻿'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 

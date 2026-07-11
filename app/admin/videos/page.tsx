@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 import { useState, useEffect } from 'react'
 
 type Course = { id: string; title: string; level: string; videos: { id: string; title: string; url: string; duration: string | null; isPremium: boolean }[] }

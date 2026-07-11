@@ -1,5 +1,5 @@
 import { Icon } from '@/components/brand/icons'
-﻿import { prisma } from '@/lib/prisma'
+import { prisma } from '@/lib/prisma'
 import { formatDateTime } from '@/lib/utils'
 
 export default async function LivePage() {
