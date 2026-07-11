@@ -46,6 +46,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     'expo-router',
     'expo-font',
     'expo-secure-store',
+    'expo-web-browser',
     [
       'expo-notifications',
       {
@@ -53,17 +54,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         color: '#2563eb',
       },
     ],
-    [
-      'expo-build-properties',
-      {
-        // Google Play requires API 35+ for new apps as of 2025.
-        android: {
-          compileSdkVersion: 35,
-          targetSdkVersion: 35,
-          buildToolsVersion: '35.0.0',
-        },
-      },
-    ],
+    // NOTE: SDK 54 defaults to Android compile/target SDK 36 — no
+    // expo-build-properties override needed (Play requires 35+).
   ],
   experiments: {
     typedRoutes: true,
