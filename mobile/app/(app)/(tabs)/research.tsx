@@ -26,7 +26,7 @@ export default function ResearchScreen() {
     .slice(0, 30)
 
   return (
-    <Screen scroll refreshing={isRefetching} onRefresh={refetch}>
+    <Screen edges={['top']} scroll refreshing={isRefetching} onRefresh={refetch}>
       <View style={styles.head}>
         <View style={styles.headRow}>
           <Text style={styles.title}>Market Research</Text>

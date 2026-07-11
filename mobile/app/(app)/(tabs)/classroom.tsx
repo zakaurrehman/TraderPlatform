@@ -33,7 +33,7 @@ export default function ClassroomScreen() {
     .sort((a, b) => LEVEL_ORDER.indexOf(a.level) - LEVEL_ORDER.indexOf(b.level))
 
   return (
-    <Screen scroll refreshing={isRefetching} onRefresh={refetch}>
+    <Screen edges={['top']} scroll refreshing={isRefetching} onRefresh={refetch}>
       <View style={styles.head}>
         <Text style={styles.title}>Classroom</Text>
         <Text style={styles.sub}>Master Forex from Beginner to Expert</Text>

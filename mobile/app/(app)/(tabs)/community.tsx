@@ -14,7 +14,7 @@ export default function CommunityScreen() {
   const posts = data ?? []
 
   return (
-    <Screen scroll refreshing={isRefetching} onRefresh={refetch}>
+    <Screen edges={['top']} scroll refreshing={isRefetching} onRefresh={refetch}>
       <View style={styles.head}>
         <Text style={styles.title}>Community</Text>
         <Text style={styles.sub}>Share analysis & connect with traders</Text>

@@ -21,7 +21,10 @@ export function Screen({
   scroll,
   refreshing,
   onRefresh,
-  edges = ['top'],
+  // Default to NO safe-area edges: screens under a native navigation header
+  // already have the top inset handled by the header. Screens without a
+  // header (auth group, tab pages) pass edges={['top']} explicitly.
+  edges = [],
   style,
 }: {
   children: React.ReactNode

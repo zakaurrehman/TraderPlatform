@@ -10,6 +10,7 @@ export default function AppLayout() {
         headerTitleStyle: { color: colors.ink, fontFamily: 'Sora_700Bold' },
         contentStyle: { backgroundColor: colors.bg },
         headerShadowVisible: false,
+        headerBackButtonDisplayMode: 'minimal',
       }}
     >
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

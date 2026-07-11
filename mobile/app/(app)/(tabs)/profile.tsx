@@ -87,12 +87,12 @@ export default function ProfileScreen() {
   }
   const { data, isLoading, isError, refetch, isRefetching } = useApi<ProfileBundle>('/api/mobile/profile')
 
-  if (isLoading) return <Screen><Loader /></Screen>
+  if (isLoading) return <Screen edges={['top']}><Loader /></Screen>
   if (isError || !data)
-    return <Screen><ErrorState message="Could not load profile" onRetry={() => refetch()} /></Screen>
+    return <Screen edges={['top']}><ErrorState message="Could not load profile" onRetry={() => refetch()} /></Screen>
 
   return (
-    <Screen scroll refreshing={isRefetching} onRefresh={refetch}>
+    <Screen edges={['top']} scroll refreshing={isRefetching} onRefresh={refetch}>
       <View style={styles.header}>
         <View style={styles.avatar}>
           <Text style={styles.avatarText}>{data.fullName?.[0]?.toUpperCase() ?? '?'}</Text>

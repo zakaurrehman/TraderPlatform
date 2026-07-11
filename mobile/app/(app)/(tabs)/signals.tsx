@@ -33,7 +33,7 @@ export default function SignalsScreen() {
   const cur = stats.data?.current
 
   return (
-    <Screen scroll refreshing={signals.isRefetching} onRefresh={onRefresh}>
+    <Screen edges={['top']} scroll refreshing={signals.isRefetching} onRefresh={onRefresh}>
       <View style={styles.head}>
         <View style={styles.headRow}>
           <Text style={styles.title}>Live Signals</Text>

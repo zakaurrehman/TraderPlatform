@@ -96,10 +96,9 @@ export default function TabsLayout() {
     <Tabs
       tabBar={(props) => <TabBar {...(props as unknown as Parameters<typeof TabBar>[0])} />}
       screenOptions={{
-        headerStyle: { backgroundColor: colors.card },
-        headerTintColor: colors.primary,
-        headerTitleStyle: { color: colors.ink, fontFamily: family.display },
-        headerShadowVisible: false,
+        // Tab pages render their own in-page headings — a native header
+        // would duplicate them and waste vertical space.
+        headerShown: false,
       }}
     >
       <Tabs.Screen name="research" options={{ title: 'Research' }} />
