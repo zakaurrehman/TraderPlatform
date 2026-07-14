@@ -9,6 +9,7 @@ import { formatDateTime, timeAgo } from '@/lib/format'
 import { Screen, Loader, ErrorState, colors, font, spacing, radius } from '@/components/ui'
 import type { Comment } from '@/types'
 
+import { Ionicons } from '@expo/vector-icons'
 type PostDetail = {
   id: string
   title: string
@@ -82,7 +83,7 @@ export default function CommunityDetailScreen() {
                 onPress={() => react('LIKE')}
               >
                 <Text style={{ color: data.userReaction === 'LIKE' ? colors.green : colors.muted }}>
-                  👍 {data.likes}
+                  <Ionicons name="thumbs-up-outline" size={13} /> {data.likes}
                 </Text>
               </Pressable>
               <Pressable
@@ -90,14 +91,14 @@ export default function CommunityDetailScreen() {
                 onPress={() => react('DISLIKE')}
               >
                 <Text style={{ color: data.userReaction === 'DISLIKE' ? colors.redText : colors.muted }}>
-                  👎 {data.dislikes}
+                  <Ionicons name="thumbs-down-outline" size={13} /> {data.dislikes}
                 </Text>
               </Pressable>
             </View>
           </View>
 
           <Text style={styles.commentsTitle}>
-            💬 {data.comments.length} Comment{data.comments.length !== 1 ? 's' : ''}
+            <Ionicons name="chatbubble-outline" size={13} /> {data.comments.length} Comment{data.comments.length !== 1 ? 's' : ''}
           </Text>
 
           {data.comments.map((c) => (

@@ -53,7 +53,7 @@ export default function ResourcesScreen() {
                       </View>
                       <Text style={styles.title}>{r.title}</Text>
                       <Text style={styles.desc}>{r.description}</Text>
-                      <Text style={styles.downloads}>📥 {r.downloads} downloads</Text>
+                      <Text style={styles.downloads}>{r.downloads} downloads</Text>
                       {locked ? (
                         <View style={styles.lockBox}>
                           <Text style={styles.lockText}>Upgrade to {r.tier} to unlock</Text>

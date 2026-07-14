@@ -132,7 +132,7 @@ export default function ProfileScreen() {
             <Text style={styles.cardTitle}>Certificates</Text>
             {data.certificates.map((c) => (
               <View key={c.id} style={styles.certRow}>
-                <Text style={{ fontSize: 18 }}>🎓</Text>
+                <Ionicons name="school-outline" size={18} color={colors.primary} />
                 <View>
                   <Text style={styles.certTitle}>{c.course.title}</Text>
                   <Text style={styles.certSub}>{c.course.level} · {formatDate(c.issuedAt)}</Text>

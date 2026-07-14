@@ -43,7 +43,7 @@ export default function AffiliateDashboard() {
 
         {data.referralLink ? (
           <Card>
-            <Text style={styles.sectionTitle}>🔗 Your Referral Link</Text>
+            <Text style={styles.sectionTitle}>Your Referral Link</Text>
             <View style={styles.linkBox}>
               <Text style={styles.linkText} numberOfLines={2}>{data.referralLink}</Text>
             </View>
@@ -67,7 +67,7 @@ export default function AffiliateDashboard() {
         ) : (
           <View style={styles.pendingBox}>
             <Text style={styles.pendingText}>
-              ⏳ Your referral link will be activated once your account is approved.
+              Your referral link will be activated once your account is approved.
             </Text>
           </View>
         )}
@@ -79,7 +79,7 @@ export default function AffiliateDashboard() {
             <Text style={styles.quickSub}>{data.commissionsCount} records</Text>
           </Pressable>
           <Pressable style={styles.quickCard} onPress={() => router.push('/(app)/affiliate/withdraw')}>
-            <Text style={{ fontSize: 22 }}>🏧</Text>
+            <Ionicons name="wallet-outline" size={22} color={colors.green} />
             <Text style={styles.quickTitle}>Withdraw</Text>
             <Text style={[styles.quickSub, { color: colors.green }]}>{formatCurrency(data.available)} available</Text>
           </Pressable>

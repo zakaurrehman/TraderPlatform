@@ -10,6 +10,7 @@ import { Select } from '@/components/Select'
 import { SERVICES } from '@/lib/format'
 import { PAYMENT_METHODS } from '@/lib/constants'
 
+import { Ionicons } from '@expo/vector-icons'
 type Service = (typeof SERVICES)[number]
 
 /**
@@ -21,7 +22,7 @@ function IosOrderRedirect() {
   return (
     <Screen>
       <View style={iosStyles.wrap}>
-        <Text style={{ fontSize: 56 }}>🌐</Text>
+        <Ionicons name="globe-outline" size={52} color={colors.muted2} />
         <Text style={iosStyles.title}>Manage Your Account on the Web</Text>
         <Text style={iosStyles.body}>
           For account upgrades, billing, and subscription management, please visit
@@ -105,7 +106,7 @@ function AndroidOrderScreen() {
     return (
       <Screen>
         <View style={styles.successWrap}>
-          <Text style={{ fontSize: 56 }}>🎉</Text>
+          <Ionicons name="checkmark-circle" size={52} color={colors.green} />
           <Text style={styles.successTitle}>Order Received!</Text>
           <Text style={styles.successSub}>
             Your payment is being verified. You will receive access within 24 hours.
@@ -146,8 +147,8 @@ function AndroidOrderScreen() {
                     <Text key={f} style={styles.feature}>• {f}</Text>
                   ))}
                 </View>
-                {('popular' in svc && svc.popular) ? <Text style={styles.popular}>🔥 Most Popular</Text> : null}
-                {('bestValue' in svc && svc.bestValue) ? <Text style={styles.best}>💎 Best Value</Text> : null}
+                {('popular' in svc && svc.popular) ? <Text style={styles.popular}>Most Popular</Text> : null}
+                {('bestValue' in svc && svc.bestValue) ? <Text style={styles.best}>Best Value</Text> : null}
               </Pressable>
             ))}
           </View>

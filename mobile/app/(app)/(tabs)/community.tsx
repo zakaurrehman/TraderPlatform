@@ -62,9 +62,9 @@ export default function CommunityScreen() {
                   {post.content.length > 120 ? '…' : ''}
                 </Text>
                 <View style={styles.statsRow}>
-                  <Text style={styles.stat}>👍 {likes}</Text>
-                  <Text style={styles.stat}>👎 {dislikes}</Text>
-                  <Text style={styles.stat}>💬 {post.comments.length}</Text>
+                  <Text style={styles.stat}><Ionicons name="thumbs-up-outline" size={12} color={colors.muted} /> {likes}</Text>
+                  <Text style={styles.stat}><Ionicons name="thumbs-down-outline" size={12} color={colors.muted} /> {dislikes}</Text>
+                  <Text style={styles.stat}><Ionicons name="chatbubble-outline" size={12} color={colors.muted} /> {post.comments.length}</Text>
                 </View>
               </Pressable>
             )

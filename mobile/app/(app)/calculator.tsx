@@ -73,7 +73,7 @@ export default function CalculatorScreen() {
             </View>
             <View style={styles.rule}>
               <Text style={styles.ruleText}>
-                💡 <Text style={{ color: colors.green, fontWeight: '700' }}>Rule of thumb:</Text> Never risk more than
+                <Text style={{ color: colors.green, fontWeight: '700' }}>Rule of thumb:</Text> Never risk more than
                 1-2% per trade. With {pair}, a {sl} pip SL and ${account} account, trade{' '}
                 <Text style={{ color: colors.primary, fontWeight: '700' }}>{result.lotSize} lots</Text>.
               </Text>
@@ -82,7 +82,7 @@ export default function CalculatorScreen() {
         )}
 
         <View style={[styles.card, { marginTop: spacing.md }]}>
-          <Text style={styles.tipsTitle}>📘 Risk Management Rules</Text>
+          <Text style={styles.tipsTitle}>Risk Management Rules</Text>
           {RULES.map(([title, desc]) => (
             <View key={title} style={styles.ruleRow}>
               <Text style={{ color: colors.primary, marginTop: 1 }}>✓</Text>
