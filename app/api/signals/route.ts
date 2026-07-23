@@ -69,7 +69,20 @@ export async function PATCH(req: NextRequest) {
   const session = await getAuthSession(req)
   if (session?.user.role !== 'ADMIN') return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
-  const { id, status, pips } = await req.json()
+  const body = await req.json()
+  const { id, status, pips } = body
+
+  // Field edit (no status change): silently correct the signal's details.
+  // No push is sent — corrections shouldn't re-notify users.
+  if (!status) {
+    const { pair, direction, entry, tp1, tp2, tp3, sl, notes } = body
+    const signal = await prisma.signal.update({
+      where: { id },
+      data: { pair, direction, entry, tp1, tp2, tp3, sl, notes },
+    })
+    return NextResponse.json(signal)
+  }
+
   const signal = await prisma.signal.update({
     where: { id },
     data: { status, pips, closedAt: status !== 'ACTIVE' ? new Date() : null }

@@ -10,6 +10,7 @@ export default function AdminSignalsPage() {
   const [showForm, setShowForm] = useState(false)
   const [form, setForm] = useState({ pair: 'EUR/USD', direction: 'BUY', entry: '', tp1: '', tp2: '', tp3: '', sl: '', notes: '' })
   const [loading, setLoading] = useState(false)
+  const [editingId, setEditingId] = useState<string | null>(null)
 
   useEffect(() => { fetch('/api/signals?all=1').then(r => r.json()).then(setSignals) }, [])
 
@@ -36,6 +37,25 @@ export default function AdminSignalsPage() {
     else alert('Could not delete the signal. Please try again.')
   }
 
+  function startEdit(s: Signal) {
+    if (editingId === s.id) { setEditingId(null); return }
+    setShowForm(false)
+    setEditingId(s.id)
+    setForm({ pair: s.pair, direction: s.direction, entry: String(s.entry), tp1: String(s.tp1), tp2: s.tp2 != null ? String(s.tp2) : '', tp3: s.tp3 != null ? String(s.tp3) : '', sl: String(s.sl), notes: s.notes || '' })
+  }
+
+  async function saveEdit(id: string, e: React.FormEvent) {
+    e.preventDefault(); setLoading(true)
+    const payload = { id, pair: form.pair, direction: form.direction, entry: +form.entry, tp1: +form.tp1, tp2: form.tp2 ? +form.tp2 : null, tp3: form.tp3 ? +form.tp3 : null, sl: +form.sl, notes: form.notes }
+    const res = await fetch('/api/signals', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+    if (res.ok) {
+      const updated = await res.json()
+      setSignals(prev => prev.map(x => x.id === id ? { ...x, ...updated } : x))
+      setEditingId(null)
+    } else alert('Could not save changes. Please try again.')
+    setLoading(false)
+  }
+
   const inputStyle: React.CSSProperties = { background: 'rgba(16,19,26,0.05)', border: '1px solid rgba(16,19,26,0.1)', borderRadius: 8, color: '#10131a', padding: '8px 12px', width: '100%', outline: 'none', fontSize: 13 }
   const STATUS_COLORS: Record<string, string> = { ACTIVE: '#16a34a', HIT_TP: '#2563eb', HIT_SL: '#dc2626', CLOSED: '#7a8494' }
 
@@ -46,7 +66,7 @@ export default function AdminSignalsPage() {
           <h1 style={{ fontWeight: 800, fontSize: 22 }}>Manage Signals</h1>
           <p style={{ color: '#7a8494', fontSize: 13, marginTop: 2 }}>{signals.filter(s => s.status === 'ACTIVE').length} active signals</p>
         </div>
-        <button onClick={() => setShowForm(!showForm)} style={{ padding: '9px 18px', borderRadius: 8, background: 'linear-gradient(135deg,#2563eb,#1d4ed8)', color: '#fff', border: 'none', fontWeight: 700, cursor: 'pointer' }}>
+        <button onClick={() => { setShowForm(!showForm); setEditingId(null); setForm({ pair: 'EUR/USD', direction: 'BUY', entry: '', tp1: '', tp2: '', tp3: '', sl: '', notes: '' }) }} style={{ padding: '9px 18px', borderRadius: 8, background: 'linear-gradient(135deg,#2563eb,#1d4ed8)', color: '#fff', border: 'none', fontWeight: 700, cursor: 'pointer' }}>
           {showForm ? 'Cancel' : '+ New Signal'}
         </button>
       </div>
@@ -115,8 +135,38 @@ export default function AdminSignalsPage() {
               ) : (
                 <button onClick={() => updateStatus(s.id, 'ACTIVE')} style={{ flex: 1, padding: '6px', borderRadius: 6, background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.2)', color: '#2563eb', cursor: 'pointer', fontSize: 12, fontWeight: 600 }}>Reopen</button>
               )}
+              <button onClick={() => startEdit(s)} style={{ flex: 1, padding: '6px', borderRadius: 6, background: 'rgba(16,19,26,0.04)', border: '1px solid rgba(16,19,26,0.12)', color: '#55606f', cursor: 'pointer', fontSize: 12, fontWeight: 600 }}>{editingId === s.id ? 'Cancel' : 'Edit'}</button>
               <button onClick={() => deleteSignal(s)} style={{ flex: 1, padding: '6px', borderRadius: 6, background: 'transparent', border: '1px solid rgba(220,38,38,0.25)', color: '#dc2626', cursor: 'pointer', fontSize: 12, fontWeight: 600 }}>Delete</button>
             </div>
+            {editingId === s.id && (
+              <form onSubmit={e => saveEdit(s.id, e)} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginTop: 10, background: 'rgba(16,19,26,0.03)', padding: 12, borderRadius: 10 }}>
+                <div>
+                  <label style={{ color: '#55606f', fontSize: 12, display: 'block', marginBottom: 4 }}>Pair</label>
+                  <select style={{ ...inputStyle, background: '#ffffff' }} value={form.pair} onChange={e => setForm(f => ({ ...f, pair: e.target.value }))}>
+                    {PAIRS.map(p => <option key={p}>{p}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label style={{ color: '#55606f', fontSize: 12, display: 'block', marginBottom: 4 }}>Direction</label>
+                  <select style={{ ...inputStyle, background: '#ffffff' }} value={form.direction} onChange={e => setForm(f => ({ ...f, direction: e.target.value }))}>
+                    <option>BUY</option><option>SELL</option>
+                  </select>
+                </div>
+                {[['Entry', 'entry'], ['TP1', 'tp1'], ['TP2', 'tp2'], ['TP3', 'tp3'], ['Stop Loss', 'sl']].map(([label, field]) => (
+                  <div key={field}>
+                    <label style={{ color: '#55606f', fontSize: 12, display: 'block', marginBottom: 4 }}>{label}</label>
+                    <input style={inputStyle} type="number" step="any" value={form[field as keyof typeof form]} onChange={e => setForm(f => ({ ...f, [field]: e.target.value }))} required={field !== 'tp2' && field !== 'tp3'} />
+                  </div>
+                ))}
+                <div style={{ gridColumn: '1/-1' }}>
+                  <label style={{ color: '#55606f', fontSize: 12, display: 'block', marginBottom: 4 }}>Analysis Notes</label>
+                  <textarea style={{ ...inputStyle, resize: 'vertical' }} rows={2} value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))} />
+                </div>
+                <button type="submit" disabled={loading} style={{ gridColumn: '1/-1', padding: '9px', borderRadius: 8, background: 'linear-gradient(135deg,#2563eb,#1d4ed8)', color: '#fff', border: 'none', fontWeight: 700, cursor: 'pointer' }}>
+                  {loading ? 'Saving...' : 'Save Changes'}
+                </button>
+              </form>
+            )}
           </div>
         ))}
         {signals.length === 0 && <div style={{ textAlign: 'center', color: '#9aa3b2', padding: 40 }}>No signals yet.</div>}
