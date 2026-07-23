@@ -29,6 +29,13 @@ export default function AdminSignalsPage() {
     setSignals(prev => prev.map(s => s.id === id ? { ...s, status, pips: pips ?? s.pips } : s))
   }
 
+  async function deleteSignal(s: Signal) {
+    if (!confirm(`Delete the ${s.pair} ${s.direction} signal permanently?\n\nIt will be removed from signal history and no longer count toward stats. This cannot be undone.`)) return
+    const res = await fetch('/api/signals', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: s.id }) })
+    if (res.ok) setSignals(prev => prev.filter(x => x.id !== s.id))
+    else alert('Could not delete the signal. Please try again.')
+  }
+
   const inputStyle: React.CSSProperties = { background: 'rgba(16,19,26,0.05)', border: '1px solid rgba(16,19,26,0.1)', borderRadius: 8, color: '#10131a', padding: '8px 12px', width: '100%', outline: 'none', fontSize: 13 }
   const STATUS_COLORS: Record<string, string> = { ACTIVE: '#16a34a', HIT_TP: '#2563eb', HIT_SL: '#dc2626', CLOSED: '#7a8494' }
 
@@ -98,13 +105,18 @@ export default function AdminSignalsPage() {
                 </div>
               ))}
             </div>
-            {s.status === 'ACTIVE' && (
-              <div style={{ display: 'flex', gap: 6 }}>
-                <button onClick={() => { const p = prompt('Pips gained?'); updateStatus(s.id, 'HIT_TP', p ? +p : undefined) }} style={{ flex: 1, padding: '6px', borderRadius: 6, background: 'rgba(22,163,74,0.1)', border: '1px solid rgba(22,163,74,0.2)', color: '#16a34a', cursor: 'pointer', fontSize: 12, fontWeight: 600 }}>✅ TP Hit</button>
-                <button onClick={() => { const p = prompt('Pips lost?'); updateStatus(s.id, 'HIT_SL', p ? +p : undefined) }} style={{ flex: 1, padding: '6px', borderRadius: 6, background: 'rgba(220,38,38,0.08)', border: '1px solid rgba(220,38,38,0.2)', color: '#dc2626', cursor: 'pointer', fontSize: 12, fontWeight: 600 }}>❌ SL Hit</button>
-                <button onClick={() => updateStatus(s.id, 'CLOSED')} style={{ flex: 1, padding: '6px', borderRadius: 6, background: 'rgba(148,163,184,0.08)', border: '1px solid rgba(148,163,184,0.1)', color: '#7a8494', cursor: 'pointer', fontSize: 12 }}>Close</button>
-              </div>
-            )}
+            <div style={{ display: 'flex', gap: 6 }}>
+              {s.status === 'ACTIVE' ? (
+                <>
+                  <button onClick={() => { const p = prompt('Pips gained?'); updateStatus(s.id, 'HIT_TP', p ? +p : undefined) }} style={{ flex: 1, padding: '6px', borderRadius: 6, background: 'rgba(22,163,74,0.1)', border: '1px solid rgba(22,163,74,0.2)', color: '#16a34a', cursor: 'pointer', fontSize: 12, fontWeight: 600 }}>TP Hit</button>
+                  <button onClick={() => { const p = prompt('Pips lost?'); updateStatus(s.id, 'HIT_SL', p ? +p : undefined) }} style={{ flex: 1, padding: '6px', borderRadius: 6, background: 'rgba(220,38,38,0.08)', border: '1px solid rgba(220,38,38,0.2)', color: '#dc2626', cursor: 'pointer', fontSize: 12, fontWeight: 600 }}>SL Hit</button>
+                  <button onClick={() => updateStatus(s.id, 'CLOSED')} style={{ flex: 1, padding: '6px', borderRadius: 6, background: 'rgba(148,163,184,0.08)', border: '1px solid rgba(148,163,184,0.1)', color: '#7a8494', cursor: 'pointer', fontSize: 12 }}>Close</button>
+                </>
+              ) : (
+                <button onClick={() => updateStatus(s.id, 'ACTIVE')} style={{ flex: 1, padding: '6px', borderRadius: 6, background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.2)', color: '#2563eb', cursor: 'pointer', fontSize: 12, fontWeight: 600 }}>Reopen</button>
+              )}
+              <button onClick={() => deleteSignal(s)} style={{ flex: 1, padding: '6px', borderRadius: 6, background: 'transparent', border: '1px solid rgba(220,38,38,0.25)', color: '#dc2626', cursor: 'pointer', fontSize: 12, fontWeight: 600 }}>Delete</button>
+            </div>
           </div>
         ))}
         {signals.length === 0 && <div style={{ textAlign: 'center', color: '#9aa3b2', padding: 40 }}>No signals yet.</div>}

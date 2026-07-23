@@ -53,6 +53,18 @@ export async function POST(req: NextRequest) {
   return NextResponse.json(signal, { status: 201 })
 }
 
+export async function DELETE(req: NextRequest) {
+  const session = await getAuthSession(req)
+  if (session?.user.role !== 'ADMIN') return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+
+  const { id } = await req.json()
+  if (!id) return NextResponse.json({ error: 'Missing id' }, { status: 400 })
+  // Permanent removal — used for mistaken entries so they don't pollute
+  // signal history or win-rate stats. No push notification is sent.
+  await prisma.signal.delete({ where: { id } })
+  return NextResponse.json({ ok: true })
+}
+
 export async function PATCH(req: NextRequest) {
   const session = await getAuthSession(req)
   if (session?.user.role !== 'ADMIN') return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
