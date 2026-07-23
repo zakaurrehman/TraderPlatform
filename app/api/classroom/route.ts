@@ -48,17 +48,76 @@ export async function POST(req: NextRequest) {
 
   // Mark video complete
   const { videoId } = body
-  const existing = await prisma.courseProgress.findUnique({ where: { userId_videoId: { userId: session.user.id, videoId } } })
+  return markComplete(session.user.id, videoId)
+}
+
+export async function PATCH(req: NextRequest) {
+  const session = await getAuthSession(req)
+  if (session?.user.role !== 'ADMIN') return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+
+  const body = await req.json()
+
+  if (body.type === 'course') {
+    const course = await prisma.course.update({
+      where: { id: body.id },
+      data: { title: body.title, level: body.level, description: body.description, isPremium: body.isPremium },
+    })
+    return NextResponse.json(course)
+  }
+
+  if (body.type === 'video') {
+    const video = await prisma.video.update({
+      where: { id: body.id },
+      data: { title: body.title, url: body.url, duration: body.duration || null, isPremium: body.isPremium },
+    })
+    return NextResponse.json(video)
+  }
+
+  return NextResponse.json({ error: 'Unknown type' }, { status: 400 })
+}
+
+export async function DELETE(req: NextRequest) {
+  const session = await getAuthSession(req)
+  if (session?.user.role !== 'ADMIN') return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+
+  const { type, id } = await req.json()
+
+  if (type === 'video') {
+    // Progress rows have no DB cascade — remove them first.
+    await prisma.$transaction([
+      prisma.courseProgress.deleteMany({ where: { videoId: id } }),
+      prisma.video.delete({ where: { id } }),
+    ])
+    return NextResponse.json({ ok: true })
+  }
+
+  if (type === 'course') {
+    // Clean up progress (per video) + certificates, then the course
+    // (videos themselves cascade at the DB level).
+    const videos = await prisma.video.findMany({ where: { courseId: id }, select: { id: true } })
+    await prisma.$transaction([
+      prisma.courseProgress.deleteMany({ where: { videoId: { in: videos.map(v => v.id) } } }),
+      prisma.certificate.deleteMany({ where: { courseId: id } }),
+      prisma.course.delete({ where: { id } }),
+    ])
+    return NextResponse.json({ ok: true })
+  }
+
+  return NextResponse.json({ error: 'Unknown type' }, { status: 400 })
+}
+
+async function markComplete(userId: string, videoId: string) {
+  const existing = await prisma.courseProgress.findUnique({ where: { userId_videoId: { userId: userId, videoId } } })
   if (!existing) {
-    await prisma.courseProgress.create({ data: { userId: session.user.id, videoId } })
+    await prisma.courseProgress.create({ data: { userId: userId, videoId } })
     // Check if course complete and issue certificate
     const video = await prisma.video.findUnique({ where: { id: videoId }, select: { courseId: true } })
     if (video) {
       const course = await prisma.course.findUnique({ where: { id: video.courseId }, include: { videos: { select: { id: true } } } })
       if (course) {
-        const done = await prisma.courseProgress.count({ where: { userId: session.user.id, videoId: { in: course.videos.map(v => v.id) } } })
+        const done = await prisma.courseProgress.count({ where: { userId: userId, videoId: { in: course.videos.map(v => v.id) } } })
         if (done >= course.videos.length) {
-          await prisma.certificate.upsert({ where: { userId_courseId: { userId: session.user.id, courseId: course.id } }, update: {}, create: { userId: session.user.id, courseId: course.id } })
+          await prisma.certificate.upsert({ where: { userId_courseId: { userId: userId, courseId: course.id } }, update: {}, create: { userId: userId, courseId: course.id } })
         }
       }
     }
