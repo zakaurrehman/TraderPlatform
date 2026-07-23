@@ -7,14 +7,22 @@ export default function AdminBrokersPage() {
   const [brokers, setBrokers] = useState<Broker[]>([])
   const [form, setForm] = useState({ name: '', description: '', rating: '4.5', link: '', minDeposit: '', regulation: '', isRecommended: false })
   const [loading, setLoading] = useState(false)
+  const [editingId, setEditingId] = useState<string | null>(null)
 
   useEffect(() => { fetch('/api/brokers').then(r => r.json()).then(setBrokers) }, [])
 
   async function submit(e: React.FormEvent) {
     e.preventDefault(); setLoading(true)
-    const res = await fetch('/api/brokers', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...form, rating: +form.rating }) })
-    const b = await res.json()
-    setBrokers(prev => [b, ...prev])
+    if (editingId) {
+      const res = await fetch('/api/brokers', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: editingId, ...form, rating: +form.rating }) })
+      const b = await res.json()
+      setBrokers(prev => prev.map(x => x.id === editingId ? { ...x, ...b } : x))
+      setEditingId(null)
+    } else {
+      const res = await fetch('/api/brokers', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...form, rating: +form.rating }) })
+      const b = await res.json()
+      setBrokers(prev => [b, ...prev])
+    }
     setForm({ name: '', description: '', rating: '4.5', link: '', minDeposit: '', regulation: '', isRecommended: false })
     setLoading(false)
   }
@@ -24,6 +32,18 @@ export default function AdminBrokersPage() {
     setBrokers(prev => prev.map(b => b.id === id ? { ...b, [field]: value } : b))
   }
 
+  function startEdit(b: Broker) {
+    setEditingId(b.id)
+    setForm({ name: b.name, description: b.description, rating: String(b.rating), link: b.link, minDeposit: b.minDeposit || '', regulation: b.regulation || '', isRecommended: b.isRecommended })
+  }
+  function cancelEdit() { setEditingId(null); setForm({ name: '', description: '', rating: '4.5', link: '', minDeposit: '', regulation: '', isRecommended: false }) }
+  async function del(b: Broker) {
+    if (!confirm('Delete broker "' + b.name + '" permanently? This cannot be undone.')) return
+    const res = await fetch('/api/brokers', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: b.id }) })
+    if (res.ok) setBrokers(prev => prev.filter(x => x.id !== b.id))
+    else alert('Could not delete. Please try again.')
+  }
+
   const inputStyle: React.CSSProperties = { background: 'rgba(16,19,26,0.05)', border: '1px solid rgba(16,19,26,0.1)', borderRadius: 8, color: '#10131a', padding: '8px 12px', width: '100%', outline: 'none', fontSize: 13 }
 
   return (
@@ -31,7 +51,7 @@ export default function AdminBrokersPage() {
       <h1 style={{ fontWeight: 800, fontSize: 22, marginBottom: 20 }}>Broker Recommendations</h1>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 24 }}>
         <div style={{ background: '#ffffff', border: '1px solid rgba(37,99,235,0.12)', borderRadius: 14, padding: 20 }}>
-          <h3 style={{ fontWeight: 700, marginBottom: 14 }}>Add Broker</h3>
+          <h3 style={{ fontWeight: 700, marginBottom: 14 }}>{editingId ? 'Edit Broker' : 'Add Broker'}</h3>
           <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {[['Name', 'name', 'Exness', 'text'], ['Affiliate Link', 'link', 'https://...', 'url'], ['Min Deposit', 'minDeposit', '$10', 'text'], ['Regulation', 'regulation', 'FCA, CySEC', 'text'], ['Rating (1-5)', 'rating', '4.5', 'number']].map(([label, field, ph, type]) => (
               <div key={field}>
@@ -47,7 +67,8 @@ export default function AdminBrokersPage() {
               <input type="checkbox" checked={form.isRecommended} onChange={e => setForm(f => ({ ...f, isRecommended: e.target.checked }))} />
               <label style={{ color: '#55606f', fontSize: 13 }}>Shafy&apos;s Pick</label>
             </div>
-            <button type="submit" disabled={loading} style={{ padding: '10px', borderRadius: 8, background: 'linear-gradient(135deg,#2563eb,#1d4ed8)', color: '#fff', border: 'none', fontWeight: 700, cursor: 'pointer' }}>{loading ? '...' : 'Add Broker'}</button>
+            <button type="submit" disabled={loading} style={{ padding: '10px', borderRadius: 8, background: 'linear-gradient(135deg,#2563eb,#1d4ed8)', color: '#fff', border: 'none', fontWeight: 700, cursor: 'pointer' }}>{loading ? '...' : editingId ? 'Save Changes' : 'Add Broker'}</button>
+            {editingId && <button type="button" onClick={cancelEdit} style={{ padding: '9px', borderRadius: 8, background: 'rgba(16,19,26,0.05)', border: '1px solid rgba(16,19,26,0.1)', color: '#55606f', fontWeight: 600, cursor: 'pointer' }}>Cancel</button>}
           </form>
         </div>
 
@@ -58,6 +79,8 @@ export default function AdminBrokersPage() {
                 <div style={{ fontWeight: 700, fontSize: 15 }}>{b.name}</div>
                 <div style={{ display: 'flex', gap: 6 }}>
                   <button onClick={() => toggle(b.id, 'isRecommended', !b.isRecommended)} style={{ padding: '4px 8px', borderRadius: 6, background: b.isRecommended ? 'rgba(240,180,41,0.15)' : 'rgba(16,19,26,0.05)', border: 'none', color: b.isRecommended ? '#f59e0b' : '#7a8494', cursor: 'pointer', fontSize: 11 }}>⭐ Pick</button>
+                  <button onClick={() => startEdit(b)} style={{ padding: '5px 10px', borderRadius: 6, background: 'rgba(16,19,26,0.05)', border: 'none', color: '#55606f', cursor: 'pointer', fontSize: 11, fontWeight: 600 }}>Edit</button>
+                  <button onClick={() => del(b)} style={{ padding: '5px 10px', borderRadius: 6, background: 'transparent', border: '1px solid rgba(220,38,38,0.25)', color: '#dc2626', cursor: 'pointer', fontSize: 11, fontWeight: 600 }}>Delete</button>
                   <button onClick={() => toggle(b.id, 'isActive', !b.isActive)} style={{ padding: '4px 8px', borderRadius: 6, background: b.isActive ? 'rgba(22,163,74,0.1)' : 'rgba(220,38,38,0.08)', border: 'none', color: b.isActive ? '#16a34a' : '#dc2626', cursor: 'pointer', fontSize: 11 }}>{b.isActive ? 'Active' : 'Hidden'}</button>
                 </div>
               </div>

@@ -24,3 +24,12 @@ export async function PATCH(req: NextRequest) {
   const broker = await prisma.broker.update({ where: { id }, data })
   return NextResponse.json(broker)
 }
+
+export async function DELETE(req: NextRequest) {
+  const session = await getAuthSession(req)
+  if (session?.user.role !== 'ADMIN') return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  const { id } = await req.json()
+  await prisma.broker.delete({ where: { id } })
+  return NextResponse.json({ ok: true })
+}
+

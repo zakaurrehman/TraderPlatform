@@ -30,7 +30,20 @@ export async function POST(req: NextRequest) {
 export async function PATCH(req: NextRequest) {
   const session = await getAuthSession(req)
   if (session?.user.role !== 'ADMIN') return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
-  const { id, published, isPremium } = await req.json()
-  const post = await prisma.researchPost.update({ where: { id }, data: { published, isPremium } })
+  const { id, published, isPremium, title, category, content, imageUrl } = await req.json()
+  const post = await prisma.researchPost.update({
+    where: { id },
+    data: { published, isPremium, title, category, content, imageUrl: imageUrl === undefined ? undefined : (imageUrl || null) },
+    include: { author: { select: { fullName: true } } },
+  })
   return NextResponse.json(post)
 }
+
+export async function DELETE(req: NextRequest) {
+  const session = await getAuthSession(req)
+  if (session?.user.role !== 'ADMIN') return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  const { id } = await req.json()
+  await prisma.researchPost.delete({ where: { id } })
+  return NextResponse.json({ ok: true })
+}
+

@@ -21,7 +21,19 @@ export async function PATCH(req: NextRequest) {
   const session = await getAuthSession(req)
   if (session?.user.role !== 'ADMIN') return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
 
-  const { id, isLive } = await req.json()
+  const body = await req.json()
+  const { id, isLive } = body
+
+  // Field edit (no isLive flag): silent correction, no push.
+  if (isLive === undefined) {
+    const { title, description, streamUrl, scheduledAt } = body
+    const ls = await prisma.liveSession.update({
+      where: { id },
+      data: { title, description: description === undefined ? undefined : (description || null), streamUrl: streamUrl === undefined ? undefined : (streamUrl || null), scheduledAt: scheduledAt ? new Date(scheduledAt) : undefined },
+    })
+    return NextResponse.json(ls)
+  }
+
   const ls = await prisma.liveSession.update({ where: { id }, data: { isLive } })
 
   if (isLive) {
@@ -34,3 +46,12 @@ export async function PATCH(req: NextRequest) {
 
   return NextResponse.json(ls)
 }
+
+export async function DELETE(req: NextRequest) {
+  const session = await getAuthSession(req)
+  if (session?.user.role !== 'ADMIN') return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  const { id } = await req.json()
+  await prisma.liveSession.delete({ where: { id } })
+  return NextResponse.json({ ok: true })
+}
+
