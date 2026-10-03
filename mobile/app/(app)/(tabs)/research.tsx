@@ -83,7 +83,7 @@ export default function ResearchScreen() {
                   {locked ? (
                     <View style={styles.lockBox}>
                       <Text style={{ color: '#7c3aed', fontSize: font.small, fontWeight: '600' }}>
-                        PREMIUM plan required · Tap to upgrade
+                        PREMIUM plan required
                       </Text>
                     </View>
                   ) : (

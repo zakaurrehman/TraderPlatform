@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, ScrollView, Pressable, useWindowDimensions, Platform } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, Pressable, useWindowDimensions } from 'react-native'
 import { Image } from 'expo-image'
 import { useRouter } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import * as WebBrowser from 'expo-web-browser'
 import { Screen, colors, font, spacing, radius, family } from '@/components/ui'
+import { SHOW_IN_APP_PURCHASES } from '@/lib/gating'
 
 const LOGO = require('../../assets/logo.png')
 const SHAFY = require('../../assets/shafy.jpeg')
@@ -267,8 +268,8 @@ export default function LandingScreen() {
           </View>
         </View>
 
-        {/* ── Pricing — Android-only (Apple's IAP rule forbids non-IAP prices on iOS) ── */}
-        {Platform.OS !== 'ios' ? (
+        {/* Pricing: hidden in both apps (store payment rules), plans are sold on the website */}
+        {SHOW_IN_APP_PURCHASES ? (
           <Section eyebrow="PRICING PLANS" title="Choose Your Plan" sub="From beginner fundamentals to personal mentorship">
             {PLANS.map((p) => (
               <View

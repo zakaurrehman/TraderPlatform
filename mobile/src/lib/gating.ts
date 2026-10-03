@@ -28,6 +28,15 @@ export function planRank(plan: Plan | string | undefined | null): number {
  */
 export const IS_IOS_FREE_ONLY = Platform.OS === 'ios'
 
+/**
+ * Store payment compliance (Apple IAP + Google Play Payments policy):
+ * plans are sold on the website only. Neither app shows prices, plan
+ * selection or the order form. Android is "consumption-only" — content
+ * bought on the web still unlocks (canViewPremium below).
+ * Keep false unless the external order flow is replaced by IAP/Play Billing.
+ */
+export const SHOW_IN_APP_PURCHASES = false
+
 export function canViewPremium(plan: Plan): boolean {
   if (IS_IOS_FREE_ONLY) return false
   return plan === 'PREMIUM'

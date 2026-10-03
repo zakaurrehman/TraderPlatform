@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, Pressable, Platform, Alert } from 'react-native'
+import { View, Text, StyleSheet, Pressable, Alert } from 'react-native'
 import { useRouter } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import { useApi } from '@/api/hooks'
 import { useAuth } from '@/auth/AuthContext'
 import { apiFetch } from '@/api/client'
 import { clearTokens } from '@/api/tokenStore'
+import { SHOW_IN_APP_PURCHASES } from '@/lib/gating'
 import {
   Screen, Card, PlanBadge, Loader, ErrorState, Button,
   colors, font, spacing, radius,
@@ -155,7 +156,7 @@ export default function ProfileScreen() {
           ))}
         </Card>
 
-        {data.plan === 'FREE' && Platform.OS !== 'ios' && (
+        {data.plan === 'FREE' && SHOW_IN_APP_PURCHASES && (
           <View style={styles.upgrade}>
             <Ionicons name="star" size={26} color="#f59e0b" />
             <Text style={styles.upgradeTitle}>Upgrade Your Plan</Text>

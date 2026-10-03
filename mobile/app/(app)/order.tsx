@@ -9,6 +9,7 @@ import { Screen, Field, Button, colors, font, spacing, radius } from '@/componen
 import { Select } from '@/components/Select'
 import { SERVICES } from '@/lib/format'
 import { PAYMENT_METHODS } from '@/lib/constants'
+import { SHOW_IN_APP_PURCHASES } from '@/lib/gating'
 
 import { Ionicons } from '@expo/vector-icons'
 type Service = (typeof SERVICES)[number]
@@ -68,8 +69,32 @@ export default function OrderScreen() {
   if (Platform.OS === 'ios') {
     return <IosOrderRedirect />
   }
+  // Google Play Payments policy — no external payment flow, and no
+  // steering (no link / mention of buying elsewhere) on Android.
+  if (!SHOW_IN_APP_PURCHASES) {
+    return <AndroidPlanInfo />
+  }
 
   return <AndroidOrderScreen />
+}
+
+function AndroidPlanInfo() {
+  return (
+    <Screen>
+      <View style={iosStyles.wrap}>
+        <Ionicons name="lock-closed-outline" size={52} color={colors.muted2} />
+        <Text style={iosStyles.title}>Premium Content</Text>
+        <Text style={iosStyles.body}>
+          This content is included with premium plans. Your plan is linked to your
+          Trade with Shafy account — sign in with the same account on any device to
+          access everything included in it.
+        </Text>
+        <Text style={iosStyles.note}>
+          You can keep using all free features of the app in the meantime.
+        </Text>
+      </View>
+    </Screen>
+  )
 }
 
 function AndroidOrderScreen() {

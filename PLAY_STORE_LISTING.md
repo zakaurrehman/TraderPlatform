@@ -62,20 +62,10 @@ Hand-picked, regulated brokers with quick-sign-up affiliate links. Compare ratin
 Free PDFs, cheat sheets and trading guides. Premium members get exclusive masterclasses and trade-review sessions.
 
 ▸ 50% AFFILIATE PROGRAM
-Refer friends with your unique link and earn 50% commission on every plan they purchase. No cap, no minimum, withdraw to bank, Wise, PayPal or USDT (TRC20).
+Refer friends with your unique link and earn 50% commission on referral sales. No cap, no minimum, withdraw to bank, Wise, PayPal or USDT (TRC20).
 
 ▸ INSTANT PUSH NOTIFICATIONS
 The moment Shafy posts a new signal, the moment a trade closes in profit, or the moment a live session goes on air — your phone buzzes.
-
-━━━━━ TRADING PLANS ━━━━━
-
-Start free, then upgrade only when you're ready:
-
-• Basic Training — $30 one-time. Forex fundamentals + community access.
-• Advanced Strategies — $103 one-time. ICT concepts, smart money, weekly live sessions.
-• Mastery Bundle — $124 one-time. Everything + lifetime updates + masterclasses.
-• Premium Signals — $51/month. Daily signals delivered to phone + Telegram.
-• Personal Mentorship — $207 one-time. 1-on-1 calls and a personalised trade plan.
 
 ━━━━━ MEET SHAFY ━━━━━
 
@@ -89,7 +79,13 @@ For support: shafqatrafique45978@gmail.com
 Website: https://www.tradewithshaffy.com
 ```
 
-(≈ 3,400 characters — comfortably under 4,000.)
+(≈ 3,000 characters — comfortably under 4,000.)
+
+> **Do not add prices or plan lists back into this description.** Google Play's
+> Payments policy forbids steering users to non-Play payment methods, and that
+> rule covers the store listing too. Plans are sold on the website only; the
+> Android app is consumption-only (`SHOW_IN_APP_PURCHASES = false` in
+> `mobile/src/lib/gating.ts`).
 
 ---
 
@@ -97,10 +93,18 @@ Website: https://www.tradewithshaffy.com
 
 | Asset | Source / How to get it |
 | --- | --- |
-| **App icon** (512×512 or 1024×1024 PNG) | Upload `mobile/assets/icon.png` |
-| **Feature graphic** (1024×500 PNG) | Visit `https://www.tradewithshaffy.com/feature-graphic`, right-click → **Save image as** → upload that PNG. The route generates it server-side. |
-| **Phone screenshots** (at least 2, recommended 4–8) | Run the app on your phone, take screenshots of: 1) Landing page, 2) Signals tab with live signal, 3) Classroom course view, 4) Profile, 5) Affiliate dashboard. **Min 320 px**, max 3840 px. **16:9 or 9:16 portrait**. |
+All ready-to-upload files are in `C:\Users\hp\Desktop\app-screenshots\play\`:
+
+| Asset | File |
+| --- | --- |
+| **App icon** (512×512 PNG, no alpha) | `icon-512.png` |
+| **Feature graphic** (1024×500 PNG, no alpha) | `feature-graphic-1024x500.png` (saved from `/feature-graphic`) |
+| **Phone screenshots** (1080×1920, 9:16) | `01-live-signals.png` → `05-landing.png`, upload in number order |
 | **Tablet screenshots** (optional) | Skip for v1. |
+
+Play rejects screenshots taller than 2:1. The raw iPhone captures are 2.17:1 and
+show the iOS status bar, so the Play set crops the status bar off and frames each
+screen at 9:16.
 
 ---
 
@@ -133,20 +137,29 @@ These are answers to the **Policy → App content** section that you fill out be
 
 ### App access
 - **Are parts of your app restricted in any way?** → **Yes, parts of my app are restricted**
-- **Login credentials for review**:
-  - Username: `admin`
-  - Password: `admin123`
-  - Notes: *"Login as admin to see the full admin dashboard and all premium content. To test a regular user flow, tap Register, fill in any details, then approve the account from the Admin → Users screen."*
+- **Login credentials for review**: a **dedicated reviewer account**, never the admin account.
+  1. Register a new user on the website (e.g. username `playreview`) with a strong, unique password.
+  2. In Admin → Users, approve it and set its plan to `PREMIUM` so reviewers can see every feature.
+  3. Enter that username/password here.
+  - Notes: *"New registrations require manual approval, so please use this pre-approved account. It has the Premium plan, so all research, courses and signals are visible. Plans are purchased on our website; the app does not sell anything."*
+
+> **Security:** this file previously listed `admin / admin123` here. That is the
+> seed default (`prisma/seed.ts`) and it is in git history. If production's admin
+> account still uses it, change it now.
 
 ### Ads
 - **Does your app contain ads?** → **No, my app does not contain ads.**
 
 ### Content ratings (IARC questionnaire — Finance category)
-Answer **No** to every question (violence, sexual content, profanity, drugs, gambling, etc.). The "real money trading" question:
-- **Does your app feature simulated gambling or real-money gambling?** → **No**
-- **Does your app provide users access to real-money trading or financial advice?** → **Yes, educational content and trade signals; the app does not execute trades.**
+Answer honestly. For this app:
+- Violence, sexual content, profanity, drugs, gambling, simulated gambling → **No**
+- **Users can interact / exchange content** (community posts and comments) → **Yes**
+- **User-generated content is moderated** → **Yes** (admin approves accounts and can remove content)
+- **Shares user location** → **No**
+- **Digital purchases** → **No** (nothing is sold in the app)
 
-Result: **Rated for 12+** (the lowest reasonable rating for a financial-education app).
+The interaction answers will likely raise the rating. That is expected and fine
+for an 18+ finance app.
 
 ### Target audience and content
 - **Target age range** → **18 and over** (DO NOT check any range below 18 — triggers COPPA + Families Policy)
@@ -169,13 +182,15 @@ Declare these data types, all marked as **Collected** and **Encrypted in transit
 | **Personal info → Email address** | Account management, support | Required |
 | **Personal info → Phone number** | Account verification | Required |
 | **Personal info → User IDs** | Account management | Required |
-| **Financial info → Other financial info** (payment method preference, transaction notes) | App functionality (order processing) | Required |
+| **Financial info → Other financial info** (payout method preference, withdrawal payment details) | App functionality (affiliate payouts) | Optional |
 | **App activity → App interactions** (course progress, posts, reactions) | App functionality | Required |
 | **App activity → In-app search history** | Personalisation | Optional |
 | **Device or other IDs → Device or other IDs** (Expo push token) | Push notifications | Optional |
 
 - **Is all of the user data collected by your app encrypted in transit?** → **Yes**
-- **Do you provide a way for users to request that their data is deleted?** → **Yes** (delete account flow via support email — described in privacy policy section 7)
+- **Do you provide a way for users to request that their data is deleted?** → **Yes**
+  - In-app: Profile → Danger Zone → **Delete My Account**
+  - **Delete account URL** (Play requires a web link): `https://www.tradewithshaffy.com/privacy` (section 7, Account Deletion)
 
 ### Government apps
 - **Is your app developed by or on behalf of a government?** → **No**
@@ -192,7 +207,7 @@ Declare these data types, all marked as **Collected** and **Encrypted in transit
 ## 8. Release notes (for the first release)
 
 ```
-Welcome to Trade with Shafy v1.0!
+Welcome to Trade with Shafy on Android!
 
 • Live BUY/SELL Forex signals with full Entry, TP1, TP2 and SL levels
 • Structured ICT & Smart Money courses
@@ -208,25 +223,39 @@ Questions? Email shafqatrafique45978@gmail.com
 
 ---
 
-## 9. Submission checklist (run through before clicking "Send for review")
+## 9. Release path
+
+### Production access (personal developer accounts)
+Personal Play developer accounts created after 13 Nov 2023 can't publish to
+Production straight away. You must first run a **closed test with at least 12
+testers opted in for 14 days in a row**, then apply for production access
+(Dashboard → "Apply for production"). Organization accounts skip this. Check
+your Play Console Dashboard: if Production is locked, this applies to you.
+
+### First upload must be manual
+Google's API can't create the first release of a new app, so `eas submit`
+fails until one AAB has been uploaded by hand. After that first upload,
+`eas submit --platform android --latest` works (it needs a Google service
+account key).
+
+## 10. Submission checklist
 
 - [ ] `https://www.tradewithshaffy.com/privacy` loads and shows the full policy
-- [ ] `https://www.tradewithshaffy.com/feature-graphic` returns a 1024×500 PNG
-- [ ] Production AAB built with `eas build --profile production --platform android` and downloaded
-- [ ] App icon uploaded (1024×1024)
-- [ ] Feature graphic uploaded (1024×500)
-- [ ] At least 2 phone screenshots uploaded
-- [ ] Short description filled (80 chars)
-- [ ] Full description filled (≤ 4000 chars)
+- [ ] Fresh AAB: `cd mobile` → `eas build --platform android --profile production` (the old SDK 52 AAB must not be shipped)
+- [ ] App icon uploaded (`icon-512.png`)
+- [ ] Feature graphic uploaded (`feature-graphic-1024x500.png`)
+- [ ] 5 phone screenshots uploaded (`01`–`05`, 1080×1920)
+- [ ] Short + full description filled (no prices in the description)
 - [ ] Privacy policy URL set
-- [ ] Content rating completed → got a rating (likely 12+)
+- [ ] Content rating completed honestly (community = user interaction)
 - [ ] Target audience set to **18+**
-- [ ] Data safety form completed
-- [ ] Financial features question answered with educational-content disclosure
-- [ ] App access form provides `admin / admin123` test credentials
-- [ ] Production release created and AAB attached
-- [ ] All dashboard checks show green
+- [ ] Data safety form completed, including the delete-account URL
+- [ ] Financial features declaration answered with the educational-content disclosure
+- [ ] App access uses the dedicated **reviewer account** (approved, PREMIUM plan), not admin
+- [ ] AAB uploaded manually to **Closed testing** (or Internal testing) and testers invited
+- [ ] If required: 12+ testers opted in for 14 days → apply for production access
+- [ ] Production release created → **Send for review**
 
-Then: **Send for review**.
-
-Google reviewers will install your app, log in with the test credentials you provided, navigate the screens, and check your privacy policy URL. First-time reviews typically take **24–72 hours**, occasionally up to a week.
+Google reviewers will install the app, log in with the reviewer account, look
+through the screens, and check the privacy policy URL. Reviews usually take a
+few days, sometimes up to a week for a new app.
