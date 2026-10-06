@@ -1,11 +1,13 @@
 ﻿'use client'
 import { useState, useEffect } from 'react'
+import { Icon } from '@/components/brand/icons'
 
 type User = { id: string; fullName: string; email: string; username: string; role: string; plan: string; status: string; studentId: string; createdAt: string }
 
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<User[]>([])
   const [filter, setFilter] = useState<'ALL' | 'PENDING' | 'APPROVED' | 'AFFILIATE'>('ALL')
+  const [query, setQuery] = useState('')
 
   useEffect(() => { fetch('/api/admin/users').then(r => r.json()).then(setUsers) }, [])
 
@@ -15,13 +17,14 @@ export default function AdminUsersPage() {
     setUsers(prev => prev.map(u => u.id === id ? { ...u, ...updated } : u))
   }
 
+  const q = query.trim().toLowerCase()
   const filtered = users.filter(u => {
     if (filter === 'ALL') return true
     if (filter === 'PENDING') return u.status === 'PENDING'
     if (filter === 'APPROVED') return u.status === 'APPROVED'
     if (filter === 'AFFILIATE') return u.role === 'AFFILIATE'
     return true
-  })
+  }).filter(u => !q || [u.fullName, u.email, u.username, u.studentId].some(v => v?.toLowerCase().includes(q)))
 
   const statusColors: Record<string, string> = { PENDING: '#f59e0b', APPROVED: '#16a34a', REJECTED: '#dc2626' }
   const planColors: Record<string, string> = {
@@ -44,12 +47,34 @@ export default function AdminUsersPage() {
   return (
     <div>
       <h1 style={{ fontWeight: 800, fontSize: 22, marginBottom: 6 }}>Users</h1>
-      <p style={{ color: '#7a8494', marginBottom: 20 }}>{users.length} total users</p>
+      <p style={{ color: '#7a8494', marginBottom: 20 }}>
+        {q ? `${filtered.length} matching · ${users.length} total users` : `${users.length} total users`}
+      </p>
 
-      <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
-        {(['ALL', 'PENDING', 'APPROVED', 'AFFILIATE'] as const).map(f => (
-          <button key={f} onClick={() => setFilter(f)} style={{ padding: '6px 14px', borderRadius: 20, border: 'none', background: filter === f ? 'rgba(37,99,235,0.15)' : 'rgba(16,19,26,0.05)', color: filter === f ? '#2563eb' : '#7a8494', cursor: 'pointer', fontWeight: filter === f ? 700 : 400, fontSize: 13 }}>{f}</button>
-        ))}
+      <div style={{ display: 'flex', gap: 12, marginBottom: 16, alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          {(['ALL', 'PENDING', 'APPROVED', 'AFFILIATE'] as const).map(f => (
+            <button key={f} onClick={() => setFilter(f)} style={{ padding: '6px 14px', borderRadius: 20, border: 'none', background: filter === f ? 'rgba(37,99,235,0.15)' : 'rgba(16,19,26,0.05)', color: filter === f ? '#2563eb' : '#7a8494', cursor: 'pointer', fontWeight: filter === f ? 700 : 400, fontSize: 13 }}>{f}</button>
+          ))}
+        </div>
+
+        <div style={{ position: 'relative', flex: '1 1 260px', maxWidth: 380 }}>
+          <Icon name="search" size={16} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#9aa3b2', pointerEvents: 'none' }} />
+          <input
+            type="text"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Escape') setQuery('') }}
+            placeholder="Search by name, email, username or ID"
+            aria-label="Search users"
+            style={{ width: '100%', background: '#ffffff', border: '1px solid rgba(16,19,26,0.12)', borderRadius: 10, color: '#10131a', padding: '9px 34px 9px 36px', fontSize: 13, outline: 'none' }}
+          />
+          {query && (
+            <button onClick={() => setQuery('')} aria-label="Clear search" style={{ position: 'absolute', right: 6, top: '50%', transform: 'translateY(-50%)', display: 'flex', padding: 5, borderRadius: 6, border: 'none', background: 'transparent', color: '#7a8494', cursor: 'pointer' }}>
+              <Icon name="close" size={14} />
+            </button>
+          )}
+        </div>
       </div>
 
       <div style={{ overflowX: 'auto' }}>
@@ -99,7 +124,7 @@ export default function AdminUsersPage() {
             ))}
           </tbody>
         </table>
-        {filtered.length === 0 && <div style={{ textAlign: 'center', color: '#9aa3b2', padding: 32 }}>No users found.</div>}
+        {filtered.length === 0 && <div style={{ textAlign: 'center', color: '#9aa3b2', padding: 32 }}>{q ? `No users match "${query.trim()}".` : 'No users found.'}</div>}
       </div>
     </div>
   )
